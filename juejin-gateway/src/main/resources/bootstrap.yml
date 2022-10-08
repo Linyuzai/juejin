@@ -1,0 +1,29 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: juejin-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        enabled: false
+#    gateway:
+#      routes:
+#        - id: router@user
+#          uri: lb://juejin-application-system
+#          predicates:
+#            - Path=/juejin-user/**
+#          filters:
+#            - StripPrefix=1
+#        - id: router@message
+#          uri: lb://juejin-application-system
+#          predicates:
+#            - Path=/juejin-message/**
+#          filters:
+#            - StripPrefix=1
+#      discovery:
+#        locator:
+#          enabled: false
+#          lower-case-service-id: true

@@ -1,0 +1,11 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: juejin-application-single
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false

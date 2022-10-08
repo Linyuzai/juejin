@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':juejin-user')
+    implementation project(':juejin-message')
+}
