@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin;
+package com.bytedance.juejin.pin.domain.pin.view;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

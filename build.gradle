@@ -29,6 +29,7 @@ allprojects {
 
     var excludeBasic = ['juejin-basic', 'juejin-gateway']
     var excludeWeb = ['juejin-gateway']
+    var excludeMybatisPlus = ['juejin-gateway']
 
     //依赖
     dependencies {
@@ -41,6 +42,9 @@ allprojects {
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
         if (!excludeWeb.contains(project.name)) {
             implementation 'org.springframework.boot:spring-boot-starter-web'
+        }
+        if (!excludeMybatisPlus.contains(project.name)) {
+            compileOnly 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
         }
         //implementation 'io.springfox:springfox-boot-starter:3.0.0'
         //implementation 'com.github.shijingsh:knife4j-spring-boot-starter:3.0.5'

@@ -1,10 +1,9 @@
 rootProject.name = 'juejin'
 include 'juejin-basic'
+include 'juejin-gateway'
 include 'juejin-user'
 include 'juejin-pin'
 include 'juejin-message'
+include 'juejin-application-single'
 include 'juejin-application-system'
 include 'juejin-application-pin'
-include 'juejin-application-single'
-include 'juejin-gateway'
-
