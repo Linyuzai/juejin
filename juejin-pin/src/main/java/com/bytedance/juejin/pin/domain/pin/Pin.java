@@ -48,7 +48,7 @@ public class Pin implements DomainEntity {
     /**
      * 点赞
      */
-    protected Collection<Like> likes;
+    protected Map<String, Like> likes;
 
     /**
      * 发布时间
@@ -69,10 +69,49 @@ public class Pin implements DomainEntity {
     }
 
     /**
+     * 删除评论
+     */
+    public void deleteComment(Comment comment) {
+        if (comment == null) {
+            throw new IllegalArgumentException("Comment required");
+        }
+        if (!getComments().containsKey(comment.getId())) {
+            throw new IllegalArgumentException("Comment not existed");
+        }
+        getComments().remove(comment.getId());
+    }
+
+    /**
      * 获得评论
      */
     public Comment getComment(String commentId) {
         return getComments().get(commentId);
+    }
+
+    /**
+     * 点赞，用户 id 作为 key
+     */
+    public void liked(Like like) {
+        if (like == null) {
+            throw new IllegalArgumentException("Like required");
+        }
+        if (getLikes().containsKey(like.getUser().getId())) {
+            throw new IllegalArgumentException("Like existed");
+        }
+        getLikes().put(like.getUser().getId(), like);
+    }
+
+    /**
+     * 取消点赞
+     */
+    public void cancelLike(Like like) {
+        if (like == null) {
+            throw new IllegalArgumentException("Like required");
+        }
+        if (!getLikes().containsKey(like.getUser().getId())) {
+            throw new IllegalArgumentException("Like not existed");
+        }
+        getLikes().remove(like.getUser().getId());
     }
 
     public static class Builder {
@@ -87,7 +126,7 @@ public class Pin implements DomainEntity {
 
         protected Map<String, Comment> comments;
 
-        protected Collection<Like> likes;
+        protected Map<String, Like> likes;
 
         protected Long createTime;
 
@@ -116,7 +155,7 @@ public class Pin implements DomainEntity {
             return this;
         }
 
-        public Builder likes(Collection<Like> likes) {
+        public Builder likes(Map<String, Like> likes) {
             this.likes = likes;
             return this;
         }
@@ -140,7 +179,7 @@ public class Pin implements DomainEntity {
                 comments = new LinkedHashMap<>();
             }
             if (likes == null) {
-                likes = new ArrayList<>();
+                likes = new LinkedHashMap<>();
             }
             if (createTime == null) {
                 createTime = System.currentTimeMillis();
