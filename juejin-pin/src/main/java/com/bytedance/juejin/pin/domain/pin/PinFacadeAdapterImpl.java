@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin.domain.pin.impl;
+package com.bytedance.juejin.pin.domain.pin;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.bytedance.juejin.pin.domain.club.Club;

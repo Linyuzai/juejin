@@ -21,4 +21,6 @@ public interface DomainRepository<T extends DomainObject> {
     Collection<? extends T> select(Collection<? extends String> ids);
 
     Collection<? extends T> all();
+
+    long count();
 }

@@ -2,12 +2,13 @@ package com.bytedance.juejin.pin.domain.club.schrodinger;
 
 import com.bytedance.juejin.basic.exception.JuejinException;
 import com.bytedance.juejin.pin.domain.club.Club;
+import com.bytedance.juejin.pin.domain.club.ClubImpl;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
 
 @Getter
-public class SchrodingerClub extends Club {
+public class SchrodingerClub extends ClubImpl implements Club {
 
     protected ClubRepository clubRepository;
 

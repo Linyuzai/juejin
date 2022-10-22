@@ -69,5 +69,10 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public long count() {
+        return getBaseMapper().selectCount(null);
+    }
+
     public abstract BaseMapper<P> getBaseMapper();
 }

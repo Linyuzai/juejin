@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin.domain.pin.impl.mbp;
+package com.bytedance.juejin.pin.domain.pin.mbp;
 
 import lombok.Data;
 

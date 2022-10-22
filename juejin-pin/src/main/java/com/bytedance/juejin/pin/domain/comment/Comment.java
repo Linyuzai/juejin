@@ -3,72 +3,43 @@ package com.bytedance.juejin.pin.domain.comment;
 import com.bytedance.juejin.basic.domain.DomainEntity;
 import com.bytedance.juejin.pin.domain.like.Like;
 import com.bytedance.juejin.pin.domain.user.User;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Comment implements DomainEntity {
+public interface Comment extends DomainEntity {
 
-    protected String id;
+    String getContent();
 
-    protected String content;
+    User getUser();
 
-    protected User user;
+    Map<String, Comment> getComments();
 
-    protected Map<String, Comment> comments;
+    Map<String, Like> getLikes();
 
-    protected Collection<Like> likes;
+    Long getCreateTime();
 
-    protected Long createTime;
+    /**
+     * 添加评论
+     */
+    void addComment(Comment comment);
 
-    public void commented(Comment comment) {
-        if (comments == null) {
-            throw new IllegalArgumentException("Comment is null");
-        }
-        if (comments.containsKey(comment.getId())) {
-            throw new IllegalArgumentException("Comment existed");
-        }
-        comments.put(comment.getId(), comment);
-    }
+    /**
+     * 删除评论
+     */
+    void deleteComment(Comment comment);
 
-    public Comment getComment(String commentId) {
-        return comments.get(commentId);
-    }
+    /**
+     * 获得评论
+     */
+    Comment getComment(String commentId);
 
-    public static class Builder {
+    /**
+     * 点赞，用户 id 作为 key
+     */
+    void addLike(Like like);
 
-        protected String id;
-
-        protected String content;
-
-        protected User user;
-
-        public Comment build() {
-            if (id == null) {
-                throw new IllegalArgumentException("Id existed");
-            }
-            if (content == null) {
-                throw new IllegalArgumentException("Content existed");
-            }
-            if (user == null) {
-                throw new IllegalArgumentException("User existed");
-            }
-            return new Comment(
-                    id,
-                    content,
-                    user,
-                    new LinkedHashMap<>(),
-                    new ArrayList<>(),
-                    System.currentTimeMillis());
-        }
-    }
+    /**
+     * 取消点赞
+     */
+    void cancelLike(Like like);
 }
