@@ -1,16 +1,8 @@
 package com.bytedance.juejin.pin.domain.user;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.bytedance.juejin.basic.domain.DomainEntity;
 
-@Getter
-@Setter(AccessLevel.PROTECTED)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public interface User extends DomainEntity {
 
-    private String id;
-
-    private String name;
+    String getName();
 }

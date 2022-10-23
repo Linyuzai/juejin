@@ -9,6 +9,8 @@ import com.bytedance.juejin.pin.domain.comment.CommentSearcher;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinImpl;
+import com.bytedance.juejin.pin.domain.user.UserRepository;
+import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +24,9 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> {
 
     @Autowired
     private ClubRepository clubRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -49,7 +54,10 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> {
                         .id(po.getClubId())
                         .clubRepository(clubRepository)
                         .build())
-                .user(null)
+                .user(new SchrodingerUser.Builder()
+                        .id(po.getUserId())
+                        .userRepository(userRepository)
+                        .build())
                 .comments(new SchrodingerComments.Builder()
                         .pinId(po.getId())
                         .commentRepository(commentRepository)

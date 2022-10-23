@@ -52,26 +52,12 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
     }
 
     @Override
-    public Collection<? extends T> select(Collection<? extends String> ids) {
+    public Collection<T> select(Collection<String> ids) {
         return getBaseMapper()
                 .selectBatchIds(ids)
                 .stream()
                 .map(this::po2do)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Collection<? extends T> all() {
-        return getBaseMapper()
-                .selectList(null)
-                .stream()
-                .map(this::po2do)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public long count() {
-        return getBaseMapper().selectCount(null);
     }
 
     public abstract BaseMapper<P> getBaseMapper();

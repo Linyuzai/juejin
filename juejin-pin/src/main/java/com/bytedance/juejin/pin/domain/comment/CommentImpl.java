@@ -1,15 +1,12 @@
 package com.bytedance.juejin.pin.domain.comment;
 
-import com.bytedance.juejin.pin.domain.like.Like;
+import com.bytedance.juejin.pin.domain.like.Likes;
 import com.bytedance.juejin.pin.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -22,63 +19,11 @@ public class CommentImpl implements Comment {
 
     protected User user;
 
-    protected Map<String, Comment> comments;
+    protected Comments comments;
 
-    protected Map<String, Like> likes;
+    protected Likes likes;
 
     protected Long createTime;
-
-    /**
-     * 评论沸点
-     */
-    @Override
-    public void addComment(Comment comment) {
-        if (comment == null) {
-            throw new IllegalArgumentException("Comment required");
-        }
-        getComments().put(comment.getId(), comment);
-    }
-
-    /**
-     * 删除评论
-     */
-    @Override
-    public void deleteComment(Comment comment) {
-        if (comment == null) {
-            throw new IllegalArgumentException("Comment required");
-        }
-        getComments().remove(comment.getId());
-    }
-
-    /**
-     * 获得评论
-     */
-    @Override
-    public Comment getComment(String commentId) {
-        return getComments().get(commentId);
-    }
-
-    /**
-     * 点赞，用户 id 作为 key
-     */
-    @Override
-    public void addLike(Like like) {
-        if (like == null) {
-            throw new IllegalArgumentException("Like required");
-        }
-        getLikes().put(like.getUser().getId(), like);
-    }
-
-    /**
-     * 取消点赞，用户 id 作为 key
-     */
-    @Override
-    public void cancelLike(Like like) {
-        if (like == null) {
-            throw new IllegalArgumentException("Like required");
-        }
-        getLikes().remove(like.getUser().getId());
-    }
 
     public static class Builder {
 
@@ -88,9 +33,9 @@ public class CommentImpl implements Comment {
 
         protected User user;
 
-        protected Map<String, Comment> comments;
+        protected Comments comments;
 
-        protected Map<String, Like> likes;
+        protected Likes likes;
 
         protected Long createTime;
 
@@ -109,12 +54,12 @@ public class CommentImpl implements Comment {
             return this;
         }
 
-        public Builder comments(Map<String, Comment> comments) {
+        public Builder comments(Comments comments) {
             this.comments = comments;
             return this;
         }
 
-        public Builder likes(Map<String, Like> likes) {
+        public Builder likes(Likes likes) {
             this.likes = likes;
             return this;
         }
@@ -135,10 +80,10 @@ public class CommentImpl implements Comment {
                 throw new IllegalArgumentException("User required");
             }
             if (comments == null) {
-                comments = new LinkedHashMap<>();
+                throw new IllegalArgumentException("Comments required");
             }
             if (likes == null) {
-                likes = new LinkedHashMap<>();
+                throw new IllegalArgumentException("Likes required");
             }
             if (createTime == null) {
                 createTime = System.currentTimeMillis();
