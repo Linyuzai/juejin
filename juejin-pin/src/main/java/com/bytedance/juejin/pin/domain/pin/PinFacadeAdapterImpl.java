@@ -4,6 +4,8 @@ import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
+import com.bytedance.juejin.pin.domain.pin.view.PinSnapshotVO;
+import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import com.bytedance.juejin.pin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,6 +32,16 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                 .club(getClub(create.getClubId()))
                 .user(user)
                 .build();
+    }
+
+    @Override
+    public PinVO do2vo(Pin pin) {
+        return null;
+    }
+
+    @Override
+    public PinSnapshotVO toSnapshot(Pin pin) {
+        return null;
     }
 
     /**
