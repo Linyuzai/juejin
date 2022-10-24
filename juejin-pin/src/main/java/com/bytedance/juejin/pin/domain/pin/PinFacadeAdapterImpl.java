@@ -3,6 +3,10 @@ package com.bytedance.juejin.pin.domain.pin;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
+import com.bytedance.juejin.pin.domain.comment.CommentRepository;
+import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
+import com.bytedance.juejin.pin.domain.like.LikeRepository;
+import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinSnapshotVO;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
@@ -24,13 +28,28 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     @Autowired
     private ClubRepository clubRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
+    private LikeRepository likeRepository;
+
     @Override
     public Pin from(PinCreateCommand create, User user) {
+        String id = generateId();
         return new PinImpl.Builder()
-                .id(generateId())
+                .id(id)
                 .content(create.getContent())
                 .club(getClub(create.getClubId()))
                 .user(user)
+                .comments(new SchrodingerComments.Builder()
+                        .pinId(id)
+                        .commentRepository(commentRepository)
+                        .build())
+                .likes(new SchrodingerLikes.Builder()
+                        .pinId(id)
+                        .likeRepository(likeRepository)
+                        .build())
                 .build();
     }
 

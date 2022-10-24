@@ -1,6 +1,7 @@
 package com.bytedance.juejin.pin.domain.pin;
 
 import com.bytedance.juejin.basic.domain.DomainEventPublisher;
+import com.bytedance.juejin.basic.domain.DomainService;
 import com.bytedance.juejin.basic.exception.JuejinException;
 import com.bytedance.juejin.pin.domain.comment.CommentRepository;
 import com.bytedance.juejin.pin.domain.like.LikeRepository;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 沸点服务
  */
 @Service
-public class PinService {
+public class PinService implements DomainService {
 
     /**
      * 视图和领域模型的转换适配器
@@ -78,6 +79,7 @@ public class PinService {
         //删除沸点下面的点赞
         likeRepository.delete(pin.getLikes());
         //发布沸点删除事件
-        eventPublisher.publish(new PinDeletedEvent(pin, user));
+        afterTransactionCommit(() ->
+                eventPublisher.publish(new PinDeletedEvent(pin, user)));
     }
 }
