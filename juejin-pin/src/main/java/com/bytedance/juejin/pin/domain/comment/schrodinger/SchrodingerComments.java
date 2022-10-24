@@ -19,6 +19,11 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
      */
     protected String pinId;
 
+    /**
+     * 评论ID
+     */
+    protected String commentId;
+
     protected CommentRepository commentRepository;
 
     protected CommentSearcher commentSearcher;
@@ -41,16 +46,22 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
     }
 
     /**
-     * 获得沸点的评论数
+     * 获得沸点或评论的评论数
      */
     @Override
     public long count() {
-        return commentSearcher.count(pinId);
+        if (commentId == null) {
+            return commentSearcher.count(pinId);
+        } else {
+            return commentSearcher.count(pinId, commentId);
+        }
     }
 
     public static class Builder {
 
         protected String pinId;
+
+        protected String commentId;
 
         protected CommentRepository commentRepository;
 
@@ -58,6 +69,11 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
 
         public Builder pinId(String pinId) {
             this.pinId = pinId;
+            return this;
+        }
+
+        public Builder commentId(String commentId) {
+            this.commentId = commentId;
             return this;
         }
 
@@ -81,7 +97,7 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
             if (commentSearcher == null) {
                 throw new IllegalArgumentException("CommentSearcher required");
             }
-            return new SchrodingerComments(pinId, commentRepository, commentSearcher);
+            return new SchrodingerComments(pinId, commentId, commentRepository, commentSearcher);
         }
     }
 }
