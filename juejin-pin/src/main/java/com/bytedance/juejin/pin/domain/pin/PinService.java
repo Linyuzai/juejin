@@ -13,39 +13,71 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 沸点服务
+ */
 @Service
 public class PinService {
 
+    /**
+     * 视图和领域模型的转换适配器
+     */
     @Autowired
     private PinFacadeAdapter pinFacadeAdapter;
 
+    /**
+     * 沸点存储
+     */
     @Autowired
     private PinRepository pinRepository;
 
+    /**
+     * 评论存储
+     */
     @Autowired
     private CommentRepository commentRepository;
 
+    /**
+     * 点赞存储
+     */
     @Autowired
     private LikeRepository likeRepository;
 
+    /**
+     * 领域事件发布器
+     */
     @Autowired
     private DomainEventPublisher eventPublisher;
 
+    /**
+     * 添加（发布）一条沸点
+     */
     public void create(PinCreateCommand create, User user) {
+        //获得领域模型
         Pin pin = pinFacadeAdapter.from(create, user);
+        //添加（发布）沸点
         pinRepository.create(pin);
+        //发布沸点添加（发布）事件
         eventPublisher.publish(new PinCreatedEvent(pin, user));
     }
 
+    /**
+     * 删除一条沸点
+     */
     @Transactional
     public void delete(PinDeleteCommand delete, User user) {
+        //获得对应的沸点
         Pin pin = pinRepository.get(delete.getId());
         if (pin == null) {
             throw new JuejinException("沸点不存在");
         }
+        //删除沸点
         pinRepository.delete(pin);
-        commentRepository.delete(pin.getComments().values());
+        //删除沸点下面的评论
+        commentRepository.delete(pin.getComments());
+        //删除沸点下面的点赞
         likeRepository.delete(pin.getLikes());
+        //发布沸点删除事件
         eventPublisher.publish(new PinDeletedEvent(pin, user));
     }
 }

@@ -5,10 +5,12 @@ import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
 import com.bytedance.juejin.pin.domain.comment.CommentRepository;
-import com.bytedance.juejin.pin.domain.comment.CommentSearcher;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
+import com.bytedance.juejin.pin.domain.like.LikeRepository;
+import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinImpl;
+import com.bytedance.juejin.pin.domain.pin.PinRepository;
 import com.bytedance.juejin.pin.domain.user.UserRepository;
 import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
+/**
+ * 基于 MyBatis-Plus 的沸点存储实现
+ */
 @Repository
-public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> {
+public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements PinRepository {
 
     @Autowired
     private PinMapper pinMapper;
@@ -32,7 +37,7 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> {
     private CommentRepository commentRepository;
 
     @Autowired
-    private CommentSearcher commentSearcher;
+    private LikeRepository likeRepository;
 
     @Override
     public PinPO do2po(Pin pin) {
@@ -61,9 +66,11 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> {
                 .comments(new SchrodingerComments.Builder()
                         .pinId(po.getId())
                         .commentRepository(commentRepository)
-                        .commentSearcher(commentSearcher)
                         .build())
-                .likes(null)
+                .likes(new SchrodingerLikes.Builder()
+                        .pinId(po.getId())
+                        .likeRepository(likeRepository)
+                        .build())
                 .createTime(po.getCreateTime().getTime())
                 .build();
     }

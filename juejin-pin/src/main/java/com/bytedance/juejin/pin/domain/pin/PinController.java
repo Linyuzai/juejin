@@ -1,7 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.bytedance.juejin.basic.page.PageQuery;
-import com.bytedance.juejin.basic.page.PageVO;
+import com.bytedance.juejin.basic.page.Pages;
 import com.bytedance.juejin.basic.user.Login;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinDeleteCommand;
@@ -44,7 +43,7 @@ public class PinController {
 
     @Operation(summary = "分页查询沸点快照")
     @GetMapping("/page")
-    public PageVO<PinSnapshotVO> page(PageQuery page) {
+    public Pages<PinSnapshotVO> page(Pages.Args page) {
         return pinSearcher.page(page);
     }
 }

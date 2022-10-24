@@ -24,21 +24,25 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
      */
     protected String commentId;
 
+    /**
+     * 评论存储
+     */
     protected CommentRepository commentRepository;
-
-    protected CommentSearcher commentSearcher;
 
     /**
      * 获得某条评论
      */
     @Override
     public Comment get(String commentId) {
+        //查询本身缓存
         Comment exist = super.get(commentId);
         if (exist == null) {
+            //如果没有则从存储中查询
             Comment comment = getCommentRepository().get(commentId);
             if (comment == null) {
                 throw new JuejinException("Comment not found: " + commentId);
             }
+            //放入缓存
             getComments().put(commentId, comment);
             return comment;
         }
@@ -50,10 +54,11 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
      */
     @Override
     public long count() {
-        if (commentId == null) {
-            return commentSearcher.count(pinId);
+        //如果存在 commentId 是评论的评论数，否则是沸点的评论数
+        if (getCommentId() == null) {
+            return getCommentRepository().count(getPinId());
         } else {
-            return commentSearcher.count(pinId, commentId);
+            return getCommentRepository().count(getPinId(), getCommentId());
         }
     }
 
@@ -64,8 +69,6 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
         protected String commentId;
 
         protected CommentRepository commentRepository;
-
-        protected CommentSearcher commentSearcher;
 
         public Builder pinId(String pinId) {
             this.pinId = pinId;
@@ -82,11 +85,6 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
             return this;
         }
 
-        public Builder commentSearcher(CommentSearcher commentSearcher) {
-            this.commentSearcher = commentSearcher;
-            return this;
-        }
-
         public SchrodingerComments build() {
             if (!StringUtils.hasText(pinId)) {
                 throw new IllegalArgumentException("Pin id required");
@@ -94,10 +92,7 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
             if (commentRepository == null) {
                 throw new IllegalArgumentException("CommentRepository required");
             }
-            if (commentSearcher == null) {
-                throw new IllegalArgumentException("CommentSearcher required");
-            }
-            return new SchrodingerComments(pinId, commentId, commentRepository, commentSearcher);
+            return new SchrodingerComments(pinId, commentId, commentRepository);
         }
     }
 }

@@ -1,25 +1,30 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
-import com.bytedance.juejin.pin.domain.pin.Pin;
-import com.bytedance.juejin.pin.domain.pin.PinFacadeAdapter;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
+/**
+ * 沸点领域模型和视图的转换适配器
+ */
 @Component
 public class PinFacadeAdapterImpl implements PinFacadeAdapter {
 
+    /**
+     * 圈子存储
+     */
     @Autowired
     private ClubRepository clubRepository;
 
     @Override
     public Pin from(PinCreateCommand create, User user) {
-        return new Pin.Builder()
+        return new PinImpl.Builder()
                 .id(generateId())
                 .content(create.getContent())
                 .club(getClub(create.getClubId()))
@@ -27,10 +32,14 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                 .build();
     }
 
+    /**
+     * 获得圈子领域模型
+     */
     public Club getClub(String clubId) {
         if (clubId == null) {
             return null;
         }
+        //返回薛定谔的圈子模型
         return new SchrodingerClub.Builder()
                 .id(clubId)
                 .clubRepository(clubRepository)
@@ -38,6 +47,7 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     }
 
     public String generateId() {
-        return IdWorker.getIdStr();
+        //雪花算法等方式生成ID
+        return UUID.randomUUID().toString();
     }
 }

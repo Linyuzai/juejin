@@ -4,7 +4,7 @@ package com.bytedance.juejin.pin.domain.comment;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,7 +13,7 @@ import java.util.Map;
 @Getter
 public class CommentsImpl implements Comments {
 
-    private final Map<String, Comment> comments = new LinkedHashMap<>();
+    private final Map<String, Comment> comments = new HashMap<>();
 
     /**
      * 添加评论

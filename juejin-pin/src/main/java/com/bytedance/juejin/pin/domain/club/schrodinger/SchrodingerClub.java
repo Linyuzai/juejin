@@ -7,9 +7,15 @@ import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
 
+/**
+ * 薛定谔的圈子模型
+ */
 @Getter
 public class SchrodingerClub extends ClubImpl implements Club {
 
+    /**
+     * 圈子存储
+     */
     protected ClubRepository clubRepository;
 
     protected SchrodingerClub(String id, ClubRepository clubRepository) {
@@ -17,24 +23,36 @@ public class SchrodingerClub extends ClubImpl implements Club {
         this.clubRepository = clubRepository;
     }
 
+    /**
+     * 获得圈子名称
+     */
     @Override
     public String getName() {
+        //如果名称为 null 则先从存储读取
         if (super.getName() == null) {
             load();
         }
         return super.getName();
     }
 
+    /**
+     * 获得圈子标签
+     */
     @Override
     public String getTag() {
+        //如果标签为 null 则先从存储读取
         if (super.getTag() == null) {
             load();
         }
         return super.getTag();
     }
 
+    /**
+     * 获得圈子描述
+     */
     @Override
     public String getDescription() {
+        //如果描述为 null 则先从存储读取
         if (super.getDescription() == null) {
             load();
         }
