@@ -75,6 +75,7 @@ public class PinImpl implements Pin {
         @NotNull
         protected Likes likes;
 
+        @NotNull
         protected Long createTime;
 
         public Builder id(String id) {

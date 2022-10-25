@@ -1,6 +1,8 @@
 package com.bytedance.juejin.pin.domain.comment;
 
-public interface Comments {
+import com.bytedance.juejin.basic.domain.DomainObject;
+
+public interface Comments extends DomainObject {
 
     /**
      * 添加评论

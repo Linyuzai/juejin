@@ -1,10 +1,12 @@
 package com.bytedance.juejin.pin.domain.club;
 
+import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * 圈子
@@ -34,14 +36,18 @@ public class ClubImpl implements Club {
      */
     protected String description;
 
-    public static class Builder {
+    public static class Builder extends AbstractDomainBuilder<ClubImpl, Builder> {
 
+        @NotEmpty
         protected String id;
 
+        @NotEmpty
         protected String name;
 
+        @NotEmpty
         protected String tag;
 
+        @NotEmpty
         protected String description;
 
         public Builder id(String id) {
@@ -64,19 +70,8 @@ public class ClubImpl implements Club {
             return this;
         }
 
-        public ClubImpl build() {
-            if (!StringUtils.hasText(id)) {
-                throw new IllegalArgumentException("Id required");
-            }
-            if (!StringUtils.hasText(name)) {
-                throw new IllegalArgumentException("Name required");
-            }
-            if (!StringUtils.hasText(tag)) {
-                throw new IllegalArgumentException("Tag required");
-            }
-            if (!StringUtils.hasText(description)) {
-                throw new IllegalArgumentException("Description required");
-            }
+        @Override
+        public ClubImpl doBuild() {
             return new ClubImpl(id, name, tag, description);
         }
     }

@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.domain.comment;
 
+import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
 import com.bytedance.juejin.pin.domain.like.Likes;
 import com.bytedance.juejin.pin.domain.user.User;
 import lombok.AccessLevel;
@@ -7,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,18 +29,24 @@ public class CommentImpl implements Comment {
 
     protected Long createTime;
 
-    public static class Builder {
+    public static class Builder extends AbstractDomainBuilder<CommentImpl, Builder> {
 
+        @NotEmpty
         protected String id;
 
+        @NotEmpty
         protected String content;
 
+        @NotNull
         protected User user;
 
+        @NotNull
         protected Comments comments;
 
+        @NotNull
         protected Likes likes;
 
+        @NotNull
         protected Long createTime;
 
         public Builder id(String id) {
@@ -69,25 +79,15 @@ public class CommentImpl implements Comment {
             return this;
         }
 
-        public CommentImpl build() {
-            if (!StringUtils.hasText(id)) {
-                throw new IllegalArgumentException("Id required");
-            }
-            if (!StringUtils.hasText(content)) {
-                throw new IllegalArgumentException("Content required");
-            }
-            if (user == null) {
-                throw new IllegalArgumentException("User required");
-            }
-            if (comments == null) {
-                throw new IllegalArgumentException("Comments required");
-            }
-            if (likes == null) {
-                throw new IllegalArgumentException("Likes required");
-            }
+        @Override
+        protected void initDefaultValue() {
             if (createTime == null) {
                 createTime = System.currentTimeMillis();
             }
+        }
+
+        @Override
+        public CommentImpl doBuild() {
             return new CommentImpl(
                     id,
                     content,

@@ -4,7 +4,6 @@ import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
 import com.bytedance.juejin.pin.domain.comment.view.CommentCreateCommand;
-import com.bytedance.juejin.pin.domain.like.LikeRepository;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
 import com.bytedance.juejin.pin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,6 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
 
     @Autowired
     private DomainValidator validator;
-
-    @Autowired
-    private LikeRepository likeRepository;
 
     @Override
     public Comment from(CommentCreateCommand create, User user) {
@@ -40,8 +36,10 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
                 .likes(new SchrodingerLikes.Builder()
                         .pinId(create.getPinId())
                         .commentId(id)
-                        .likeRepository(likeRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
+                .validator(validator)
                 .build();
     }
 

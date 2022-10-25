@@ -3,11 +3,8 @@ package com.bytedance.juejin.pin.domain.pin;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.club.Club;
-import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
-import com.bytedance.juejin.pin.domain.comment.CommentRepository;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
-import com.bytedance.juejin.pin.domain.like.LikeRepository;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinSnapshotVO;
@@ -29,14 +26,6 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
 
     @Autowired
     private DomainValidator validator;
-    /**
-     * 圈子存储
-     */
-    @Autowired
-    private ClubRepository clubRepository;
-
-    @Autowired
-    private LikeRepository likeRepository;
 
     @Override
     public Pin from(PinCreateCommand create, User user) {
@@ -53,7 +42,8 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                         .build())
                 .likes(new SchrodingerLikes.Builder()
                         .pinId(id)
-                        .likeRepository(likeRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
                 .validator(validator)
                 .build();
@@ -79,7 +69,8 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
         //返回薛定谔的圈子模型
         return new SchrodingerClub.Builder()
                 .id(clubId)
-                .clubRepository(clubRepository)
+                .context(context)
+                .validator(validator)
                 .build();
     }
 

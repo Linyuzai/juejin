@@ -1,7 +1,9 @@
 package com.bytedance.juejin.basic;
 
 import com.bytedance.juejin.basic.domain.DomainContext;
+import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.spring.ApplicationDomainContext;
+import com.bytedance.juejin.basic.domain.spring.SpringDomainValidator;
 import com.bytedance.juejin.basic.login.LoginArgumentAdapter;
 import com.bytedance.juejin.basic.login.LoginHandlerMethodArgumentResolver;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,11 @@ public class JuejinBootConfiguration implements WebMvcConfigurer {
     @Bean
     public DomainContext domainContext(ApplicationContext context) {
         return new ApplicationDomainContext(context);
+    }
+
+    @Bean
+    public DomainValidator domainValidator() {
+        return new SpringDomainValidator();
     }
 
     /*@Bean(initMethod = "init", destroyMethod = "close")

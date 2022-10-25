@@ -1,11 +1,14 @@
 package com.bytedance.juejin.pin.domain.like.schrodinger;
 
+import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
+import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.exception.JuejinException;
 import com.bytedance.juejin.pin.domain.like.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,17 +18,18 @@ public class SchrodingerLikes extends LikesImpl implements Likes {
 
     protected String commentId;
 
-    protected LikeRepository likeRepository;
+    protected DomainContext context;
 
     @Override
     public Like get(String userId) {
         Like exist = super.get(userId);
         if (exist == null) {
             Like like;
+            LikeRepository likeRepository = getContext().get(LikeRepository.class);
             if (getCommentId() == null) {
-                like = getLikeRepository().get(getPinId(), userId);
+                like = likeRepository.get(getPinId(), userId);
             } else {
-                like = getLikeRepository().get(getPinId(), getCommentId(), userId);
+                like = likeRepository.get(getPinId(), getCommentId(), userId);
             }
             if (like == null) {
                 throw new JuejinException("Like not found: " + userId);
@@ -38,20 +42,20 @@ public class SchrodingerLikes extends LikesImpl implements Likes {
 
     @Override
     public long count() {
+        LikeRepository likeRepository = getContext().get(LikeRepository.class);
         if (getCommentId() == null) {
-            return getLikeRepository().count(getPinId());
+            return likeRepository.count(getPinId());
         } else {
-            return getLikeRepository().count(getPinId(), getCommentId());
+            return likeRepository.count(getPinId(), getCommentId());
         }
     }
 
-    public static class Builder {
+    public static class Builder extends ContextDomainBuilder<SchrodingerLikes, Builder> {
 
+        @NotEmpty
         protected String pinId;
 
         protected String commentId;
-
-        protected LikeRepository likeRepository;
 
         public Builder pinId(String pinId) {
             this.pinId = pinId;
@@ -63,19 +67,9 @@ public class SchrodingerLikes extends LikesImpl implements Likes {
             return this;
         }
 
-        public Builder likeRepository(LikeRepository likeRepository) {
-            this.likeRepository = likeRepository;
-            return this;
-        }
-
-        public SchrodingerLikes build() {
-            if (!StringUtils.hasText(pinId)) {
-                throw new IllegalArgumentException("Pin id required");
-            }
-            if (likeRepository == null) {
-                throw new IllegalArgumentException("LikeRepository required");
-            }
-            return new SchrodingerLikes(pinId, commentId, likeRepository);
+        @Override
+        public SchrodingerLikes doBuild() {
+            return new SchrodingerLikes(pinId, commentId, context);
         }
     }
 }

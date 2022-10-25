@@ -4,16 +4,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
-import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
-import com.bytedance.juejin.pin.domain.comment.CommentRepository;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
-import com.bytedance.juejin.pin.domain.like.LikeRepository;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinImpl;
 import com.bytedance.juejin.pin.domain.pin.PinRepository;
-import com.bytedance.juejin.pin.domain.user.UserRepository;
 import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,12 +30,6 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
 
     @Autowired
     private DomainValidator validator;
-
-    @Autowired
-    private CommentRepository commentRepository;
-
-    @Autowired
-    private LikeRepository likeRepository;
 
     @Override
     public PinPO do2po(Pin pin) {
@@ -74,7 +64,8 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
                         .build())
                 .likes(new SchrodingerLikes.Builder()
                         .pinId(po.getId())
-                        .likeRepository(likeRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
                 .createTime(po.getCreateTime().getTime())
                 .validator(validator)
