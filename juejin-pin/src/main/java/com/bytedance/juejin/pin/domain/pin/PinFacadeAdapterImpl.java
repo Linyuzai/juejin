@@ -1,5 +1,7 @@
 package com.bytedance.juejin.pin.domain.pin;
 
+import com.bytedance.juejin.basic.domain.DomainContext;
+import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
@@ -22,14 +24,16 @@ import java.util.UUID;
 @Component
 public class PinFacadeAdapterImpl implements PinFacadeAdapter {
 
+    @Autowired
+    private DomainContext context;
+
+    @Autowired
+    private DomainValidator validator;
     /**
      * 圈子存储
      */
     @Autowired
     private ClubRepository clubRepository;
-
-    @Autowired
-    private CommentRepository commentRepository;
 
     @Autowired
     private LikeRepository likeRepository;
@@ -44,12 +48,14 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                 .user(user)
                 .comments(new SchrodingerComments.Builder()
                         .pinId(id)
-                        .commentRepository(commentRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
                 .likes(new SchrodingerLikes.Builder()
                         .pinId(id)
                         .likeRepository(likeRepository)
                         .build())
+                .validator(validator)
                 .build();
     }
 

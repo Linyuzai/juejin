@@ -1,6 +1,8 @@
 package com.bytedance.juejin.pin.domain.pin.mbp;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bytedance.juejin.basic.domain.DomainContext;
+import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
@@ -28,10 +30,10 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
     private PinMapper pinMapper;
 
     @Autowired
-    private ClubRepository clubRepository;
+    private DomainContext context;
 
     @Autowired
-    private UserRepository userRepository;
+    private DomainValidator validator;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -57,21 +59,25 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
                 .content(po.getContent())
                 .club(new SchrodingerClub.Builder()
                         .id(po.getClubId())
-                        .clubRepository(clubRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
                 .user(new SchrodingerUser.Builder()
                         .id(po.getUserId())
-                        .userRepository(userRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
                 .comments(new SchrodingerComments.Builder()
                         .pinId(po.getId())
-                        .commentRepository(commentRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
                 .likes(new SchrodingerLikes.Builder()
                         .pinId(po.getId())
                         .likeRepository(likeRepository)
                         .build())
                 .createTime(po.getCreateTime().getTime())
+                .validator(validator)
                 .build();
     }
 

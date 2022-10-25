@@ -1,10 +1,8 @@
 package com.bytedance.juejin.pin.domain.comment;
 
-import com.bytedance.juejin.basic.user.Login;
+import com.bytedance.juejin.basic.login.Login;
 import com.bytedance.juejin.pin.domain.comment.view.CommentCreateCommand;
 import com.bytedance.juejin.pin.domain.comment.view.CommentDeleteCommand;
-import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
-import com.bytedance.juejin.pin.domain.pin.view.PinDeleteCommand;
 import com.bytedance.juejin.pin.domain.user.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

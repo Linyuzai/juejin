@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin;
 
+import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.comment.Comments;
 import com.bytedance.juejin.pin.domain.like.Likes;
@@ -8,7 +9,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 沸点
@@ -53,18 +56,23 @@ public class PinImpl implements Pin {
      */
     protected Long createTime;
 
-    public static class Builder {
+    public static class Builder extends AbstractDomainBuilder<PinImpl, Builder> {
 
+        @NotEmpty
         protected String id;
 
+        @NotEmpty
         protected String content;
 
         protected Club club;
 
+        @NotNull
         protected User user;
 
+        @NotNull
         protected Comments comments;
 
+        @NotNull
         protected Likes likes;
 
         protected Long createTime;
@@ -104,25 +112,15 @@ public class PinImpl implements Pin {
             return this;
         }
 
-        public PinImpl build() {
-            if (!StringUtils.hasText(id)) {
-                throw new IllegalArgumentException("Id required");
-            }
-            if (!StringUtils.hasText(content)) {
-                throw new IllegalArgumentException("Content required");
-            }
-            if (user == null) {
-                throw new IllegalArgumentException("User required");
-            }
-            if (comments == null) {
-                throw new IllegalArgumentException("Comments required");
-            }
-            if (likes == null) {
-                throw new IllegalArgumentException("Likes required");
-            }
+        @Override
+        public void initDefaultValue() {
             if (createTime == null) {
                 createTime = System.currentTimeMillis();
             }
+        }
+
+        @Override
+        public PinImpl doBuild() {
             return new PinImpl(
                     id,
                     content,

@@ -1,11 +1,14 @@
 package com.bytedance.juejin.pin.domain.club.schrodinger;
 
+import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
+import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.exception.JuejinException;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubImpl;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import lombok.Getter;
-import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * 薛定谔的圈子模型
@@ -16,11 +19,11 @@ public class SchrodingerClub extends ClubImpl implements Club {
     /**
      * 圈子存储
      */
-    protected ClubRepository clubRepository;
+    protected DomainContext context;
 
-    protected SchrodingerClub(String id, ClubRepository clubRepository) {
+    protected SchrodingerClub(String id, DomainContext context) {
         this.id = id;
-        this.clubRepository = clubRepository;
+        this.context = context;
     }
 
     /**
@@ -63,7 +66,8 @@ public class SchrodingerClub extends ClubImpl implements Club {
      * 根据 id 加载其他的数据
      */
     public void load() {
-        Club club = getClubRepository().get(id);
+        ClubRepository clubRepository = getContext().get(ClubRepository.class);
+        Club club = clubRepository.get(id);
         if (club == null) {
             throw new JuejinException("Club not found: " + id);
         }
@@ -72,30 +76,19 @@ public class SchrodingerClub extends ClubImpl implements Club {
         this.description = club.getDescription();
     }
 
-    public static class Builder {
+    public static class Builder extends ContextDomainBuilder<SchrodingerClub, Builder> {
 
+        @NotEmpty
         protected String id;
-
-        protected ClubRepository clubRepository;
 
         public Builder id(String id) {
             this.id = id;
             return this;
         }
 
-        public Builder clubRepository(ClubRepository clubRepository) {
-            this.clubRepository = clubRepository;
-            return this;
-        }
-
-        public SchrodingerClub build() {
-            if (!StringUtils.hasText(id)) {
-                throw new IllegalArgumentException("Id required");
-            }
-            if (clubRepository == null) {
-                throw new IllegalArgumentException("ClubRepository required");
-            }
-            return new SchrodingerClub(id, clubRepository);
+        @Override
+        public SchrodingerClub doBuild() {
+            return new SchrodingerClub(id, context);
         }
     }
 }

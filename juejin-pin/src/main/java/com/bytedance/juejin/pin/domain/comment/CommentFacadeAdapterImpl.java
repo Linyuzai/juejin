@@ -1,5 +1,7 @@
 package com.bytedance.juejin.pin.domain.comment;
 
+import com.bytedance.juejin.basic.domain.DomainContext;
+import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
 import com.bytedance.juejin.pin.domain.comment.view.CommentCreateCommand;
 import com.bytedance.juejin.pin.domain.like.LikeRepository;
@@ -14,7 +16,10 @@ import java.util.UUID;
 public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
 
     @Autowired
-    private CommentRepository commentRepository;
+    private DomainContext context;
+
+    @Autowired
+    private DomainValidator validator;
 
     @Autowired
     private LikeRepository likeRepository;
@@ -29,7 +34,8 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
                 .comments(new SchrodingerComments.Builder()
                         .pinId(create.getPinId())
                         .commentId(id)
-                        .commentRepository(commentRepository)
+                        .context(context)
+                        .validator(validator)
                         .build())
                 .likes(new SchrodingerLikes.Builder()
                         .pinId(create.getPinId())

@@ -1,11 +1,14 @@
 package com.bytedance.juejin.pin.domain.comment.schrodinger;
 
+import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
+import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.exception.JuejinException;
 import com.bytedance.juejin.pin.domain.comment.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotEmpty;
 
 /**
  * 薛定谔的评论集合
@@ -25,9 +28,9 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
     protected String commentId;
 
     /**
-     * 评论存储
+     * 领域上下文
      */
-    protected CommentRepository commentRepository;
+    protected DomainContext context;
 
     /**
      * 获得某条评论
@@ -38,7 +41,8 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
         Comment exist = super.get(commentId);
         if (exist == null) {
             //如果没有则从存储中查询
-            Comment comment = getCommentRepository().get(commentId);
+            CommentRepository commentRepository = getContext().get(CommentRepository.class);
+            Comment comment = commentRepository.get(commentId);
             if (comment == null) {
                 throw new JuejinException("Comment not found: " + commentId);
             }
@@ -55,20 +59,20 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
     @Override
     public long count() {
         //如果存在 commentId 是评论的评论数，否则是沸点的评论数
+        CommentRepository commentRepository = getContext().get(CommentRepository.class);
         if (getCommentId() == null) {
-            return getCommentRepository().count(getPinId());
+            return commentRepository.count(getPinId());
         } else {
-            return getCommentRepository().count(getPinId(), getCommentId());
+            return commentRepository.count(getPinId(), getCommentId());
         }
     }
 
-    public static class Builder {
+    public static class Builder extends ContextDomainBuilder<SchrodingerComments, Builder> {
 
+        @NotEmpty
         protected String pinId;
 
         protected String commentId;
-
-        protected CommentRepository commentRepository;
 
         public Builder pinId(String pinId) {
             this.pinId = pinId;
@@ -80,19 +84,9 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
             return this;
         }
 
-        public Builder commentRepository(CommentRepository commentRepository) {
-            this.commentRepository = commentRepository;
-            return this;
-        }
-
-        public SchrodingerComments build() {
-            if (!StringUtils.hasText(pinId)) {
-                throw new IllegalArgumentException("Pin id required");
-            }
-            if (commentRepository == null) {
-                throw new IllegalArgumentException("CommentRepository required");
-            }
-            return new SchrodingerComments(pinId, commentId, commentRepository);
+        @Override
+        public SchrodingerComments doBuild() {
+            return new SchrodingerComments(pinId, commentId, context);
         }
     }
 }

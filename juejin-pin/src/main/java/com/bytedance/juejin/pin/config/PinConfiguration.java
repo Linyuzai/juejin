@@ -25,4 +25,9 @@ public class PinConfiguration {
                 .packagesToScan("com.bytedance.juejin.pin")
                 .build();
     }
+
+    @Bean
+    public UserLoginArgumentAdapter userLoginArgumentAdapter() {
+        return new UserLoginArgumentAdapter();
+    }
 }
