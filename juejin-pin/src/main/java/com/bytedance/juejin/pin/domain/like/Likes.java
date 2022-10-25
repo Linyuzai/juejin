@@ -1,6 +1,8 @@
 package com.bytedance.juejin.pin.domain.like;
 
-public interface Likes {
+import com.bytedance.juejin.basic.domain.DomainObject;
+
+public interface Likes extends DomainObject {
 
     boolean add(Like like);
 
