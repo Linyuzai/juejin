@@ -1,12 +1,16 @@
 package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
+import com.bytedance.juejin.pin.domain.pin.Pins;
+import com.bytedance.juejin.pin.domain.user.User;
+import com.bytedance.juejin.pin.domain.user.Users;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * 圈子
@@ -27,6 +31,11 @@ public class ClubImpl implements Club {
     protected String name;
 
     /**
+     * 圈子图标
+     */
+    protected String logo;
+
+    /**
      * 圈子标签
      */
     protected String tag;
@@ -35,6 +44,26 @@ public class ClubImpl implements Club {
      * 圈子描述
      */
     protected String description;
+
+    /**
+     * 圈子公告
+     */
+    protected String announcement;
+
+    /**
+     * 圈子管理员
+     */
+    protected User admin;
+
+    /**
+     * 关注圈子的用户
+     */
+    protected Users users;
+
+    /**
+     * 圈子下的沸点
+     */
+    protected Pins pins;
 
     public static class Builder extends AbstractDomainBuilder<ClubImpl, Builder> {
 
@@ -45,10 +74,24 @@ public class ClubImpl implements Club {
         protected String name;
 
         @NotEmpty
+        protected String logo;
+
+        @NotEmpty
         protected String tag;
 
         @NotEmpty
         protected String description;
+
+        protected String announcement;
+
+        @NotNull
+        protected User admin;
+
+        @NotNull
+        protected Users users;
+
+        @NotNull
+        protected Pins pins;
 
         public Builder id(String id) {
             this.id = id;
@@ -57,6 +100,11 @@ public class ClubImpl implements Club {
 
         public Builder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder logo(String logo) {
+            this.logo = logo;
             return this;
         }
 
@@ -70,9 +118,38 @@ public class ClubImpl implements Club {
             return this;
         }
 
+        public Builder announcement(String announcement) {
+            this.announcement = announcement;
+            return this;
+        }
+
+        public Builder admin(User admin) {
+            this.admin = admin;
+            return this;
+        }
+
+        public Builder users(Users users) {
+            this.users = users;
+            return this;
+        }
+
+        public Builder pins(Pins pins) {
+            this.pins = pins;
+            return this;
+        }
+
         @Override
         public ClubImpl doBuild() {
-            return new ClubImpl(id, name, tag, description);
+            return new ClubImpl(
+                    id,
+                    name,
+                    logo,
+                    tag,
+                    description,
+                    announcement,
+                    admin,
+                    users,
+                    pins);
         }
     }
 }

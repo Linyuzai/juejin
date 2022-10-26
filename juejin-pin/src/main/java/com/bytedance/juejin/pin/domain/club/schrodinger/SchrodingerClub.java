@@ -6,6 +6,9 @@ import com.bytedance.juejin.basic.exception.JuejinException;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubImpl;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
+import com.bytedance.juejin.pin.domain.pin.Pins;
+import com.bytedance.juejin.pin.domain.user.User;
+import com.bytedance.juejin.pin.domain.user.Users;
 import lombok.Getter;
 
 import javax.validation.constraints.NotEmpty;
@@ -31,7 +34,6 @@ public class SchrodingerClub extends ClubImpl implements Club {
      */
     @Override
     public String getName() {
-        //如果名称为 null 则先从存储读取
         if (super.getName() == null) {
             load();
         }
@@ -39,11 +41,21 @@ public class SchrodingerClub extends ClubImpl implements Club {
     }
 
     /**
+     * 获得圈子图标
+     */
+    @Override
+    public String getLogo() {
+        if (super.getLogo() == null) {
+            load();
+        }
+        return super.getLogo();
+    }
+
+    /**
      * 获得圈子标签
      */
     @Override
     public String getTag() {
-        //如果标签为 null 则先从存储读取
         if (super.getTag() == null) {
             load();
         }
@@ -55,11 +67,54 @@ public class SchrodingerClub extends ClubImpl implements Club {
      */
     @Override
     public String getDescription() {
-        //如果描述为 null 则先从存储读取
         if (super.getDescription() == null) {
             load();
         }
         return super.getDescription();
+    }
+
+    /**
+     * 获得圈子公告
+     */
+    @Override
+    public String getAnnouncement() {
+        if (super.getAnnouncement() == null) {
+            load();
+        }
+        return super.getAnnouncement();
+    }
+
+    /**
+     * 获得圈子管理员
+     */
+    @Override
+    public User getAdmin() {
+        if (super.getAdmin() == null) {
+            load();
+        }
+        return super.getAdmin();
+    }
+
+    /**
+     * 获得关注圈子的用户
+     */
+    @Override
+    public Users getUsers() {
+        if (super.getUsers() == null) {
+            load();
+        }
+        return super.getUsers();
+    }
+
+    /**
+     * 获得圈子下的沸点
+     */
+    @Override
+    public Pins getPins() {
+        if (super.getPins() == null) {
+            load();
+        }
+        return super.getPins();
     }
 
     /**
@@ -72,8 +127,13 @@ public class SchrodingerClub extends ClubImpl implements Club {
             throw new JuejinException("Club not found: " + id);
         }
         this.name = club.getName();
+        this.logo = club.getLogo();
         this.tag = club.getTag();
         this.description = club.getDescription();
+        this.announcement = club.getAnnouncement();
+        this.admin = club.getAdmin();
+        this.users = club.getUsers();
+        this.pins = club.getPins();
     }
 
     public static class Builder extends ContextDomainBuilder<SchrodingerClub, Builder> {
