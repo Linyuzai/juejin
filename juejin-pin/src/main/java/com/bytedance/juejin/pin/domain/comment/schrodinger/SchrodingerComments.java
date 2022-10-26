@@ -4,6 +4,8 @@ import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.exception.JuejinException;
 import com.bytedance.juejin.pin.domain.comment.*;
+import com.bytedance.juejin.pin.domain.pin.Pin;
+import com.bytedance.juejin.pin.domain.pin.PinRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +33,33 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
      * 领域上下文
      */
     protected DomainContext context;
+
+    @Override
+    public Pin getPin() {
+        if (super.getPin() == null) {
+            PinRepository pinRepository = getContext().get(PinRepository.class);
+            this.pin = pinRepository.get(pinId);
+            if (this.pin == null) {
+                throw new JuejinException("Pin not found: " + pinId);
+            }
+        }
+        return super.getPin();
+    }
+
+    @Override
+    public Comment getComment() {
+        if (commentId == null) {
+            return null;
+        }
+        if (super.getComment() == null) {
+            CommentRepository commentRepository = getContext().get(CommentRepository.class);
+            this.comment = commentRepository.get(commentId);
+            if (this.comment == null) {
+                throw new JuejinException("Comment not found: " + commentId);
+            }
+        }
+        return super.getComment();
+    }
 
     /**
      * 获得某条评论

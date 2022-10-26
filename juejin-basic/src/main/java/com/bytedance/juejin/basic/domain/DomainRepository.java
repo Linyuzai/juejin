@@ -52,6 +52,11 @@ public interface DomainRepository<T extends DomainObject> {
     Collection<T> select(Collection<String> ids);
 
     /**
+     * 条件删除
+     */
+    void delete(Conditions conditions);
+
+    /**
      * 单个条件查询
      */
     T query(Conditions conditions);

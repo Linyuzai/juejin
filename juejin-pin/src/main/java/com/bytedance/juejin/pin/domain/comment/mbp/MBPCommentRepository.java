@@ -1,7 +1,8 @@
 package com.bytedance.juejin.pin.domain.comment.mbp;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bytedance.juejin.basic.condition.Conditions;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.comment.Comment;
 import com.bytedance.juejin.pin.domain.comment.CommentRepository;
@@ -19,12 +20,12 @@ public class MBPCommentRepository extends MBPDomainRepository<Comment, CommentPO
     private CommentMapper commentMapper;
 
     @Override
-    public CommentPO do2po(Comment object) {
+    public CommentPO do2po(Comment comment) {
         return null;
     }
 
     @Override
-    public Comment po2do(CommentPO object) {
+    public Comment po2do(CommentPO po) {
         return null;
     }
 
@@ -35,20 +36,24 @@ public class MBPCommentRepository extends MBPDomainRepository<Comment, CommentPO
 
     @Override
     public void delete(Comments comments) {
-
+        String pinId = comments.getPin().getId();
+        Wrapper<CommentPO> wrapper = Wrappers.<CommentPO>lambdaQuery()
+                .eq(CommentPO::getPinId, pinId);
+        getBaseMapper().delete(wrapper);
     }
 
     @Override
     public long count(String pinId) {
-        Conditions conditions = new Conditions().equal("pinId", pinId);
-        return count(conditions);
+        Wrapper<CommentPO> wrapper = Wrappers.<CommentPO>lambdaQuery()
+                .eq(CommentPO::getPinId, pinId);
+        return getBaseMapper().selectCount(wrapper);
     }
 
     @Override
     public long count(String pinId, String commentId) {
-        Conditions conditions = new Conditions()
-                .equal("pinId", pinId)
-                .equal("commentId", commentId);
-        return count(conditions);
+        Wrapper<CommentPO> wrapper = Wrappers.<CommentPO>lambdaQuery()
+                .eq(CommentPO::getPinId, pinId)
+                .eq(CommentPO::getCommentId, commentId);
+        return getBaseMapper().selectCount(wrapper);
     }
 }

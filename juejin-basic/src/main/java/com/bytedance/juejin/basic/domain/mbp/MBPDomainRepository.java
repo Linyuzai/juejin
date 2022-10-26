@@ -99,6 +99,11 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void delete(Conditions conditions) {
+        getBaseMapper().delete(getWrapper(conditions));
+    }
+
     /**
      * 根据条件查询一条数据
      */
