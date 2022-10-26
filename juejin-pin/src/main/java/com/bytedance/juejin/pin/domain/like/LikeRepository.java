@@ -4,8 +4,6 @@ import com.bytedance.juejin.basic.domain.DomainRepository;
 
 public interface LikeRepository extends DomainRepository<Like> {
 
-    void delete(Likes likes);
-
     Like get(String pinId, String userId);
 
     Like get(String pinId, String commentId, String userId);

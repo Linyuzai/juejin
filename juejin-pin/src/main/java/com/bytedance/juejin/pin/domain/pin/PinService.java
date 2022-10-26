@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin;
 
+import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.DomainEventPublisher;
 import com.bytedance.juejin.basic.domain.DomainService;
 import com.bytedance.juejin.basic.exception.JuejinException;
@@ -75,9 +76,13 @@ public class PinService implements DomainService {
         //删除沸点
         pinRepository.delete(pin);
         //删除沸点下面的评论
-        commentRepository.delete(pin.getComments());
+        LambdaConditions deleteCommentsCondition = new LambdaConditions();
+        deleteCommentsCondition.equal(Pin::getId, pin.getId());
+        commentRepository.delete(deleteCommentsCondition);
         //删除沸点下面的点赞
-        likeRepository.delete(pin.getLikes());
+        LambdaConditions deleteLikesCondition = new LambdaConditions();
+        deleteLikesCondition.equal(Pin::getId, pin.getId());
+        likeRepository.delete(deleteLikesCondition);
         //发布沸点删除事件
         afterTransactionCommit(() ->
                 eventPublisher.publish(new PinDeletedEvent(pin, user)));

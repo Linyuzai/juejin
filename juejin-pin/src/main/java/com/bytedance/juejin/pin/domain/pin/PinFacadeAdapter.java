@@ -1,6 +1,8 @@
 package com.bytedance.juejin.pin.domain.pin;
 
+import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
+import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinSnapshotVO;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import com.bytedance.juejin.pin.domain.user.User;
@@ -19,6 +21,11 @@ public interface PinFacadeAdapter {
      * 沸点模型转沸点视图
      */
     PinVO do2vo(Pin pin);
+
+    /**
+     * 查询转条件
+     */
+    Conditions toConditions(PinQuery query);
 
     /**
      * 沸点模型转快照视图

@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin;
 
+import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.club.Club;
@@ -7,6 +8,7 @@ import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComments;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
+import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinSnapshotVO;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import com.bytedance.juejin.pin.domain.user.User;
@@ -51,6 +53,11 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
 
     @Override
     public PinVO do2vo(Pin pin) {
+        return null;
+    }
+
+    @Override
+    public Conditions toConditions(PinQuery query) {
         return null;
     }
 

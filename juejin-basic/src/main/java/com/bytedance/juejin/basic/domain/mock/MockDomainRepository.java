@@ -64,6 +64,11 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
     }
 
     @Override
+    public void delete(Conditions conditions) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public T query(Conditions conditions) {
         throw new UnsupportedOperationException();
     }

@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.domain.comment.schrodinger;
 
+import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.exception.JuejinException;
@@ -38,7 +39,7 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
     public Pin getPin() {
         if (super.getPin() == null) {
             PinRepository pinRepository = getContext().get(PinRepository.class);
-            this.pin = pinRepository.get(pinId);
+            this.pin = pinRepository.get(getPinId());
             if (this.pin == null) {
                 throw new JuejinException("Pin not found: " + pinId);
             }
@@ -48,12 +49,13 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
 
     @Override
     public Comment getComment() {
-        if (commentId == null) {
+        if (getCommentId() == null) {
             return null;
         }
         if (super.getComment() == null) {
             CommentRepository commentRepository = getContext().get(CommentRepository.class);
-            this.comment = commentRepository.get(commentId);
+            String commentId = getCommentId();
+            this.comment = commentRepository.get(getCommentId());
             if (this.comment == null) {
                 throw new JuejinException("Comment not found: " + commentId);
             }
@@ -88,12 +90,14 @@ public class SchrodingerComments extends CommentsImpl implements Comments {
     @Override
     public long count() {
         //如果存在 commentId 是评论的评论数，否则是沸点的评论数
-        CommentRepository commentRepository = getContext().get(CommentRepository.class);
-        if (getCommentId() == null) {
-            return commentRepository.count(getPinId());
-        } else {
-            return commentRepository.count(getPinId(), getCommentId());
+        LambdaConditions conditions = new LambdaConditions();
+        conditions.equal(this::getPinId, getPinId());
+        String commentId = getCommentId();
+        if (commentId != null) {
+            conditions.equal(this::getCommentId, commentId);
         }
+        CommentRepository commentRepository = getContext().get(CommentRepository.class);
+        return commentRepository.count(conditions);
     }
 
     public static class Builder extends ContextDomainBuilder<SchrodingerComments, Builder> {
