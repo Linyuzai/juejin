@@ -1,13 +1,16 @@
 package com.bytedance.juejin.basic;
 
 import com.bytedance.juejin.basic.domain.DomainContext;
+import com.bytedance.juejin.basic.domain.DomainEventPublisher;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.spring.ApplicationDomainContext;
-import com.bytedance.juejin.basic.domain.spring.SpringDomainValidator;
+import com.bytedance.juejin.basic.domain.spring.ApplicationDomainEventPublisher;
+import com.bytedance.juejin.basic.domain.spring.ApplicationDomainValidator;
 import com.bytedance.juejin.basic.login.LoginArgumentAdapter;
 import com.bytedance.juejin.basic.login.LoginHandlerMethodArgumentResolver;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -27,13 +30,18 @@ public class JuejinBootConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
+    public DomainEventPublisher domainEventPublisher(ApplicationEventPublisher publisher) {
+        return new ApplicationDomainEventPublisher(publisher);
+    }
+
+    @Bean
     public DomainContext domainContext(ApplicationContext context) {
         return new ApplicationDomainContext(context);
     }
 
     @Bean
     public DomainValidator domainValidator() {
-        return new SpringDomainValidator();
+        return new ApplicationDomainValidator();
     }
 
     /*@Bean(initMethod = "init", destroyMethod = "close")
