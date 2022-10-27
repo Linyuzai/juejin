@@ -121,7 +121,7 @@ public class PinImpl implements Pin {
         }
 
         @Override
-        public PinImpl doBuild() {
+        protected PinImpl doBuild() {
             return new PinImpl(
                     id,
                     content,

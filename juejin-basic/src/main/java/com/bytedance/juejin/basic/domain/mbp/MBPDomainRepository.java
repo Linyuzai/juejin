@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 基于 MyBatis-Plus 的通用存储
@@ -148,6 +149,11 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
         return toPages(
                 getBaseMapper().selectPage(p, getWrapper(conditions)),
                 this::po2do);
+    }
+
+    @Override
+    public Stream<T> stream(Conditions conditions) {
+        return list(conditions).stream();
     }
 
     /**

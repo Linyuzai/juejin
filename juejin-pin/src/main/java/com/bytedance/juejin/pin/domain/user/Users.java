@@ -1,6 +1,7 @@
 package com.bytedance.juejin.pin.domain.user;
 
-public interface Users {
+import com.bytedance.juejin.basic.domain.DomainCollection;
 
+public interface Users extends DomainCollection<User> {
 
 }

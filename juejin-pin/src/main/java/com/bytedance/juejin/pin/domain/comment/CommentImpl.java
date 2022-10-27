@@ -1,13 +1,13 @@
 package com.bytedance.juejin.pin.domain.comment;
 
 import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
+import com.bytedance.juejin.pin.domain.PinOrComment;
 import com.bytedance.juejin.pin.domain.like.Likes;
 import com.bytedance.juejin.pin.domain.user.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 public class CommentImpl implements Comment {
 
     protected String id;
+
+    protected PinOrComment owner;
 
     protected String content;
 
@@ -33,6 +35,9 @@ public class CommentImpl implements Comment {
 
         @NotEmpty
         protected String id;
+
+        @NotNull
+        protected PinOrComment owner;
 
         @NotEmpty
         protected String content;
@@ -51,6 +56,11 @@ public class CommentImpl implements Comment {
 
         public Builder id(String id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder owner(PinOrComment owner) {
+            this.owner = owner;
             return this;
         }
 
@@ -87,9 +97,10 @@ public class CommentImpl implements Comment {
         }
 
         @Override
-        public CommentImpl doBuild() {
+        protected CommentImpl doBuild() {
             return new CommentImpl(
                     id,
+                    owner,
                     content,
                     user,
                     comments,

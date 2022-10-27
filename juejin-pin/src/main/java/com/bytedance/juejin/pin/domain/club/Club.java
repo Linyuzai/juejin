@@ -2,7 +2,6 @@ package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.basic.domain.DomainEntity;
 import com.bytedance.juejin.pin.domain.pin.Pins;
-import com.bytedance.juejin.pin.domain.user.User;
 import com.bytedance.juejin.pin.domain.user.Users;
 
 /**
@@ -21,9 +20,9 @@ public interface Club extends DomainEntity {
     String getLogo();
 
     /**
-     * 圈子标签
+     * 圈子类别
      */
-    String getTag();
+    String getCategory();
 
     /**
      * 圈子描述
@@ -36,17 +35,12 @@ public interface Club extends DomainEntity {
     String getAnnouncement();
 
     /**
-     * 圈子管理员
-     */
-    User getAdmin();
-
-    /**
-     * 关注圈子的用户
+     * 圈子用户
      */
     Users getUsers();
 
     /**
-     * 圈子下的沸点
+     * 圈子沸点
      */
     Pins getPins();
 }

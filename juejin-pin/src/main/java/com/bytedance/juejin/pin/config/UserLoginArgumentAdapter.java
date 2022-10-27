@@ -2,10 +2,14 @@ package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.basic.login.LoginArgumentAdapter;
 import com.bytedance.juejin.pin.domain.user.User;
-import com.bytedance.juejin.pin.domain.user.UserImpl;
+import com.bytedance.juejin.pin.domain.user.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.core.MethodParameter;
 
+@AllArgsConstructor
 public class UserLoginArgumentAdapter implements LoginArgumentAdapter {
+
+    private UserRepository userRepository;
 
     @Override
     public boolean support(MethodParameter parameter) {
@@ -15,9 +19,7 @@ public class UserLoginArgumentAdapter implements LoginArgumentAdapter {
 
     @Override
     public Object adapt(MethodParameter parameter) {
-        return new UserImpl.Builder()
-                .id("1")
-                .name("admin")
-                .build();
+        //假装登录用户的 id 是 1
+        return userRepository.get("1");
     }
 }

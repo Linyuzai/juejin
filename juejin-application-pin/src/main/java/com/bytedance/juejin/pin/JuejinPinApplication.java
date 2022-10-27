@@ -1,9 +1,9 @@
 package com.bytedance.juejin.pin;
 
+import com.bytedance.juejin.basic.JuejinCloudApplication;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@JuejinCloudApplication
 public class JuejinPinApplication {
 
     public static void main(String[] args) {

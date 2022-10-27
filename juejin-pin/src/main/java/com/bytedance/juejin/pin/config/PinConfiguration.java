@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.config;
 
+import com.bytedance.juejin.pin.domain.user.UserRepository;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +28,7 @@ public class PinConfiguration {
     }
 
     @Bean
-    public UserLoginArgumentAdapter userLoginArgumentAdapter() {
-        return new UserLoginArgumentAdapter();
+    public UserLoginArgumentAdapter userLoginArgumentAdapter(UserRepository userRepository) {
+        return new UserLoginArgumentAdapter(userRepository);
     }
 }

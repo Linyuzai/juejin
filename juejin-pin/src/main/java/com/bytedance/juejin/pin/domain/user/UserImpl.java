@@ -1,7 +1,12 @@
 package com.bytedance.juejin.pin.domain.user;
 
+import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
+import com.bytedance.juejin.pin.domain.club.Clubs;
+import com.bytedance.juejin.pin.domain.pin.Pins;
 import lombok.*;
-import org.springframework.util.StringUtils;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -12,11 +17,23 @@ public class UserImpl implements User {
 
     protected String name;
 
-    public static class Builder {
+    protected Clubs clubs;
 
+    protected Pins pins;
+
+    public static class Builder extends AbstractDomainBuilder<UserImpl, Builder> {
+
+        @NotEmpty
         protected String id;
 
+        @NotEmpty
         protected String name;
+
+        @NotNull
+        protected Clubs clubs;
+
+        @NotNull
+        protected Pins pins;
 
         public Builder id(String id) {
             this.id = id;
@@ -28,14 +45,19 @@ public class UserImpl implements User {
             return this;
         }
 
-        public UserImpl build() {
-            if (!StringUtils.hasText(id)) {
-                throw new IllegalArgumentException("Id required");
-            }
-            if (!StringUtils.hasText(name)) {
-                throw new IllegalArgumentException("Name required");
-            }
-            return new UserImpl(id, name);
+        public Builder clubs(Clubs clubs) {
+            this.clubs = clubs;
+            return this;
+        }
+
+        public Builder pins(Pins pins) {
+            this.pins = pins;
+            return this;
+        }
+
+        @Override
+        protected UserImpl doBuild() {
+            return new UserImpl(id, name, clubs, pins);
         }
     }
 }

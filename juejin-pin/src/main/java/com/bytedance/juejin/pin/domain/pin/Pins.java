@@ -1,4 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-public interface Pins {
+import com.bytedance.juejin.basic.domain.DomainCollection;
+
+public interface Pins extends DomainCollection<Pin> {
 }

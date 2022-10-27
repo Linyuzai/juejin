@@ -1,17 +1,15 @@
-package com.bytedance.juejin.pin.domain.like;
+package com.bytedance.juejin.pin.domain.user;
 
 import com.bytedance.juejin.basic.domain.AbstractDomainCollection;
 import com.bytedance.juejin.basic.exception.JuejinCanNotHappenException;
 import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LikesImpl extends AbstractDomainCollection<Like> implements Likes {
+public class UsersImpl extends AbstractDomainCollection<User> implements Users {
 
-    protected LikesImpl(Object owner) {
+    protected UsersImpl(Object owner) {
         this.owner = owner;
     }
 
@@ -21,15 +19,15 @@ public class LikesImpl extends AbstractDomainCollection<Like> implements Likes {
     }
 
     @Override
-    public Like doGet(String id) {
-        throw new JuejinNotFoundException(Like.class, id);
+    public User doGet(String id) {
+        throw new JuejinNotFoundException(User.class, id);
     }
 
-    public static class Builder extends AbstractDomainCollection.Builder<LikesImpl, Builder> {
+    public static class Builder extends AbstractDomainCollection.Builder<UsersImpl, Builder> {
 
         @Override
-        protected LikesImpl doBuild() {
-            return new LikesImpl(owner);
+        protected UsersImpl doBuild() {
+            return new UsersImpl(owner);
         }
     }
 }

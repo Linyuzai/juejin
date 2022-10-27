@@ -5,6 +5,7 @@ import com.bytedance.juejin.basic.page.Pages;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 领域存储
@@ -75,4 +76,9 @@ public interface DomainRepository<T extends DomainObject> {
      * 分页条件查询
      */
     Pages<T> page(Conditions conditions, Pages.Args page);
+
+    /**
+     * 流式读取
+     */
+    Stream<T> stream(Conditions conditions);
 }

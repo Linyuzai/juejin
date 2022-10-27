@@ -2,7 +2,6 @@ package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
 import com.bytedance.juejin.pin.domain.pin.Pins;
-import com.bytedance.juejin.pin.domain.user.User;
 import com.bytedance.juejin.pin.domain.user.Users;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,9 +35,9 @@ public class ClubImpl implements Club {
     protected String logo;
 
     /**
-     * 圈子标签
+     * 圈子类别
      */
-    protected String tag;
+    protected String category;
 
     /**
      * 圈子描述
@@ -51,17 +50,12 @@ public class ClubImpl implements Club {
     protected String announcement;
 
     /**
-     * 圈子管理员
-     */
-    protected User admin;
-
-    /**
-     * 关注圈子的用户
+     * 圈子用户
      */
     protected Users users;
 
     /**
-     * 圈子下的沸点
+     * 圈子沸点
      */
     protected Pins pins;
 
@@ -77,15 +71,12 @@ public class ClubImpl implements Club {
         protected String logo;
 
         @NotEmpty
-        protected String tag;
+        protected String category;
 
         @NotEmpty
         protected String description;
 
         protected String announcement;
-
-        @NotNull
-        protected User admin;
 
         @NotNull
         protected Users users;
@@ -108,8 +99,8 @@ public class ClubImpl implements Club {
             return this;
         }
 
-        public Builder tag(String tag) {
-            this.tag = tag;
+        public Builder category(String category) {
+            this.category = category;
             return this;
         }
 
@@ -120,11 +111,6 @@ public class ClubImpl implements Club {
 
         public Builder announcement(String announcement) {
             this.announcement = announcement;
-            return this;
-        }
-
-        public Builder admin(User admin) {
-            this.admin = admin;
             return this;
         }
 
@@ -139,15 +125,14 @@ public class ClubImpl implements Club {
         }
 
         @Override
-        public ClubImpl doBuild() {
+        protected ClubImpl doBuild() {
             return new ClubImpl(
                     id,
                     name,
                     logo,
-                    tag,
+                    category,
                     description,
                     announcement,
-                    admin,
                     users,
                     pins);
         }

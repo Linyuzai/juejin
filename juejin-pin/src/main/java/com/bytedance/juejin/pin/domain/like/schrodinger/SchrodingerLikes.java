@@ -68,7 +68,7 @@ public class SchrodingerLikes extends LikesImpl implements Likes {
         }
 
         @Override
-        public SchrodingerLikes doBuild() {
+        protected SchrodingerLikes doBuild() {
             return new SchrodingerLikes(pinId, commentId, context);
         }
     }

@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 public abstract class MockDomainRepository<T extends DomainObject> extends AbstractDomainRepository<T, T> {
 
@@ -85,6 +86,11 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
 
     @Override
     public Pages<T> page(Conditions conditions, Pages.Args page) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Stream<T> stream(Conditions conditions) {
         throw new UnsupportedOperationException();
     }
 

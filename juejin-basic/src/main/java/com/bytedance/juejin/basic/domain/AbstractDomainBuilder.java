@@ -28,5 +28,5 @@ public abstract class AbstractDomainBuilder<T extends DomainObject, B> implement
 
     }
 
-    public abstract T doBuild();
+    protected abstract T doBuild();
 }

@@ -1,9 +1,9 @@
 package com.bytedance.juejin.system;
 
+import com.bytedance.juejin.basic.JuejinCloudApplication;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "com.bytedance.juejin")
+@JuejinCloudApplication
 public class JuejinSystemApplication {
 
     public static void main(String[] args) {
