@@ -33,8 +33,8 @@ public abstract class AbstractDomainCollection<T extends DomainObject> implement
     }
 
     @Override
-    public long count() {
-        return objects.size();
+    public Long count() {
+        return Integer.valueOf(objects.size()).longValue();
     }
 
     @SuppressWarnings("unchecked")

@@ -43,4 +43,11 @@ public interface Club extends DomainEntity {
      * 圈子沸点
      */
     Pins getPins();
+
+    /**
+     * 发布公告
+     *
+     * @param announcement 发布的公告
+     */
+    Club publishAnnouncement(String announcement);
 }

@@ -1,32 +1,21 @@
 package com.bytedance.juejin.pin.domain.club.view;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
+@Schema(description = "沸点圈子创建命令")
 public class ClubCreateCommand {
 
-    /**
-     * 圈子名称
-     */
+    @Schema(description = "圈子名称")
     private String name;
 
-    /**
-     * 圈子图标
-     */
+    @Schema(description = "圈子图标")
     private String logo;
 
-    /**
-     * 圈子类别
-     */
+    @Schema(description = "圈子类别")
     private String category;
 
-    /**
-     * 圈子描述
-     */
+    @Schema(description = "圈子描述")
     private String description;
-
-    /**
-     * 圈子公告
-     */
-    private String announcement;
 }

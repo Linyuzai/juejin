@@ -19,11 +19,17 @@ public class SchrodingerClub extends SchrodingerDomainProxy<Club> {
         super(id, context);
     }
 
+    /**
+     * 指定领域模型为圈子
+     */
     @Override
     protected Class<Club> getDomainType() {
         return Club.class;
     }
 
+    /**
+     * 指定存储为圈子存储
+     */
     @Override
     protected Class<? extends DomainRepository<Club>> getDomainRepositoryType() {
         return ClubRepository.class;
@@ -31,11 +37,17 @@ public class SchrodingerClub extends SchrodingerDomainProxy<Club> {
 
     public static class Builder extends SchrodingerDomainProxy.Builder<Club, Builder> {
 
+        /**
+         * 指定领域模型为圈子
+         */
         @Override
         protected Class<Club> getDomainType() {
             return Club.class;
         }
 
+        /**
+         * 获得圈子的领域代理
+         */
         @Override
         protected DomainProxy<Club> getDomainProxy() {
             return new SchrodingerClub(id, context);

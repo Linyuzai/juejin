@@ -1,6 +1,7 @@
 package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
+import com.bytedance.juejin.basic.exception.JuejinRequiredException;
 import com.bytedance.juejin.pin.domain.pin.Pins;
 import com.bytedance.juejin.pin.domain.user.Users;
 import lombok.AccessLevel;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
- * 圈子
+ * 圈子实现
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -58,6 +59,27 @@ public class ClubImpl implements Club {
      * 圈子沸点
      */
     protected Pins pins;
+
+    /**
+     * 发布公告
+     *
+     * @param announcement 发布的公告
+     */
+    @Override
+    public Club publishAnnouncement(String announcement) {
+        if (announcement == null || announcement.isEmpty()) {
+            throw new JuejinRequiredException(Club::getAnnouncement);
+        }
+        return new ClubImpl(
+                id,
+                name,
+                logo,
+                category,
+                description,
+                announcement,
+                users,
+                pins);
+    }
 
     public static class Builder extends AbstractDomainBuilder<ClubImpl, Builder> {
 

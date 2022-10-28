@@ -15,5 +15,5 @@ public interface DomainCollection<T extends DomainObject> extends DomainObject {
 
     Stream<T> stream();
 
-    long count();
+    Long count();
 }

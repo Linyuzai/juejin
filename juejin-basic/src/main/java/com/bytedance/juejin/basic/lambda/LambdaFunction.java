@@ -1,6 +1,7 @@
 package com.bytedance.juejin.basic.lambda;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.io.Serializable;
@@ -16,6 +17,35 @@ public interface LambdaFunction extends Serializable {
 
     default SerializedLambda getSerializedLambda() {
         return cache.computeIfAbsent(this.getClass(), new MappingFunction(this));
+    }
+
+    static Name getClassName(SerializedLambda sl) {
+        return new Name(sl.getImplClass());
+    }
+
+    static Name getMethodName(SerializedLambda sl) {
+        return new Name(sl.getImplMethodName()).convertGetMethodToField();
+    }
+
+    @Getter
+    @AllArgsConstructor
+    class Name {
+
+        private String value;
+
+        public Name convertGetMethodToField() {
+            if (value.startsWith("get") && !value.equals("get")) {
+                value = value.substring(3);
+            } else if (value.startsWith("is") && !value.equals("is")) {
+                value = value.substring(2);
+            }
+            return this;
+        }
+
+        public Name lowercaseFirst() {
+            value = Character.toLowerCase(value.charAt(0)) + value.substring(1);
+            return this;
+        }
     }
 
     @AllArgsConstructor

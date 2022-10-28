@@ -65,7 +65,7 @@ public interface DomainRepository<T extends DomainObject> {
     /**
      * 数量条件查询
      */
-    long count(Conditions conditions);
+    Long count(Conditions conditions);
 
     /**
      * 列表条件查询

@@ -69,7 +69,7 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
      * 获得沸点的评论数
      */
     @Override
-    public long count() {
+    public Long count() {
         DomainRepository<T> repository = context.get(getDomainRepositoryType());
         return repository.count(obtainConditions());
     }

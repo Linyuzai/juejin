@@ -75,7 +75,7 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
     }
 
     @Override
-    public long count(Conditions conditions) {
+    public Long count(Conditions conditions) {
         throw new UnsupportedOperationException();
     }
 

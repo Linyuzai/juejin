@@ -1,6 +1,7 @@
 package com.bytedance.juejin.basic.condition;
 
 import com.bytedance.juejin.basic.lambda.ClassFunction;
+import com.bytedance.juejin.basic.lambda.LambdaFunction;
 import com.bytedance.juejin.basic.lambda.MethodFunction;
 
 import java.lang.invoke.SerializedLambda;
@@ -54,28 +55,11 @@ public class LambdaConditions extends Conditions {
     }
 
     protected String generate(SerializedLambda sl, boolean withClass) {
-        String generate;
         if (withClass) {
-            generate = getClassName(sl) + getMethodName(sl);
+            return LambdaFunction.getClassName(sl).lowercaseFirst().getValue() +
+                    LambdaFunction.getMethodName(sl).getValue();
         } else {
-            generate = getMethodName(sl);
-        }
-        return Character.toLowerCase(generate.charAt(0)) +
-                generate.substring(1);
-    }
-
-    protected String getClassName(SerializedLambda sl) {
-        return sl.getImplClass();
-    }
-
-    protected String getMethodName(SerializedLambda sl) {
-        String methodName = sl.getImplMethodName();
-        if (methodName.startsWith("get") && !methodName.equals("get")) {
-            return methodName.substring(3);
-        } else if (methodName.startsWith("is") && !methodName.equals("is")) {
-            return methodName.substring(2);
-        } else {
-            return methodName;
+            return LambdaFunction.getMethodName(sl).lowercaseFirst().getValue();
         }
     }
 }

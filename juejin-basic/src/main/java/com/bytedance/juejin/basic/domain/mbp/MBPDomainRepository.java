@@ -124,7 +124,7 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
      * 根据条件获得数量
      */
     @Override
-    public long count(Conditions conditions) {
+    public Long count(Conditions conditions) {
         return getBaseMapper().selectCount(getWrapper(conditions));
     }
 

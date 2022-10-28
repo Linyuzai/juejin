@@ -23,12 +23,12 @@ public interface ClubFacadeAdapter {
     Club from(ClubUpdateCommand update, Club old, User user);
 
     /**
-     * 圈子模型转沸点视图
+     * 圈子模型转圈子视图
      */
-    ClubVO do2vo(Club pin);
+    ClubVO do2vo(Club club);
 
     /**
-     * 查询转条件
+     * 圈子查询转条件
      */
     Conditions toConditions(ClubQuery query);
 }

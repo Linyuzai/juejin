@@ -6,19 +6,24 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 沸点圈子创建事件
+ * 沸点圈子公告发布事件
  */
 @Getter
 @RequiredArgsConstructor
-public class ClubCreatedEvent {
+public class ClubAnnouncementPublishedEvent {
 
     /**
-     * 创建的圈子
+     * 发布公告的圈子
      */
     private final Club club;
 
     /**
-     * 创建的用户
+     * 公告内容
+     */
+    private final String announcement;
+
+    /**
+     * 发布公告的用户
      */
     private final User user;
 }

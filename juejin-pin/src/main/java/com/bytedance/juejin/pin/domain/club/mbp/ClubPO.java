@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+/**
+ * 圈子数据模型
+ */
 @Data
 @TableName("t_pin_club")
 public class ClubPO {

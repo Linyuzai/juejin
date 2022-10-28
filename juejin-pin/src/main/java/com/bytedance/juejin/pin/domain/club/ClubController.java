@@ -1,10 +1,7 @@
 package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.basic.login.Login;
-import com.bytedance.juejin.pin.domain.club.view.ClubCreateCommand;
-import com.bytedance.juejin.pin.domain.club.view.ClubQuery;
-import com.bytedance.juejin.pin.domain.club.view.ClubUpdateCommand;
-import com.bytedance.juejin.pin.domain.club.view.ClubVO;
+import com.bytedance.juejin.pin.domain.club.view.*;
 import com.bytedance.juejin.pin.domain.user.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,6 +31,12 @@ public class ClubController {
     @PutMapping
     public void update(@RequestBody ClubUpdateCommand update, @Login User user) {
         clubService.update(update, user);
+    }
+
+    @Operation(summary = "发布公告圈子")
+    @PostMapping("/announcement")
+    public void publishAnnouncement(@RequestBody ClubAnnouncementPublishCommand publish, @Login User user) {
+        clubService.publishAnnouncement(publish, user);
     }
 
     @Operation(summary = "圈子详情")

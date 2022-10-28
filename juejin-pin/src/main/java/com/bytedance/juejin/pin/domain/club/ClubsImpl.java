@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
+/**
+ * 圈子集合实现
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ClubsImpl extends AbstractDomainCollection<Club> implements Clubs {
 
