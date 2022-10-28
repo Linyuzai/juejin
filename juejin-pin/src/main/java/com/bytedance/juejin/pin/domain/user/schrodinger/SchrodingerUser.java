@@ -1,53 +1,41 @@
 package com.bytedance.juejin.pin.domain.user.schrodinger;
 
-import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainProxy;
-import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
+import com.bytedance.juejin.basic.domain.DomainRepository;
+import com.bytedance.juejin.basic.domain.schrodinger.SchrodingerDomainProxy;
 import com.bytedance.juejin.pin.domain.user.User;
 import com.bytedance.juejin.pin.domain.user.UserRepository;
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class SchrodingerUser extends SchrodingerDomainProxy<User> {
 
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class SchrodingerUser implements DomainProxy<User> {
-
-    protected final String id;
-
-    protected final DomainContext context;
-
-    protected User user;
-
-    @Override
-    public User getTarget() {
-        if (this.user == null) {
-            UserRepository userRepository = context.get(UserRepository.class);
-            User user = userRepository.get(id);
-            if (user == null) {
-                throw new JuejinNotFoundException(User.class, id);
-            }
-            this.user = user;
-        }
-        return this.user;
+    protected SchrodingerUser(String id, DomainContext context) {
+        super(id, context);
     }
 
-    public static class Builder extends ContextDomainBuilder<User, Builder> {
+    @Override
+    protected Class<User> getDomainType() {
+        return User.class;
+    }
 
-        @NotEmpty
-        protected String id;
+    @Override
+    protected Class<? extends DomainRepository<User>> getDomainRepositoryType() {
+        return UserRepository.class;
+    }
 
-        public Builder id(String id) {
-            this.id = id;
-            return this;
+    public static class Builder extends SchrodingerDomainProxy.Builder<User, Builder> {
+
+        @Override
+        protected Class<User> getDomainType() {
+            return User.class;
         }
 
         @Override
-        protected User doBuild() {
-            return proxy(User.class, new SchrodingerUser(id, context));
+        protected DomainProxy<User> getDomainProxy() {
+            return new SchrodingerUser(id, context);
         }
     }
 }

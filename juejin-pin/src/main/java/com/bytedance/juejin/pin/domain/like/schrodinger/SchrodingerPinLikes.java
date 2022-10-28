@@ -1,11 +1,11 @@
-package com.bytedance.juejin.pin.domain.comment.schrodinger;
+package com.bytedance.juejin.pin.domain.like.schrodinger;
 
 import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
-import com.bytedance.juejin.pin.domain.comment.*;
+import com.bytedance.juejin.pin.domain.like.Likes;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinRepository;
 import lombok.AccessLevel;
@@ -14,19 +14,13 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * 薛定谔的评论集合
- */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SchrodingerPinComments extends SchrodingerComments implements Comments {
+public class SchrodingerPinLikes extends SchrodingerLikes implements Likes {
 
-    /**
-     * 沸点ID
-     */
     protected String pinId;
 
-    protected SchrodingerPinComments(String pinId, DomainContext context) {
+    protected SchrodingerPinLikes(String pinId, DomainContext context) {
         this.pinId = pinId;
         this.context = context;
     }
@@ -48,7 +42,7 @@ public class SchrodingerPinComments extends SchrodingerComments implements Comme
         return conditions;
     }
 
-    public static class Builder extends ContextDomainBuilder<SchrodingerPinComments, Builder> {
+    public static class Builder extends ContextDomainBuilder<SchrodingerPinLikes, Builder> {
 
         @NotNull
         protected String pinId;
@@ -59,8 +53,8 @@ public class SchrodingerPinComments extends SchrodingerComments implements Comme
         }
 
         @Override
-        protected SchrodingerPinComments doBuild() {
-            return new SchrodingerPinComments(pinId, context);
+        protected SchrodingerPinLikes doBuild() {
+            return new SchrodingerPinLikes(pinId, context);
         }
     }
 }

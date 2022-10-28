@@ -6,7 +6,7 @@ import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComments;
-import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
+import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinSnapshotVO;
@@ -42,7 +42,7 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                         .context(context)
                         .validator(validator)
                         .build())
-                .likes(new SchrodingerLikes.Builder()
+                .likes(new SchrodingerPinLikes.Builder()
                         .pinId(id)
                         .context(context)
                         .validator(validator)

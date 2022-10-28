@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin.domain.comment.schrodinger;
+package com.bytedance.juejin.pin.domain.like.schrodinger;
 
 import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.condition.LambdaConditions;
@@ -7,26 +7,20 @@ import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
 import com.bytedance.juejin.pin.domain.comment.Comment;
 import com.bytedance.juejin.pin.domain.comment.CommentRepository;
-import com.bytedance.juejin.pin.domain.comment.Comments;
+import com.bytedance.juejin.pin.domain.like.Likes;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * 薛定谔的评论集合
- */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SchrodingerCommentComments extends SchrodingerComments implements Comments {
+public class SchrodingerCommentLikes extends SchrodingerLikes implements Likes {
 
-    /**
-     * 评论ID
-     */
     protected String commentId;
 
-    protected SchrodingerCommentComments(String commentId, DomainContext context) {
+    protected SchrodingerCommentLikes(String commentId, DomainContext context) {
         this.commentId = commentId;
         this.context = context;
     }
@@ -48,7 +42,8 @@ public class SchrodingerCommentComments extends SchrodingerComments implements C
         return conditions;
     }
 
-    public static class Builder extends ContextDomainBuilder<SchrodingerCommentComments, Builder> {
+
+    public static class Builder extends ContextDomainBuilder<SchrodingerCommentLikes, Builder> {
 
         @NotNull
         protected String commentId;
@@ -59,8 +54,8 @@ public class SchrodingerCommentComments extends SchrodingerComments implements C
         }
 
         @Override
-        protected SchrodingerCommentComments doBuild() {
-            return new SchrodingerCommentComments(commentId, context);
+        protected SchrodingerCommentLikes doBuild() {
+            return new SchrodingerCommentLikes(commentId, context);
         }
     }
 }

@@ -1,0 +1,55 @@
+package com.bytedance.juejin.basic.domain.schrodinger;
+
+import com.bytedance.juejin.basic.domain.*;
+import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
+
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class SchrodingerDomainProxy<T extends DomainObject> extends AbstractDomainProxy<T> {
+
+    protected String id;
+
+    protected DomainContext context;
+
+    @Override
+    public T doGetTarget() {
+        DomainRepository<T> repository = context.get(getDomainRepositoryType());
+        T domain = repository.get(id);
+        if (domain == null) {
+            throw new JuejinNotFoundException(getDomainType(), id);
+        }
+        return domain;
+    }
+
+    protected abstract Class<T> getDomainType();
+
+    protected abstract Class<? extends DomainRepository<T>> getDomainRepositoryType();
+
+    protected abstract static class Builder<T extends DomainObject, B extends Builder<T, B>> extends AbstractDomainProxy.Builder<T, B> {
+
+        @NotNull
+        protected String id;
+
+        @SuppressWarnings("unchecked")
+        public B id(String id) {
+            this.id = id;
+            return (B) this;
+        }
+
+        @Override
+        protected T doBuild() {
+            return proxy(getDomainType(), getDomainProxy());
+        }
+
+        protected abstract Class<T> getDomainType();
+
+        protected abstract DomainProxy<T> getDomainProxy();
+    }
+}

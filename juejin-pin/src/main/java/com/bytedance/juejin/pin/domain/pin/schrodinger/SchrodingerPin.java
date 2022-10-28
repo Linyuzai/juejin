@@ -1,54 +1,41 @@
 package com.bytedance.juejin.pin.domain.pin.schrodinger;
 
-import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainProxy;
-import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
+import com.bytedance.juejin.basic.domain.DomainRepository;
+import com.bytedance.juejin.basic.domain.schrodinger.SchrodingerDomainProxy;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinRepository;
-import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class SchrodingerPin extends SchrodingerDomainProxy<Pin> {
 
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class SchrodingerPin implements DomainProxy<Pin> {
-
-    protected final String id;
-
-    protected final DomainContext context;
-
-    protected Pin pin;
-
-    @Override
-    public Pin getTarget() {
-        if (this.pin == null) {
-            PinRepository pinRepository = context.get(PinRepository.class);
-            Pin pin = pinRepository.get(id);
-            if (pin == null) {
-                throw new JuejinNotFoundException(Pin.class, id);
-            }
-            this.pin = pin;
-        }
-        return this.pin;
+    protected SchrodingerPin(String id, DomainContext context) {
+        super(id, context);
     }
 
-    public static class Builder extends ContextDomainBuilder<Pin, Builder> {
+    @Override
+    protected Class<Pin> getDomainType() {
+        return Pin.class;
+    }
 
-        @NotEmpty
-        protected String id;
+    @Override
+    protected Class<? extends DomainRepository<Pin>> getDomainRepositoryType() {
+        return PinRepository.class;
+    }
 
-        public Builder id(String id) {
-            this.id = id;
-            return this;
+    public static class Builder extends SchrodingerDomainProxy.Builder<Pin, Builder> {
+
+        @Override
+        protected Class<Pin> getDomainType() {
+            return Pin.class;
         }
 
         @Override
-        protected Pin doBuild() {
-            return proxy(Pin.class, new SchrodingerPin(id, context));
+        protected DomainProxy<Pin> getDomainProxy() {
+            return new SchrodingerPin(id, context);
         }
     }
 }

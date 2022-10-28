@@ -6,7 +6,7 @@ import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComments;
-import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
+import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinImpl;
 import com.bytedance.juejin.pin.domain.pin.PinRepository;
@@ -62,7 +62,7 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
                         .context(context)
                         .validator(validator)
                         .build())
-                .likes(new SchrodingerLikes.Builder()
+                .likes(new SchrodingerPinLikes.Builder()
                         .pinId(po.getId())
                         .context(context)
                         .validator(validator)

@@ -1,58 +1,44 @@
 package com.bytedance.juejin.pin.domain.like.schrodinger;
 
-import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainProxy;
-import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
+import com.bytedance.juejin.basic.domain.DomainRepository;
+import com.bytedance.juejin.basic.domain.schrodinger.SchrodingerDomainProxy;
 import com.bytedance.juejin.pin.domain.like.Like;
 import com.bytedance.juejin.pin.domain.like.LikeRepository;
 import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import javax.validation.constraints.NotEmpty;
+import lombok.NoArgsConstructor;
 
 /**
  * 薛定谔的点赞模型
  */
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class SchrodingerLike implements DomainProxy<Like> {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class SchrodingerLike extends SchrodingerDomainProxy<Like> {
 
-    protected final String id;
-    /**
-     * 圈子存储
-     */
-    protected final DomainContext context;
-
-    protected Like like;
-
-    @Override
-    public Like getTarget() {
-        if (this.like == null) {
-            LikeRepository likeRepository = context.get(LikeRepository.class);
-            Like like = likeRepository.get(id);
-            if (like == null) {
-                throw new JuejinNotFoundException(Like.class, id);
-            }
-            this.like = like;
-        }
-        return this.like;
+    protected SchrodingerLike(String id, DomainContext context) {
+        super(id, context);
     }
 
-    public static class Builder extends ContextDomainBuilder<Like, Builder> {
+    @Override
+    protected Class<Like> getDomainType() {
+        return Like.class;
+    }
 
-        @NotEmpty
-        protected String id;
+    @Override
+    protected Class<? extends DomainRepository<Like>> getDomainRepositoryType() {
+        return LikeRepository.class;
+    }
 
-        public Builder id(String id) {
-            this.id = id;
-            return this;
+    public static class Builder extends SchrodingerDomainProxy.Builder<Like, Builder> {
+
+        @Override
+        protected Class<Like> getDomainType() {
+            return Like.class;
         }
 
         @Override
-        protected Like doBuild() {
-            return proxy(Like.class, new SchrodingerLike(id, context));
+        protected DomainProxy<Like> getDomainProxy() {
+            return new SchrodingerLike(id, context);
         }
     }
 }

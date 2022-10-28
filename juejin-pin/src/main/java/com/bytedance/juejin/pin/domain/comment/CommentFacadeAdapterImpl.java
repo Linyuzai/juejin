@@ -6,7 +6,7 @@ import com.bytedance.juejin.pin.domain.PinOrComment;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComment;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerCommentComments;
 import com.bytedance.juejin.pin.domain.comment.view.CommentCreateCommand;
-import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLikes;
+import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerCommentLikes;
 import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerPin;
 import com.bytedance.juejin.pin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +51,7 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
                         .context(context)
                         .validator(validator)
                         .build())
-                .likes(new SchrodingerLikes.Builder()
-                        .pinId(create.getPinId())
+                .likes(new SchrodingerCommentLikes.Builder()
                         .commentId(id)
                         .context(context)
                         .validator(validator)

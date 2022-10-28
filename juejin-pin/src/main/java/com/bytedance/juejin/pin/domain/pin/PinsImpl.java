@@ -1,33 +1,23 @@
 package com.bytedance.juejin.pin.domain.pin;
 
 import com.bytedance.juejin.basic.domain.AbstractDomainCollection;
-import com.bytedance.juejin.basic.exception.JuejinCanNotHappenException;
-import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PinsImpl extends AbstractDomainCollection<Pin> implements Pins {
 
-    protected PinsImpl(Object owner) {
-        this.owner = owner;
+    protected PinsImpl(Object owner, Map<String, Pin> pins) {
+        super(owner, pins);
     }
 
-    @Override
-    public Object doGetOwner() {
-        throw new JuejinCanNotHappenException();
-    }
-
-    @Override
-    public Pin doGet(String id) {
-        throw new JuejinNotFoundException(Pin.class, id);
-    }
-
-    public static class Builder extends AbstractDomainCollection.Builder<PinsImpl, Builder> {
+    public static class Builder extends AbstractDomainCollection.Builder<Pin, PinsImpl, Builder> {
 
         @Override
         protected PinsImpl doBuild() {
-            return new PinsImpl(owner);
+            return new PinsImpl(owner, getObjectMap());
         }
     }
 }

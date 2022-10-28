@@ -1,67 +1,72 @@
 package com.bytedance.juejin.basic.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractDomainCollection<T extends DomainObject> implements DomainCollection<T> {
 
     protected Object owner;
 
-    protected final Map<String, T> domainObjects = newContainer();
-
-    protected Map<String, T> newContainer() {
-        return new HashMap<>();
-    }
-
-    @Override
-    public Object getOwner() {
-        if (owner == null) {
-            this.owner = doGetOwner();
-        }
-        return owner;
-    }
-
-    public abstract Object doGetOwner();
+    protected Map<String, T> objects;
 
     @Override
     public T get(String id) {
-        T exist = getDomainObjects().get(id);
-        if (exist == null) {
-            T get = doGet(id);
-            if (get != null) {
-                getDomainObjects().put(get.getId(), get);
-            }
-        }
-        return exist;
+        return objects.get(id);
     }
-
-    public abstract T doGet(String id);
 
     @Override
     public Stream<T> stream() {
-        return getDomainObjects().values().stream();
+        return objects.values().stream();
     }
 
     @Override
     public long count() {
-        return getDomainObjects().size();
+        return objects.size();
     }
 
-    public static abstract class Builder<T extends DomainObject, B extends Builder<T, B>> extends AbstractDomainBuilder<T, B> {
+    @SuppressWarnings("unchecked")
+    protected static abstract class Builder<T extends DomainObject, C extends DomainCollection<T>, B extends Builder<T, C, B>> extends AbstractDomainBuilder<C, B> {
 
         @NotNull
         protected Object owner;
 
-        @SuppressWarnings("unchecked")
+        @NotNull
+        protected Collection<? extends T> objects;
+
         public B owner(Object owner) {
             this.owner = owner;
             return (B) this;
+        }
+
+        public B objects(Collection<? extends T> objects) {
+            this.objects = objects;
+            return (B) this;
+        }
+
+        @Override
+        protected void initDefaultValue() {
+            if (objects == null) {
+                objects = new ArrayList<>();
+            }
+        }
+
+        protected Map<String, T> getObjectMap() {
+            return objects.stream()
+                    .collect(Collectors.toMap(DomainObject::getId,
+                            Function.identity()));
         }
     }
 }

@@ -61,7 +61,7 @@ public class ClubImpl implements Club {
 
     public static class Builder extends AbstractDomainBuilder<ClubImpl, Builder> {
 
-        @NotEmpty
+        @NotNull
         protected String id;
 
         @NotEmpty
@@ -76,6 +76,7 @@ public class ClubImpl implements Club {
         @NotEmpty
         protected String description;
 
+        @NotNull
         protected String announcement;
 
         @NotNull
@@ -122,6 +123,13 @@ public class ClubImpl implements Club {
         public Builder pins(Pins pins) {
             this.pins = pins;
             return this;
+        }
+
+        @Override
+        protected void initDefaultValue() {
+            if (announcement == null) {
+                announcement = "";
+            }
         }
 
         @Override

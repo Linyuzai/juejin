@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -26,7 +25,7 @@ public class LikeImpl implements Like {
 
     public static class Builder extends AbstractDomainBuilder<LikeImpl, Builder> {
 
-        @NotEmpty
+        @NotNull
         protected String id;
 
         @NotNull

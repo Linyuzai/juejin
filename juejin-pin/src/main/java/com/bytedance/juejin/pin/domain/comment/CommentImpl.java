@@ -33,7 +33,7 @@ public class CommentImpl implements Comment {
 
     public static class Builder extends AbstractDomainBuilder<CommentImpl, Builder> {
 
-        @NotEmpty
+        @NotNull
         protected String id;
 
         @NotNull

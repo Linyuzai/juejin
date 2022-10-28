@@ -4,33 +4,30 @@ import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
-import com.bytedance.juejin.basic.exception.JuejinIdRequiredException;
 import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
-import com.bytedance.juejin.pin.domain.user.User;
-import com.bytedance.juejin.pin.domain.user.UserRepository;
 import com.bytedance.juejin.pin.domain.user.Users;
-import com.bytedance.juejin.pin.domain.user.UsersImpl;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.util.StringUtils;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-import java.util.stream.Stream;
+import javax.validation.constraints.NotNull;
 
 @Getter
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class SchrodingerClubUsers extends UsersImpl implements Users {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class SchrodingerClubUsers extends SchrodingerUsers implements Users {
 
     protected String clubId;
 
-    protected DomainContext context;
+    protected SchrodingerClubUsers(String clubId, DomainContext context) {
+        this.clubId = clubId;
+        this.context = context;
+    }
 
     @Override
     public Object doGetOwner() {
-        ClubRepository clubRepository = getContext().get(ClubRepository.class);
+        ClubRepository clubRepository = context.get(ClubRepository.class);
         String id = getClubId();
         Club club = clubRepository.get(id);
         if (club == null) {
@@ -40,30 +37,6 @@ public class SchrodingerClubUsers extends UsersImpl implements Users {
     }
 
     @Override
-    public User doGet(String id) {
-        if (!StringUtils.hasText(id)) {
-            throw new JuejinIdRequiredException(User.class);
-        }
-        UserRepository userRepository = getContext().get(UserRepository.class);
-        User user = userRepository.get(id);
-        if (user == null) {
-            return super.doGet(id);
-        }
-        return user;
-    }
-
-    @Override
-    public Stream<User> stream() {
-        UserRepository userRepository = getContext().get(UserRepository.class);
-        return userRepository.stream(obtainConditions());
-    }
-
-    @Override
-    public long count() {
-        UserRepository userRepository = getContext().get(UserRepository.class);
-        return userRepository.count(obtainConditions());
-    }
-
     protected Conditions obtainConditions() {
         LambdaConditions conditions = new LambdaConditions();
         conditions.equal(Club::getId, getClubId());
@@ -72,7 +45,7 @@ public class SchrodingerClubUsers extends UsersImpl implements Users {
 
     public static class Builder extends ContextDomainBuilder<SchrodingerClubUsers, Builder> {
 
-        @NotEmpty
+        @NotNull
         protected String clubId;
 
         public Builder clubId(String clubId) {
