@@ -15,13 +15,14 @@ import com.bytedance.juejin.pin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 /**
  * 沸点领域模型和视图的转换适配器
  */
 @Component
 public class PinFacadeAdapterImpl implements PinFacadeAdapter {
+
+    @Autowired
+    private PinIdGenerator pinIdGenerator;
 
     @Autowired
     private DomainContext context;
@@ -31,7 +32,7 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
 
     @Override
     public Pin from(PinCreateCommand create, User user) {
-        String id = generateId();
+        String id = pinIdGenerator.generateId(Pin.class);
         return new PinImpl.Builder()
                 .id(id)
                 .content(create.getContent())
@@ -79,10 +80,5 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                 .context(context)
                 .validator(validator)
                 .build();
-    }
-
-    public String generateId() {
-        //雪花算法等方式生成ID
-        return UUID.randomUUID().toString();
     }
 }

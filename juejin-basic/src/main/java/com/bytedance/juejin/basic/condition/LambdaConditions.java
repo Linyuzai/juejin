@@ -8,6 +8,11 @@ import java.util.Collection;
 
 public class LambdaConditions extends Conditions {
 
+    @Override
+    public LambdaConditions lambda() {
+        return this;
+    }
+
     public <T, R> Conditions equal(ClassFunction<T, R> cf, Object value) {
         SerializedLambda sl = cf.getSerializedLambda();
         return equal(generate(sl, true), value);

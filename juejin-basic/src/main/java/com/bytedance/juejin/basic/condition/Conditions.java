@@ -34,6 +34,15 @@ public class Conditions {
 
     //有需要可以添加其他条件
 
+    public LambdaConditions lambda() {
+        LambdaConditions conditions = new LambdaConditions();
+        conditions.getEquals().addAll(this.equals);
+        conditions.getIns().addAll(this.ins);
+        conditions.getLikes().addAll(this.likes);
+        conditions.getOrderBys().addAll(this.orderBys);
+        return conditions;
+    }
+
     /**
      * 添加 =
      */

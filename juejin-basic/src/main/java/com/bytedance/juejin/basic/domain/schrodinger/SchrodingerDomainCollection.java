@@ -14,6 +14,8 @@ import java.util.stream.Stream;
 @Getter
 public abstract class SchrodingerDomainCollection<T extends DomainObject> extends AbstractDomainCollection<T> {
 
+    protected String ownerId;
+
     protected DomainContext context;
 
     @Override
@@ -24,7 +26,14 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         return owner;
     }
 
-    protected abstract Object doGetOwner();
+    protected Object doGetOwner() {
+        DomainRepository<?> repository = context.get(getOwnerRepositoryType());
+        Object owner = repository.get(ownerId);
+        if (owner == null) {
+            throw new JuejinNotFoundException(getOwnerType(), ownerId);
+        }
+        return owner;
+    }
 
     @Override
     public T get(String id) {
@@ -65,9 +74,19 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         return repository.count(obtainConditions());
     }
 
+    protected Conditions obtainConditions() {
+        Conditions conditions = new Conditions();
+        onConditionsObtain(conditions, ownerId);
+        return conditions;
+    }
+
+    protected abstract void onConditionsObtain(Conditions conditions, String id);
+
     protected abstract Class<T> getDomainType();
 
     protected abstract Class<? extends DomainRepository<T>> getDomainRepositoryType();
 
-    protected abstract Conditions obtainConditions();
+    protected abstract Class<?> getOwnerType();
+
+    protected abstract Class<? extends DomainRepository<?>> getOwnerRepositoryType();
 }

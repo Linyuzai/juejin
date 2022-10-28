@@ -1,24 +1,21 @@
-package com.bytedance.juejin.pin.domain.club.schrodinger;
+package com.bytedance.juejin.pin.domain.pin.schrodinger;
 
 import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainRepository;
-import com.bytedance.juejin.basic.lambda.ClassFunction;
-import com.bytedance.juejin.pin.domain.club.Clubs;
+import com.bytedance.juejin.pin.domain.pin.Pins;
 import com.bytedance.juejin.pin.domain.user.User;
 import com.bytedance.juejin.pin.domain.user.UserRepository;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SchrodingerUserClubs extends SchrodingerClubs implements Clubs {
+public class SchrodingerUserPins extends SchrodingerPins implements Pins {
 
-    protected SchrodingerUserClubs(String userId, DomainContext context) {
+    protected SchrodingerUserPins(String userId, DomainContext context) {
         this.ownerId = userId;
         this.context = context;
     }
@@ -38,7 +35,7 @@ public class SchrodingerUserClubs extends SchrodingerClubs implements Clubs {
         return UserRepository.class;
     }
 
-    public static class Builder extends ContextDomainBuilder<SchrodingerUserClubs, Builder> {
+    public static class Builder extends ContextDomainBuilder<SchrodingerUserPins, Builder> {
 
         @NotNull
         protected String userId;
@@ -49,8 +46,8 @@ public class SchrodingerUserClubs extends SchrodingerClubs implements Clubs {
         }
 
         @Override
-        protected SchrodingerUserClubs doBuild() {
-            return new SchrodingerUserClubs(userId, context);
+        protected SchrodingerUserPins doBuild() {
+            return new SchrodingerUserPins(userId, context);
         }
     }
 }

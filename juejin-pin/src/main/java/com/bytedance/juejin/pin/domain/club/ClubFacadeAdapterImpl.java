@@ -7,6 +7,7 @@ import com.bytedance.juejin.pin.domain.club.view.ClubCreateCommand;
 import com.bytedance.juejin.pin.domain.club.view.ClubQuery;
 import com.bytedance.juejin.pin.domain.club.view.ClubUpdateCommand;
 import com.bytedance.juejin.pin.domain.club.view.ClubVO;
+import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerClubPins;
 import com.bytedance.juejin.pin.domain.user.User;
 import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerClubUsers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,11 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
                         .context(context)
                         .validator(validator)
                         .build())
-                //TODO
-                //.pins()
+                .pins(new SchrodingerClubPins.Builder()
+                        .clubId(id)
+                        .context(context)
+                        .validator(validator)
+                        .build())
                 .validator(validator)
                 .build();
     }

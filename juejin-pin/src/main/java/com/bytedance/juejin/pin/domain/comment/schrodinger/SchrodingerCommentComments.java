@@ -1,15 +1,13 @@
 package com.bytedance.juejin.pin.domain.comment.schrodinger;
 
 import com.bytedance.juejin.basic.condition.Conditions;
-import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
-import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
+import com.bytedance.juejin.basic.domain.DomainRepository;
 import com.bytedance.juejin.pin.domain.comment.Comment;
 import com.bytedance.juejin.pin.domain.comment.CommentRepository;
 import com.bytedance.juejin.pin.domain.comment.Comments;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
@@ -17,35 +15,28 @@ import javax.validation.constraints.NotNull;
 /**
  * 薛定谔的评论集合
  */
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SchrodingerCommentComments extends SchrodingerComments implements Comments {
 
-    /**
-     * 评论ID
-     */
-    protected String commentId;
-
     protected SchrodingerCommentComments(String commentId, DomainContext context) {
-        this.commentId = commentId;
+        this.ownerId = commentId;
         this.context = context;
     }
 
     @Override
-    public Object doGetOwner() {
-        CommentRepository commentRepository = context.get(CommentRepository.class);
-        Comment comment = commentRepository.get(commentId);
-        if (comment == null) {
-            throw new JuejinNotFoundException(Comment.class, commentId);
-        }
-        return comment;
+    protected void onConditionsObtain(Conditions conditions, String id) {
+        conditions.lambda().equal(Comment::getId, id);
+    }
+
+
+    @Override
+    protected Class<?> getOwnerType() {
+        return Comment.class;
     }
 
     @Override
-    protected Conditions obtainConditions() {
-        LambdaConditions conditions = new LambdaConditions();
-        conditions.equal(this::getCommentId, commentId);
-        return conditions;
+    protected Class<? extends DomainRepository<?>> getOwnerRepositoryType() {
+        return CommentRepository.class;
     }
 
     public static class Builder extends ContextDomainBuilder<SchrodingerCommentComments, Builder> {
