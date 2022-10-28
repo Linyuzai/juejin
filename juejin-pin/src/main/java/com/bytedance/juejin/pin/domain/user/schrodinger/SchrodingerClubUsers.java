@@ -28,10 +28,9 @@ public class SchrodingerClubUsers extends SchrodingerUsers implements Users {
     @Override
     public Object doGetOwner() {
         ClubRepository clubRepository = context.get(ClubRepository.class);
-        String id = getClubId();
-        Club club = clubRepository.get(id);
+        Club club = clubRepository.get(clubId);
         if (club == null) {
-            throw new JuejinNotFoundException(Club.class, id);
+            throw new JuejinNotFoundException(Club.class, clubId);
         }
         return club;
     }
@@ -39,7 +38,7 @@ public class SchrodingerClubUsers extends SchrodingerUsers implements Users {
     @Override
     protected Conditions obtainConditions() {
         LambdaConditions conditions = new LambdaConditions();
-        conditions.equal(Club::getId, getClubId());
+        conditions.equal(Club::getId, clubId);
         return conditions;
     }
 
