@@ -85,7 +85,11 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
      */
     @Override
     public T get(String id) {
-        return po2do(getBaseMapper().selectById(id));
+        P po = getBaseMapper().selectById(id);
+        if (po == null) {
+            return null;
+        }
+        return po2do(po);
     }
 
     /**
