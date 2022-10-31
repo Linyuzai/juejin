@@ -21,8 +21,8 @@ public class SchrodingerPinLikes extends SchrodingerLikes implements Likes {
     }
 
     @Override
-    protected void onConditionsObtain(Conditions conditions, String id) {
-        conditions.lambda().equal(Pin::getId, id);
+    protected Conditions onConditionsObtain(Conditions conditions, String id) {
+        return conditions.lambda().equal(Pin::getId, id);
     }
 
     @Override

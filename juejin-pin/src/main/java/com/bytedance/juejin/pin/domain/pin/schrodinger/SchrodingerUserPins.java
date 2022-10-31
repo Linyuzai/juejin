@@ -21,8 +21,8 @@ public class SchrodingerUserPins extends SchrodingerPins implements Pins {
     }
 
     @Override
-    protected void onConditionsObtain(Conditions conditions, String id) {
-        conditions.lambda().equal(User::getId, id);
+    protected Conditions onConditionsObtain(Conditions conditions, String id) {
+        return conditions.lambda().equal(User::getId, id);
     }
 
     @Override

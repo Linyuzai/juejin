@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 薛定谔的评论集合
@@ -24,8 +25,8 @@ public class SchrodingerPinComments extends SchrodingerComments implements Comme
     }
 
     @Override
-    protected void onConditionsObtain(Conditions conditions, String id) {
-        conditions.lambda().equal(Pin::getId, id);
+    protected Conditions onConditionsObtain(Conditions conditions, String id) {
+        return conditions.lambda().equal(Pin::getId, id);
     }
 
     @Override

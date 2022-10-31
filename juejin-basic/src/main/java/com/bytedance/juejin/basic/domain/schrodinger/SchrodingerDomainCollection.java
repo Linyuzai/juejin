@@ -75,12 +75,10 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
     }
 
     protected Conditions obtainConditions() {
-        Conditions conditions = new Conditions();
-        onConditionsObtain(conditions, ownerId);
-        return conditions;
+        return onConditionsObtain(new Conditions(), ownerId);
     }
 
-    protected abstract void onConditionsObtain(Conditions conditions, String id);
+    protected abstract Conditions onConditionsObtain(Conditions conditions, String id);
 
     protected abstract Class<T> getDomainType();
 

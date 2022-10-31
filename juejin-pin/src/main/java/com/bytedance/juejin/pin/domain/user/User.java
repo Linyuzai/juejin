@@ -8,6 +8,8 @@ public interface User extends DomainEntity {
 
     String getName();
 
+    String getProfilePicture();
+
     Clubs getClubs();
 
     Pins getPins();

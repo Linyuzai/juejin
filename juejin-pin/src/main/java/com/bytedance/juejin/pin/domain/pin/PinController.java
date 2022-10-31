@@ -40,7 +40,7 @@ public class PinController {
 
     @Operation(summary = "分页查询沸点快照")
     @GetMapping("/page")
-    public Pages<PinSnapshotVO> page(PinQuery query, Pages.Args page) {
+    public Pages<PinVO> page(PinQuery query, Pages.Args page) {
         return pinSearcher.page(query, page);
     }
 }

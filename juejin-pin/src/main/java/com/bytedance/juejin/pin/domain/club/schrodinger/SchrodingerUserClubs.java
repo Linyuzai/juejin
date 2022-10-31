@@ -27,8 +27,8 @@ public class SchrodingerUserClubs extends SchrodingerClubs implements Clubs {
      * 基于用户 id 做条件查询
      */
     @Override
-    protected void onConditionsObtain(Conditions conditions, String id) {
-        conditions.lambda().equal(User::getId, id);
+    protected Conditions onConditionsObtain(Conditions conditions, String id) {
+        return conditions.lambda().equal(User::getId, id);
     }
 
     /**

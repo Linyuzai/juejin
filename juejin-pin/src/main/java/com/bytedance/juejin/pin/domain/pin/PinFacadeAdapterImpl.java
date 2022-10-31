@@ -1,19 +1,23 @@
 package com.bytedance.juejin.pin.domain.pin;
 
 import com.bytedance.juejin.basic.condition.Conditions;
+import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
+import com.bytedance.juejin.pin.domain.comment.CommentFacadeAdapter;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComments;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
-import com.bytedance.juejin.pin.domain.pin.view.PinSnapshotVO;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import com.bytedance.juejin.pin.domain.user.User;
+import com.bytedance.juejin.pin.domain.user.UserFacadeAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 /**
  * 沸点领域模型和视图的转换适配器
@@ -29,6 +33,12 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
 
     @Autowired
     private DomainValidator validator;
+
+    @Autowired
+    private UserFacadeAdapter userFacadeAdapter;
+
+    @Autowired
+    private CommentFacadeAdapter commentFacadeAdapter;
 
     @Override
     public Pin from(PinCreateCommand create, User user) {
@@ -54,17 +64,27 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
 
     @Override
     public PinVO do2vo(Pin pin) {
-        return null;
+        PinVO vo = new PinVO();
+        vo.setId(pin.getId());
+        vo.setContent(pin.getContent());
+        vo.setClubId(pin.getClub().getId());
+        vo.setClubName(pin.getClub().getName());
+        vo.setUser(userFacadeAdapter.do2vo(pin.getUser()));
+        vo.setComments(pin.getComments()
+                .getNewestList(5)
+                .stream()
+                .map(commentFacadeAdapter::do2vo)
+                .collect(Collectors.toList()));
+        vo.setLikeCount(pin.getLikes().count());
+        vo.setCreateTime(pin.getCreateTime());
+        return vo;
     }
 
     @Override
     public Conditions toConditions(PinQuery query) {
-        return null;
-    }
-
-    @Override
-    public PinSnapshotVO toSnapshot(Pin pin) {
-        return null;
+        LambdaConditions conditions = new LambdaConditions();
+        conditions.equal(User::getId, query.getUserId());
+        return conditions;
     }
 
     /**

@@ -17,17 +17,22 @@ public class UserImpl implements User {
 
     protected String name;
 
+    protected String profilePicture;
+
     protected Clubs clubs;
 
     protected Pins pins;
 
     public static class Builder extends AbstractDomainBuilder<UserImpl, Builder> {
 
-        @NotEmpty
+        @NotNull
         protected String id;
 
-        @NotEmpty
+        @NotNull
         protected String name;
+
+        @NotNull
+        protected String profilePicture;
 
         @NotNull
         protected Clubs clubs;
@@ -45,6 +50,11 @@ public class UserImpl implements User {
             return this;
         }
 
+        public Builder profilePicture(String profilePicture) {
+            this.profilePicture = profilePicture;
+            return this;
+        }
+
         public Builder clubs(Clubs clubs) {
             this.clubs = clubs;
             return this;
@@ -57,7 +67,7 @@ public class UserImpl implements User {
 
         @Override
         protected UserImpl doBuild() {
-            return new UserImpl(id, name, clubs, pins);
+            return new UserImpl(id, name, profilePicture, clubs, pins);
         }
     }
 }

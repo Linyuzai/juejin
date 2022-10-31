@@ -24,8 +24,8 @@ public class SchrodingerCommentComments extends SchrodingerComments implements C
     }
 
     @Override
-    protected void onConditionsObtain(Conditions conditions, String id) {
-        conditions.lambda().equal(Comment::getId, id);
+    protected Conditions onConditionsObtain(Conditions conditions, String id) {
+        return conditions.lambda().equal(Comment::getId, id);
     }
 
 

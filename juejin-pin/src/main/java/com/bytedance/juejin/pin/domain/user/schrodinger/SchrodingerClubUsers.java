@@ -21,8 +21,8 @@ public class SchrodingerClubUsers extends SchrodingerUsers implements Users {
     }
 
     @Override
-    protected void onConditionsObtain(Conditions conditions, String id) {
-        conditions.lambda().equal(Club::getId, id);
+    protected Conditions onConditionsObtain(Conditions conditions, String id) {
+        return conditions.lambda().equal(Club::getId, id);
     }
 
     @Override

@@ -1,7 +1,11 @@
 package com.bytedance.juejin.pin.domain.pin.view;
 
+import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
+import com.bytedance.juejin.pin.domain.user.view.UserVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Schema(description = "沸点视图")
@@ -19,5 +23,18 @@ public class PinVO {
     @Schema(description = "沸点圈子名称")
     private String clubName;
 
-    //点赞和评论的数据先省略
+    @Schema(description = "沸点用户")
+    private UserVO user;
+
+    @Schema(description = "沸点评论")
+    private List<CommentVO> comments;
+
+    @Schema(description = "评论数量")
+    private Long commentCount;
+
+    @Schema(description = "点赞数量")
+    private Long likeCount;
+
+    @Schema(description = "沸点发布事件")
+    private Long createTime;
 }

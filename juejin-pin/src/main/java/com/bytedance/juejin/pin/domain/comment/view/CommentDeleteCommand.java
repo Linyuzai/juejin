@@ -9,7 +9,4 @@ public class CommentDeleteCommand {
 
     @Schema(description = "删除的评论ID")
     private String id;
-
-    @Schema(description = "沸点ID")
-    private String pinId;
 }

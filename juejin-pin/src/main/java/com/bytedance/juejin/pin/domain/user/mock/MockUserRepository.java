@@ -38,6 +38,7 @@ public class MockUserRepository extends MockDomainRepository<User> implements Us
         UserImpl user = new UserImpl.Builder()
                 .id(userId)
                 .name(userName)
+                .profilePicture("https://oss-juejin.com/user/1.jpg")
                 .clubs(new SchrodingerUserClubs.Builder()
                         .userId(userId)
                         .context(context)

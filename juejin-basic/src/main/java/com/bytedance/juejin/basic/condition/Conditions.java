@@ -32,6 +32,11 @@ public class Conditions {
      */
     private final Collection<OrderBy> orderBys = new LinkedList<>();
 
+    /**
+     * limit
+     */
+    private Limit limit;
+
     //有需要可以添加其他条件
 
     public LambdaConditions lambda() {
@@ -72,6 +77,22 @@ public class Conditions {
      */
     public Conditions orderBy(String key, boolean desc) {
         orderBys.add(new OrderBy(key, desc));
+        return this;
+    }
+
+    /**
+     * 设置 limit
+     */
+    public Conditions limit(long start, long size) {
+        limit = new Limit(start, size);
+        return this;
+    }
+
+    /**
+     * 设置 limit
+     */
+    public Conditions limit(long size) {
+        limit = new Limit(0, size);
         return this;
     }
 
@@ -145,5 +166,23 @@ public class Conditions {
          * order by 是否倒序
          */
         private final boolean desc;
+    }
+
+    /**
+     * limit 条件
+     */
+    @Getter
+    @AllArgsConstructor
+    public static class Limit {
+
+        /**
+         * limit 开始下标
+         */
+        private final long start;
+
+        /**
+         * limit 数量
+         */
+        private final long size;
     }
 }

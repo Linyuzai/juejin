@@ -14,44 +14,52 @@ public class LambdaConditions extends Conditions {
         return this;
     }
 
-    public <T, R> Conditions equal(ClassFunction<T, R> cf, Object value) {
+    public <T, R> LambdaConditions equal(ClassFunction<T, R> cf, Object value) {
         SerializedLambda sl = cf.getSerializedLambda();
-        return equal(generate(sl, true), value);
+        equal(generate(sl, true), value);
+        return this;
     }
 
-    public <T> Conditions equal(MethodFunction<T> mf, Object value) {
+    public <T> LambdaConditions equal(MethodFunction<T> mf, Object value) {
         SerializedLambda sl = mf.getSerializedLambda();
-        return equal(generate(sl, false), value);
+        equal(generate(sl, false), value);
+        return this;
     }
 
-    public <T, R> Conditions in(ClassFunction<T, R> cf, Collection<?> values) {
+    public <T, R> LambdaConditions in(ClassFunction<T, R> cf, Collection<?> values) {
         SerializedLambda sl = cf.getSerializedLambda();
-        return in(generate(sl, true), values);
+        in(generate(sl, true), values);
+        return this;
     }
 
-    public <T> Conditions in(MethodFunction<T> mf, Collection<?> values) {
+    public <T> LambdaConditions in(MethodFunction<T> mf, Collection<?> values) {
         SerializedLambda sl = mf.getSerializedLambda();
-        return in(generate(sl, false), values);
+        in(generate(sl, false), values);
+        return this;
     }
 
-    public <T, R> Conditions like(ClassFunction<T, R> cf, String value) {
+    public <T, R> LambdaConditions like(ClassFunction<T, R> cf, String value) {
         SerializedLambda sl = cf.getSerializedLambda();
-        return like(generate(sl, true), value);
+        like(generate(sl, true), value);
+        return this;
     }
 
-    public <T> Conditions like(MethodFunction<T> mf, String value) {
+    public <T> LambdaConditions like(MethodFunction<T> mf, String value) {
         SerializedLambda sl = mf.getSerializedLambda();
-        return like(generate(sl, false), value);
+        like(generate(sl, false), value);
+        return this;
     }
 
-    public <T, R> Conditions orderBy(ClassFunction<T, R> cf, boolean desc) {
+    public <T, R> LambdaConditions orderBy(ClassFunction<T, R> cf, boolean desc) {
         SerializedLambda sl = cf.getSerializedLambda();
-        return orderBy(generate(sl, true), desc);
+        orderBy(generate(sl, true), desc);
+        return this;
     }
 
-    public <T> Conditions orderBy(MethodFunction<T> mf, boolean desc) {
+    public <T> LambdaConditions orderBy(MethodFunction<T> mf, boolean desc) {
         SerializedLambda sl = mf.getSerializedLambda();
-        return orderBy(generate(sl, false), desc);
+        orderBy(generate(sl, false), desc);
+        return this;
     }
 
     protected String generate(SerializedLambda sl, boolean withClass) {
