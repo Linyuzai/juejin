@@ -42,7 +42,7 @@ allprojects {
         if (!excludeMVC.contains(project.name)) {
             implementation 'org.springframework.boot:spring-boot-starter-web'
             implementation 'mysql:mysql-connector-java'
-            compileOnly 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
+            implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
         }
         //implementation 'io.springfox:springfox-boot-starter:3.0.0'
         //implementation 'com.github.shijingsh:knife4j-spring-boot-starter:3.0.5'
@@ -50,6 +50,7 @@ allprojects {
         //implementation 'com.github.shijingsh:knife4j-springdoc-ui:3.0.5'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 
@@ -69,6 +70,12 @@ allprojects {
     //编译编码
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
+    }
+
+    //application 启动模块 和 网关 用 bootJar 打包，其他模块用 jar 打包
+    if (!project.name.contains("application") && project.name != 'juejin-gateway') {
+        bootJar.enabled = false
+        jar.enabled = true
     }
 
     processResources {

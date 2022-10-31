@@ -13,3 +13,7 @@ spring:
     url: jdbc:mysql://192.168.30.140:11801/enercity-street?serverTimezone=GMT%2b8
     username: root
     password: smartcity
+juejin:
+  repository:
+    mybatis-plus:
+      enabled: true
