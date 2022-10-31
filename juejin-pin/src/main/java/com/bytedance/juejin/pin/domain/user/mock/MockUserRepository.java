@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class MockUserRepository extends MockDomainRepository<User> implements UserRepository {
-
-    private final Map<String, User> map = new ConcurrentHashMap<>();
 
     @Autowired
     private DomainContext context;
@@ -27,8 +25,8 @@ public class MockUserRepository extends MockDomainRepository<User> implements Us
     private DomainValidator validator;
 
     @Override
-    public Map<String, User> getMockMap() {
-        return map;
+    public Map<String, User> initMockMap() {
+        return Collections.emptyMap();
     }
 
     @PostConstruct
@@ -51,6 +49,6 @@ public class MockUserRepository extends MockDomainRepository<User> implements Us
                         .build())
                 .validator(validator)
                 .build();
-        map.put(user.getId(), user);
+        getMockMap().put(user.getId(), user);
     }
 }

@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(JuejinAppConfiguration.class)
-@ComponentScan(basePackages = "com.bytedance.juejin.*.config.core")
+@ComponentScan(basePackages = "com.bytedance.juejin.*.config")
 @SpringBootApplication
 public @interface JuejinAppApplication {
 }

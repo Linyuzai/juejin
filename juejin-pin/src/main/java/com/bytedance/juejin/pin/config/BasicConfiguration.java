@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin.config.core;
+package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.pin.config.UserLoginArgumentAdapter;
 import com.bytedance.juejin.pin.domain.user.UserRepository;
@@ -14,7 +14,7 @@ public class BasicConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public UserLoginArgumentAdapter userLoginArgumentAdapter(UserRepository userRepository) {
-        return new UserLoginArgumentAdapter(userRepository);
+    public UserLoginArgumentAdapter userLoginArgumentAdapter() {
+        return new UserLoginArgumentAdapter();
     }
 }

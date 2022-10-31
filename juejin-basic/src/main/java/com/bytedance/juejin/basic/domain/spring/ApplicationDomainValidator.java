@@ -15,8 +15,6 @@ public class ApplicationDomainValidator implements DomainValidator {
     public void validate(Object target) {
         Errors errors = getErrors();
         validator.validate(target, errors);
-        for (ObjectError error : errors.getAllErrors()) {
-        }
     }
 
     protected Errors getErrors() {

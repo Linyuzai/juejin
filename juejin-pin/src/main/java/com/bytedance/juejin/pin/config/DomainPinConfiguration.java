@@ -1,6 +1,9 @@
-package com.bytedance.juejin.pin.config.core;
+package com.bytedance.juejin.pin.config;
 
+import com.bytedance.juejin.basic.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.pin.domain.pin.*;
+import com.bytedance.juejin.pin.domain.pin.mbp.MBPPinIdGenerator;
+import com.bytedance.juejin.pin.domain.pin.mbp.MBPPinRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,5 +36,22 @@ public class DomainPinConfiguration {
     @ConditionalOnMissingBean
     public PinSearcher pinSearcher() {
         return new PinSearcherImpl();
+    }
+
+    @Configuration
+    @ConditionalOnMyBatisPlus
+    public static class MyBatisPlusConfiguration {
+
+        @Bean
+        @ConditionalOnMissingBean
+        public PinIdGenerator pinIdGenerator() {
+            return new MBPPinIdGenerator();
+        }
+
+        @Bean
+        @ConditionalOnMissingBean
+        public PinRepository pinRepository() {
+            return new MBPPinRepository();
+        }
     }
 }

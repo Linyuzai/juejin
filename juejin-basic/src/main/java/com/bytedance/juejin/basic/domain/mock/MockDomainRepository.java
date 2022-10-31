@@ -4,6 +4,7 @@ import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.domain.AbstractDomainRepository;
 import com.bytedance.juejin.basic.domain.DomainObject;
 import com.bytedance.juejin.basic.page.Pages;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,9 +13,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
+@Getter
 public abstract class MockDomainRepository<T extends DomainObject> extends AbstractDomainRepository<T, T> {
 
-    private final Map<String, T> mockMap = new ConcurrentHashMap<>(getMockMap());
+    protected final Map<String, T> mockMap = new ConcurrentHashMap<>(initMockMap());
 
     @Override
     public void create(T object) {
@@ -104,5 +106,5 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
         return object;
     }
 
-    public abstract Map<String, T> getMockMap();
+    public abstract Map<String, T> initMockMap();
 }

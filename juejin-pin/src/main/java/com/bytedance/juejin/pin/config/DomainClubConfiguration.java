@@ -1,6 +1,9 @@
-package com.bytedance.juejin.pin.config.core;
+package com.bytedance.juejin.pin.config;
 
+import com.bytedance.juejin.basic.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.pin.domain.club.*;
+import com.bytedance.juejin.pin.domain.club.mbp.MBPClubIdGenerator;
+import com.bytedance.juejin.pin.domain.club.mbp.MBPClubRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,5 +36,22 @@ public class DomainClubConfiguration {
     @ConditionalOnMissingBean
     public ClubSearcher clubSearcher() {
         return new ClubSearcherImpl();
+    }
+
+    @Configuration
+    @ConditionalOnMyBatisPlus
+    public static class MyBatisPlusConfiguration {
+
+        @Bean
+        @ConditionalOnMissingBean
+        public ClubIdGenerator clubIdGenerator() {
+            return new MBPClubIdGenerator();
+        }
+
+        @Bean
+        @ConditionalOnMissingBean
+        public ClubRepository clubRepository() {
+            return new MBPClubRepository();
+        }
     }
 }

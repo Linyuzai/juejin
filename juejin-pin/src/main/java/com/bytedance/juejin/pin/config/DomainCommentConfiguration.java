@@ -1,6 +1,9 @@
-package com.bytedance.juejin.pin.config.core;
+package com.bytedance.juejin.pin.config;
 
+import com.bytedance.juejin.basic.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.pin.domain.comment.*;
+import com.bytedance.juejin.pin.domain.comment.mbp.MBPCommentIdGenerator;
+import com.bytedance.juejin.pin.domain.comment.mbp.MBPCommentRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,5 +36,22 @@ public class DomainCommentConfiguration {
     @ConditionalOnMissingBean
     public CommentSearcher commentSearcher() {
         return new CommentSearcherImpl();
+    }
+
+    @Configuration
+    @ConditionalOnMyBatisPlus
+    public static class MyBatisPlusConfiguration {
+
+        @Bean
+        @ConditionalOnMissingBean
+        public CommentIdGenerator commentIdGenerator() {
+            return new MBPCommentIdGenerator();
+        }
+
+        @Bean
+        @ConditionalOnMissingBean
+        public CommentRepository commentRepository() {
+            return new MBPCommentRepository();
+        }
     }
 }

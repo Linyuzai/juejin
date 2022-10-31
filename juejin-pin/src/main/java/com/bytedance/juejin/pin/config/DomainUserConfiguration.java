@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin.config.core;
+package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.pin.domain.user.UserFacadeAdapter;
 import com.bytedance.juejin.pin.domain.user.UserFacadeAdapterImpl;
@@ -20,12 +20,16 @@ public class DomainUserConfiguration {
         return new UserFacadeAdapterImpl();
     }
 
-    /**
-     * 暂时写在这里，等到写服务间调用的时候再重新实现
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public UserRepository userRepository() {
-        return new MockUserRepository();
+    @Configuration
+    public static class MockConfiguration {
+
+        /**
+         * 暂时写在这里，等到写服务间调用的时候再重新实现
+         */
+        @Bean
+        @ConditionalOnMissingBean
+        public UserRepository userRepository() {
+            return new MockUserRepository();
+        }
     }
 }

@@ -22,11 +22,6 @@ public abstract class SchrodingerComments extends SchrodingerDomainCollection<Co
     }
 
     @Override
-    protected Conditions obtainConditions() {
-        return super.obtainConditions().lambda().orderBy();
-    }
-
-    @Override
     public List<Comment> getNewestList(int count) {
         CommentRepository commentRepository = context.get(CommentRepository.class);
         Conditions conditions = obtainConditions().lambda()
