@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin.config;
+package com.bytedance.juejin.pin.config.mbp;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;

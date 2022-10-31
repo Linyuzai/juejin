@@ -44,7 +44,7 @@ allprojects {
             implementation 'org.springframework.boot:spring-boot-starter-web'
         }
         if (!excludeMybatisPlus.contains(project.name)) {
-            compileOnly 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
+            implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
         }
         //implementation 'io.springfox:springfox-boot-starter:3.0.0'
         //implementation 'com.github.shijingsh:knife4j-spring-boot-starter:3.0.5'
@@ -74,7 +74,7 @@ allprojects {
     }
 
     processResources {
-        //资源文件处理之前
+        //资源文件处理之前生成路由文件
         doFirst {
             Set<String> mSet = new HashSet<>()
             //遍历所有的依赖
@@ -109,6 +109,7 @@ allprojects {
 
     clean {
         doLast {
+            //删除路由文件
             File resourcesDir = new File(project.projectDir, '/src/main/resources')
             File file = new File(resourcesDir, 'router.properties')
             if (file.exists()) {

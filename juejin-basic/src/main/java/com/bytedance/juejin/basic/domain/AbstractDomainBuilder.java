@@ -1,5 +1,7 @@
 package com.bytedance.juejin.basic.domain;
 
+import java.util.Objects;
+
 @SuppressWarnings("unchecked")
 public abstract class AbstractDomainBuilder<T extends DomainObject, B> implements DomainBuilder<T> {
 
@@ -18,10 +20,7 @@ public abstract class AbstractDomainBuilder<T extends DomainObject, B> implement
     }
 
     protected void validate() {
-        if (validator == null) {
-            return;
-        }
-        validator.validate(this);
+        Objects.requireNonNull(validator).validate(this);
     }
 
     protected void initDefaultValue() {
