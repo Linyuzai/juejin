@@ -33,7 +33,7 @@ public class PinSearcherImpl implements PinSearcher {
     }
 
     /**
-     * 分页获得沸点快照
+     * 分页获得沸点
      */
     @Override
     public Pages<PinVO> page(PinQuery query, Pages.Args page) {

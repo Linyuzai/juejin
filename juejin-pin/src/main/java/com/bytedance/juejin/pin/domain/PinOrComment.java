@@ -23,7 +23,15 @@ public interface PinOrComment extends DomainObject {
         return this instanceof Pin;
     }
 
+    default Pin asPin() {
+        return (Pin) this;
+    }
+
     default boolean isComment() {
         return this instanceof Comment;
+    }
+
+    default Comment asComment() {
+        return (Comment) this;
     }
 }

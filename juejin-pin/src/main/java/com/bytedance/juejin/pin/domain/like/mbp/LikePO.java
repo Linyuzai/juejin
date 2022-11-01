@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @TableName("t_pin_like")
-public class LikePO {
+class LikePO {
 
     @TableId(type = IdType.INPUT)
     private String id;

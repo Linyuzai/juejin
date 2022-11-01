@@ -75,6 +75,11 @@ public class MBPClubRepository extends MBPDomainRepository<Club, ClubPO> impleme
     }
 
     @Override
+    public Class<ClubPO> getFetchClass() {
+        return ClubPO.class;
+    }
+
+    @Override
     public BaseMapper<ClubPO> getBaseMapper() {
         return clubMapper;
     }

@@ -1,7 +1,9 @@
 package com.bytedance.juejin.basic.condition;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -35,6 +37,7 @@ public class Conditions {
     /**
      * limit
      */
+    @Setter(AccessLevel.PROTECTED)
     private Limit limit;
 
     //有需要可以添加其他条件
@@ -45,6 +48,7 @@ public class Conditions {
         conditions.getIns().addAll(this.ins);
         conditions.getLikes().addAll(this.likes);
         conditions.getOrderBys().addAll(this.orderBys);
+        conditions.setLimit(this.limit);
         return conditions;
     }
 

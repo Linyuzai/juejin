@@ -5,5 +5,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * 圈子 Mapper
  */
-public interface ClubMapper extends BaseMapper<ClubPO> {
+interface ClubMapper extends BaseMapper<ClubPO> {
 }

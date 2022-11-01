@@ -72,6 +72,11 @@ public class MBPLikeRepository extends MBPDomainRepository<Like, LikePO> impleme
     }
 
     @Override
+    public Class<LikePO> getFetchClass() {
+        return LikePO.class;
+    }
+
+    @Override
     public BaseMapper<LikePO> getBaseMapper() {
         return likeMapper;
     }

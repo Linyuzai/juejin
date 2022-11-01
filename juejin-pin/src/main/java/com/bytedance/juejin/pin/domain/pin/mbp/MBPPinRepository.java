@@ -73,6 +73,11 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
     }
 
     @Override
+    public Class<PinPO> getFetchClass() {
+        return PinPO.class;
+    }
+
+    @Override
     public BaseMapper<PinPO> getBaseMapper() {
         return pinMapper;
     }

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.LambdaUtils;
+import com.baomidou.mybatisplus.core.toolkit.support.ColumnCache;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.domain.AbstractDomainRepository;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -163,25 +166,37 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
     /**
      * 根据条件生成 Wrapper
      */
-    public Wrapper<P> getWrapper(Conditions conditions) {
+    protected Wrapper<P> getWrapper(Conditions conditions) {
         QueryWrapper<P> wrapper = new QueryWrapper<>();
-        conditions.getEquals().forEach(it -> wrapper.eq(it.getKey(), it.getValue()));
-        conditions.getIns().forEach(it -> wrapper.in(it.getKey(), it.getValues()));
-        conditions.getLikes().forEach(it -> wrapper.like(it.getKey(), it.getValue()));
+        conditions.getEquals().forEach(it ->
+                wrapper.eq(fetchColumn(getFetchClass(), it.getKey()), it.getValue()));
+        conditions.getIns().forEach(it ->
+                wrapper.in(fetchColumn(getFetchClass(), it.getKey()), it.getValues()));
+        conditions.getLikes().forEach(it ->
+                wrapper.like(fetchColumn(getFetchClass(), it.getKey()), it.getValue()));
         conditions.getOrderBys().forEach(it -> {
             if (it.isDesc()) {
-                wrapper.orderByDesc(it.getKey());
+                wrapper.orderByDesc(fetchColumn(getFetchClass(), it.getKey()));
             } else {
-                wrapper.orderByAsc(it.getKey());
+                wrapper.orderByAsc(fetchColumn(getFetchClass(), it.getKey()));
             }
         });
         return wrapper;
     }
 
+    protected String fetchColumn(Class<P> clazz, String field) {
+        Map<String, ColumnCache> columnMap = LambdaUtils.getColumnMap(clazz);
+        ColumnCache columnCache = columnMap.get(LambdaUtils.formatKey(field));
+        if (columnCache == null) {
+            return field;
+        }
+        return columnCache.getColumn();
+    }
+
     /**
      * 将 mbp 的 page 转为我们的领域 pages
      */
-    public Pages<T> toPages(IPage<P> p, Function<P, T> function) {
+    protected Pages<T> toPages(IPage<P> p, Function<P, T> function) {
         Pages<T> pages = new Pages<>();
         pages.setCurrent(p.getCurrent());
         pages.setSize(p.getSize());
@@ -193,6 +208,8 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
                 .collect(Collectors.toList()));
         return pages;
     }
+
+    public abstract Class<P> getFetchClass();
 
     /**
      * 获得 Mapper

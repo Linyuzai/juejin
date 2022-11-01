@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @TableName("t_pin_club")
-public class ClubPO {
+class ClubPO {
 
     /**
      * 圈子ID

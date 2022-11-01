@@ -38,7 +38,7 @@ public class PinController {
         return pinSearcher.get(id);
     }
 
-    @Operation(summary = "分页查询沸点快照")
+    @Operation(summary = "分页查询沸点")
     @GetMapping("/page")
     public Pages<PinVO> page(PinQuery query, Pages.Args page) {
         return pinSearcher.page(query, page);
