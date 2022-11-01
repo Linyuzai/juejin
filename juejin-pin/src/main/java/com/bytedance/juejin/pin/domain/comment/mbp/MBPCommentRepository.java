@@ -40,12 +40,12 @@ public class MBPCommentRepository extends MBPDomainRepository<Comment, CommentPO
             po.setPinId(owner.asPin().getId());
         } else if (owner.isComment()) {
             po.setCommentId(owner.asComment().getId());
-            PinOrComment o = owner.asComment().getOwner();
-            while (o.isComment()) {
-                o = o.asComment().getOwner();
+            PinOrComment poc = owner.asComment().getOwner();
+            while (poc.isComment()) {
+                poc = poc.asComment().getOwner();
             }
-            if (o.isPin()) {
-                po.setPinId(o.asPin().getId());
+            if (poc.isPin()) {
+                po.setPinId(poc.asPin().getId());
             }
         }
         po.setContent(comment.getContent());

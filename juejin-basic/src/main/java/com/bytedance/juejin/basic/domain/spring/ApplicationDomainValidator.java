@@ -2,9 +2,9 @@ package com.bytedance.juejin.basic.domain.spring;
 
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import lombok.AllArgsConstructor;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
+import org.springframework.validation.*;
+
+import java.util.Objects;
 
 @AllArgsConstructor
 public class ApplicationDomainValidator implements DomainValidator {
@@ -13,11 +13,19 @@ public class ApplicationDomainValidator implements DomainValidator {
 
     @Override
     public void validate(Object target) {
-        Errors errors = getErrors();
-        validator.validate(target, errors);
+        BindingResult bindingResult = getBindingResult(target);
+        validator.validate(target, bindingResult);
+        onBindingResult(bindingResult);
     }
 
-    protected Errors getErrors() {
-        return null;
+    protected BindingResult getBindingResult(Object target) {
+        return new DirectFieldBindingResult(target, target.getClass().getSimpleName());
+    }
+
+    protected void onBindingResult(BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            FieldError error = Objects.requireNonNull(bindingResult.getFieldError());
+            throw new IllegalArgumentException(error.getField() + ", " + error.getDefaultMessage());
+        }
     }
 }
