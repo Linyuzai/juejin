@@ -16,6 +16,8 @@ import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 /**
  * 基于 MyBatis-Plus 的评论存储实现
  */
@@ -50,7 +52,7 @@ public class MBPCommentRepository extends MBPDomainRepository<Comment, CommentPO
         }
         po.setContent(comment.getContent());
         po.setUserId(comment.getUser().getId());
-        po.setCreateTime(comment.getCreateTime());
+        po.setCreateTime(new Date(comment.getCreateTime()));
         return po;
     }
 
@@ -89,7 +91,7 @@ public class MBPCommentRepository extends MBPDomainRepository<Comment, CommentPO
                         .context(context)
                         .validator(validator)
                         .build())
-                .createTime(po.getCreateTime())
+                .createTime(po.getCreateTime().getTime())
                 .validator(validator)
                 .build();
     }

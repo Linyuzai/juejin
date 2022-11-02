@@ -1,6 +1,8 @@
 package com.bytedance.juejin.basic.domain;
 
-public interface DomainObject {
+import java.io.Serializable;
+
+public interface DomainObject extends Serializable {
 
     String getId();
 }

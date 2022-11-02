@@ -4,6 +4,7 @@ import com.bytedance.juejin.basic.domain.AbstractDomainCollection;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +22,13 @@ public class CommentsImpl extends AbstractDomainCollection<Comment> implements C
 
     @Override
     public List<Comment> getNewestList(int count) {
-        return getObjects().values()
+        List<Comment> comments = getObjects().values()
                 .stream()
-                .sorted((o1, o2) -> o2.getCreateTime().intValue() - o1.getCreateTime().intValue())
+                .sorted(Comparator.comparingInt(o -> o.getCreateTime().intValue()))
                 .limit(count)
                 .collect(Collectors.toList());
+        Collections.reverse(comments);
+        return comments;
     }
 
     public static class Builder extends AbstractDomainCollection.Builder<Comment, CommentsImpl, Builder> {

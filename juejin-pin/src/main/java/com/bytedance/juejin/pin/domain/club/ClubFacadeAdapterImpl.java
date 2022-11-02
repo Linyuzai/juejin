@@ -105,7 +105,7 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
     @Override
     public Conditions toConditions(ClubQuery query) {
         LambdaConditions conditions = new LambdaConditions();
-        conditions.like(Club::getName, query.getName());
+        conditions.like(Club::getName, query.getName(), false);
         return conditions;
     }
 }

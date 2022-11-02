@@ -2,6 +2,8 @@ package com.bytedance.juejin.pin.domain.comment.mbp;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 class CommentPO {
 
@@ -15,5 +17,5 @@ class CommentPO {
 
     protected String userId;
 
-    protected Long createTime;
+    protected Date createTime;
 }
