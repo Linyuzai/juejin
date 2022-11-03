@@ -1,21 +1,30 @@
 package com.bytedance.juejin.pin.domain.comment.mbp;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@TableName("t_pin_comment")
 class CommentPO {
 
+    @TableId(type = IdType.INPUT)
     private String id;
 
     private String pinId;
 
     private String commentId;
 
-    protected String content;
+    private String content;
 
-    protected String userId;
+    private String userId;
 
-    protected Date createTime;
+    private Date createTime;
+
+    @TableLogic
+    private Boolean deleted;
 }
