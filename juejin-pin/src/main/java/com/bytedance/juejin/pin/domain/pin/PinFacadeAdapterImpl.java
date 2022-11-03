@@ -67,14 +67,17 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
         PinVO vo = new PinVO();
         vo.setId(pin.getId());
         vo.setContent(pin.getContent());
-        vo.setClubId(pin.getClub().getId());
-        vo.setClubName(pin.getClub().getName());
+        if (pin.getClub() != null) {
+            vo.setClubId(pin.getClub().getId());
+            vo.setClubName(pin.getClub().getName());
+        }
         vo.setUser(userFacadeAdapter.do2vo(pin.getUser()));
         vo.setComments(pin.getComments()
                 .getNewestList(5)
                 .stream()
                 .map(commentFacadeAdapter::do2vo)
                 .collect(Collectors.toList()));
+        vo.setCommentCount(pin.getComments().count());
         vo.setLikeCount(pin.getLikes().count());
         vo.setCreateTime(pin.getCreateTime());
         return vo;
@@ -84,6 +87,7 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     public Conditions toConditions(PinQuery query) {
         LambdaConditions conditions = new LambdaConditions();
         conditions.equal(User::getId, query.getUserId());
+        conditions.orderBy(Pin::getCreateTime, true, false);
         return conditions;
     }
 

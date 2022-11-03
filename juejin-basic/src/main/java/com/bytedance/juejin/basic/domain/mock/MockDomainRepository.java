@@ -78,7 +78,7 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
 
     @Override
     public Long count(Conditions conditions) {
-        throw new UnsupportedOperationException();
+        return (long) mockMap.size();
     }
 
     @Override

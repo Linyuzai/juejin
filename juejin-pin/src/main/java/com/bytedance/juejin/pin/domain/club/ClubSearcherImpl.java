@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.domain.club;
 
+import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
 import com.bytedance.juejin.pin.domain.club.view.ClubQuery;
 import com.bytedance.juejin.pin.domain.club.view.ClubVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,11 @@ public class ClubSearcherImpl implements ClubSearcher {
      */
     @Override
     public ClubVO get(String id) {
-        return clubFacadeAdapter.do2vo(clubRepository.get(id));
+        Club club = clubRepository.get(id);
+        if (club == null) {
+            throw new JuejinNotFoundException(Club.class, id);
+        }
+        return clubFacadeAdapter.do2vo(club);
     }
 
     /**

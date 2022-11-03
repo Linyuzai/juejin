@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
+import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComments;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
@@ -36,7 +37,9 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
         PinPO po = new PinPO();
         po.setId(pin.getId());
         po.setContent(pin.getContent());
-        po.setClubId(pin.getClub().getId());
+        if (pin.getClub() != null) {
+            po.setClubId(pin.getClub().getId());
+        }
         po.setUserId(pin.getUser().getId());
         po.setCreateTime(new Date(pin.getCreateTime()));
         return po;
@@ -44,14 +47,21 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
 
     @Override
     public Pin po2do(PinPO po) {
+        Club club;
+        String clubId = po.getClubId();
+        if (clubId == null) {
+            club = null;
+        } else {
+            club = new SchrodingerClub.Builder()
+                    .id(po.getClubId())
+                    .context(context)
+                    .validator(validator)
+                    .build();
+        }
         return new PinImpl.Builder()
                 .id(po.getId())
                 .content(po.getContent())
-                .club(new SchrodingerClub.Builder()
-                        .id(po.getClubId())
-                        .context(context)
-                        .validator(validator)
-                        .build())
+                .club(club)
                 .user(new SchrodingerUser.Builder()
                         .id(po.getUserId())
                         .context(context)

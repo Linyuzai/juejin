@@ -37,9 +37,15 @@ public class LikeService {
     }
 
     public void delete(LikeDeleteCommand delete, User user) {
-        Like like = likeRepository.get(delete.getId());
+        LambdaConditions queryConditions = new LambdaConditions();
+        if (delete.getCommentId() == null) {
+            queryConditions.equal(Pin::getId, delete.getPinId());
+        } else {
+            queryConditions.equal(Comment::getId, delete.getCommentId());
+        }
+        Like like = likeRepository.query(queryConditions);
         if (like == null) {
-            throw new JuejinNotFoundException(Like.class, delete.getId());
+            throw new JuejinNotFoundException(Like.class, "");
         }
         PinOrComment owner = like.getOwner();
         LambdaConditions conditions = new LambdaConditions();

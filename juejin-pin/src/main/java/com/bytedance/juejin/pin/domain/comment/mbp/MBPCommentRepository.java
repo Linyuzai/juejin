@@ -38,6 +38,9 @@ public class MBPCommentRepository extends MBPDomainRepository<Comment, CommentPO
         CommentPO po = new CommentPO();
         po.setId(comment.getId());
         PinOrComment owner = comment.getOwner();
+        if (owner.isPin()) {
+            po.setPinId(owner.asPin().getId());
+        }
         if (owner.isComment()) {
             po.setCommentId(owner.asComment().getId());
             po.setPinId(owner.asComment().getPin().getId());

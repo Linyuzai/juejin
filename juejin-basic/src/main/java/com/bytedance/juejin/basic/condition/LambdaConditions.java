@@ -31,6 +31,23 @@ public class LambdaConditions extends Conditions {
         return this;
     }
 
+    public <T, R> LambdaConditions isNull(ClassFunction<T, R> cf) {
+        return isNull(cf, true);
+    }
+
+    public <T, R> LambdaConditions isNull(ClassFunction<T, R> cf, boolean prependClass) {
+        SerializedLambda sl = cf.getSerializedLambda();
+        isNull(generate(sl, prependClass));
+        return this;
+    }
+
+    @Deprecated
+    public <T> LambdaConditions isNull(MethodFunction<T> mf) {
+        SerializedLambda sl = mf.getSerializedLambda();
+        isNull(generate(sl, false));
+        return this;
+    }
+
     public <T, R> LambdaConditions in(ClassFunction<T, R> cf, Collection<?> values) {
         return in(cf, values, true);
     }

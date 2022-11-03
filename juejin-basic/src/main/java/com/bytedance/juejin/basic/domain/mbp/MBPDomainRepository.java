@@ -170,6 +170,8 @@ public abstract class MBPDomainRepository<T extends DomainObject, P> extends Abs
         QueryWrapper<P> wrapper = new QueryWrapper<>();
         conditions.getEquals().forEach(it ->
                 wrapper.eq(fetchColumn(getFetchClass(), it.getKey()), it.getValue()));
+        conditions.getNulls().forEach(it ->
+                wrapper.isNull(fetchColumn(getFetchClass(), it.getKey())));
         conditions.getIns().forEach(it ->
                 wrapper.in(fetchColumn(getFetchClass(), it.getKey()), it.getValues()));
         conditions.getLikes().forEach(it ->

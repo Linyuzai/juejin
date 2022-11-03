@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * 查询条件
@@ -15,24 +16,41 @@ import java.util.LinkedList;
 public class Conditions {
 
     /**
+     * 如果是 null 则不拼接
+     */
+    @Setter
+    private boolean ignoreIfNull = true;
+
+    /**
+     * 如果是 空字符串或空集合 则不拼接
+     */
+    @Setter
+    private boolean ignoreIfEmpty = true;
+
+    /**
      * = 条件
      */
-    private final Collection<Equal> equals = new LinkedList<>();
+    private final Collection<Equal> equals = new ArrayList<>();
+
+    /**
+     * is null 条件
+     */
+    private final Collection<Null> nulls = new ArrayList<>();
 
     /**
      * in 条件
      */
-    private final Collection<In> ins = new LinkedList<>();
+    private final Collection<In> ins = new ArrayList<>();
 
     /**
      * like 条件
      */
-    private final Collection<Like> likes = new LinkedList<>();
+    private final Collection<Like> likes = new ArrayList<>();
 
     /**
      * order by 条件
      */
-    private final Collection<OrderBy> orderBys = new LinkedList<>();
+    private final Collection<OrderBy> orderBys = new ArrayList<>();
 
     /**
      * limit
@@ -44,7 +62,10 @@ public class Conditions {
 
     public LambdaConditions lambda() {
         LambdaConditions conditions = new LambdaConditions();
+        conditions.setIgnoreIfNull(this.ignoreIfNull);
+        conditions.setIgnoreIfEmpty(this.ignoreIfEmpty);
         conditions.getEquals().addAll(this.equals);
+        conditions.getNulls().addAll(this.nulls);
         conditions.getIns().addAll(this.ins);
         conditions.getLikes().addAll(this.likes);
         conditions.getOrderBys().addAll(this.orderBys);
@@ -56,7 +77,19 @@ public class Conditions {
      * 添加 =
      */
     public Conditions equal(String key, Object value) {
-        equals.add(new Equal(key, value));
+        if (notIgnore(key) && notIgnore(value)) {
+            equals.add(new Equal(key, value));
+        }
+        return this;
+    }
+
+    /**
+     * 添加 is null
+     */
+    public Conditions isNull(String key) {
+        if (notIgnore(key)) {
+            nulls.add(new Null(key));
+        }
         return this;
     }
 
@@ -64,7 +97,9 @@ public class Conditions {
      * 添加 in
      */
     public Conditions in(String key, Collection<?> values) {
-        ins.add(new In(key, values));
+        if (notIgnore(key) && notIgnore(values)) {
+            ins.add(new In(key, values));
+        }
         return this;
     }
 
@@ -72,15 +107,20 @@ public class Conditions {
      * 添加 like
      */
     public Conditions like(String key, String value) {
-        likes.add(new Like(key, value));
+        if (notIgnore(key) && notIgnore(value)) {
+            likes.add(new Like(key, value));
+        }
         return this;
     }
+
 
     /**
      * 添加 order by
      */
     public Conditions orderBy(String key, boolean desc) {
-        orderBys.add(new OrderBy(key, desc));
+        if (notIgnore(key)) {
+            orderBys.add(new OrderBy(key, desc));
+        }
         return this;
     }
 
@@ -100,6 +140,32 @@ public class Conditions {
         return this;
     }
 
+    protected boolean notIgnore(Object value) {
+        if (ignoreIfNull) {
+            if (value == null) {
+                return false;
+            }
+        }
+        if (ignoreIfEmpty) {
+            if (value instanceof Collection) {
+                if (((Collection<?>) value).isEmpty()) {
+                    return false;
+                }
+            }
+            if (value instanceof Map) {
+                if (((Map<?, ?>) value).isEmpty()) {
+                    return false;
+                }
+            }
+            if (value instanceof CharSequence) {
+                if (((CharSequence) value).length() == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * = 条件
      */
@@ -116,6 +182,19 @@ public class Conditions {
          * = 的 value
          */
         private final Object value;
+    }
+
+    /**
+     * is null 条件
+     */
+    @Getter
+    @AllArgsConstructor
+    public static class Null {
+
+        /**
+         * is null 的 key
+         */
+        private String key;
     }
 
     /**

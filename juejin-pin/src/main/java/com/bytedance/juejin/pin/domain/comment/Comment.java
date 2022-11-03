@@ -11,7 +11,7 @@ public interface Comment extends PinOrComment, DomainEntity {
     default Pin getPin() {
         PinOrComment owner = getOwner();
         if (owner.isPin()) {
-            return asPin();
+            return owner.asPin();
         }
         while (owner.isComment()) {
             owner = owner.asComment().getOwner();

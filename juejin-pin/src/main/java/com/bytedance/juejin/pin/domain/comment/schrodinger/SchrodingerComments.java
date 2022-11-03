@@ -25,7 +25,8 @@ public abstract class SchrodingerComments extends SchrodingerDomainCollection<Co
     public List<Comment> getNewestList(int count) {
         CommentRepository commentRepository = context.get(CommentRepository.class);
         Conditions conditions = obtainConditions().lambda()
-                .orderBy(Comment::getCreateTime, true)
+                .isNull(Comment::getId)
+                .orderBy(Comment::getCreateTime, true, false)
                 .limit(count);
         return commentRepository.list(conditions);
     }

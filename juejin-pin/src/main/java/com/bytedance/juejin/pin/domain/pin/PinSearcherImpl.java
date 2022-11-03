@@ -1,5 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin;
 
+import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
 import com.bytedance.juejin.basic.page.Pages;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
@@ -29,7 +30,11 @@ public class PinSearcherImpl implements PinSearcher {
      */
     @Override
     public PinVO get(String id) {
-        return pinFacadeAdapter.do2vo(pinRepository.get(id));
+        Pin pin = pinRepository.get(id);
+        if (pin == null) {
+            throw new JuejinNotFoundException(Pin.class, id);
+        }
+        return pinFacadeAdapter.do2vo(pin);
     }
 
     /**

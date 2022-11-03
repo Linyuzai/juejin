@@ -20,11 +20,14 @@ public interface LambdaFunction extends Serializable {
     }
 
     static Name getClassName(SerializedLambda sl) {
-        return new Name(sl.getImplClass());
+        return new Name(sl.getInstantiatedMethodType())
+                .convertMethodTypeToClass()
+                .toSimple();
     }
 
     static Name getMethodName(SerializedLambda sl) {
-        return new Name(sl.getImplMethodName()).convertGetMethodToField();
+        return new Name(sl.getImplMethodName())
+                .convertGetMethodToField();
     }
 
     @Getter
@@ -38,6 +41,21 @@ public interface LambdaFunction extends Serializable {
                 value = value.substring(3);
             } else if (value.startsWith("is") && !value.equals("is")) {
                 value = value.substring(2);
+            }
+            return this;
+        }
+
+        public Name convertMethodTypeToClass() {
+            if (value.startsWith("(L")) {
+                value = value.substring(2).split(";\\)")[0].replaceAll("/", ".");
+            }
+            return this;
+        }
+
+        public Name toSimple() {
+            int index = value.lastIndexOf(".");
+            if (index >= 0) {
+                value = value.substring(index + 1);
             }
             return this;
         }

@@ -81,6 +81,7 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
         vo.setContent(comment.getContent());
         vo.setUser(userFacadeAdapter.do2vo(comment.getUser()));
         vo.setReplies(getCommentReplyList(comment));
+        vo.setCommentCount((long) vo.getReplies().size());
         vo.setLikeCount(comment.getLikes().count());
         vo.setCreateTime(comment.getCreateTime());
         return vo;
@@ -111,6 +112,8 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
     public Conditions toConditions(CommentQuery query) {
         LambdaConditions conditions = new LambdaConditions();
         conditions.equal(Pin::getId, query.getPinId());
+        conditions.isNull(Comment::getId);
+        conditions.orderBy(Comment::getCreateTime, true, false);
         return conditions;
     }
 }
