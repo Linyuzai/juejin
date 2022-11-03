@@ -1,6 +1,7 @@
 package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.basic.domain.DomainEventPublisher;
+import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
 import com.bytedance.juejin.pin.domain.club.event.ClubAnnouncementPublishedEvent;
 import com.bytedance.juejin.pin.domain.club.event.ClubCreatedEvent;
 import com.bytedance.juejin.pin.domain.club.event.ClubUpdatedEvent;
@@ -49,6 +50,9 @@ public class ClubService {
      */
     public void update(ClubUpdateCommand update, User user) {
         Club club = clubRepository.get(update.getId());
+        if (club == null) {
+            throw new JuejinNotFoundException(Club.class, update.getId());
+        }
         Club newClub = clubFacadeAdapter.from(update, club, user);
         clubRepository.update(newClub);
         eventPublisher.publish(new ClubUpdatedEvent(club, newClub, user));

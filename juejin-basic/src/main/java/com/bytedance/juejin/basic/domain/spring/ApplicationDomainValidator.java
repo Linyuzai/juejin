@@ -15,17 +15,18 @@ public class ApplicationDomainValidator implements DomainValidator {
     public void validate(Object target) {
         BindingResult bindingResult = getBindingResult(target);
         validator.validate(target, bindingResult);
-        onBindingResult(bindingResult);
+        onBindingResult(target, bindingResult);
     }
 
     protected BindingResult getBindingResult(Object target) {
         return new DirectFieldBindingResult(target, target.getClass().getSimpleName());
     }
 
-    protected void onBindingResult(BindingResult bindingResult) {
+    protected void onBindingResult(Object target, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             FieldError error = Objects.requireNonNull(bindingResult.getFieldError());
-            throw new IllegalArgumentException(error.getField() + ", " + error.getDefaultMessage());
+            String s = target.getClass().getName() + "#" + error.getField();
+            throw new IllegalArgumentException(s + ", " + error.getDefaultMessage());
         }
     }
 }
