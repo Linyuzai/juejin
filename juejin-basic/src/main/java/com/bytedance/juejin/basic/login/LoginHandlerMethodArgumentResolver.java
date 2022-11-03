@@ -2,6 +2,7 @@ package com.bytedance.juejin.basic.login;
 
 import lombok.AllArgsConstructor;
 import org.springframework.core.MethodParameter;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -20,7 +21,10 @@ public class LoginHandlerMethodArgumentResolver implements HandlerMethodArgument
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(@NonNull MethodParameter parameter,
+                                  ModelAndViewContainer mavContainer,
+                                  @NonNull NativeWebRequest webRequest,
+                                  WebDataBinderFactory binderFactory) throws Exception {
         LoginArgumentAdapter adapter = getArgumentAdapter(parameter);
         if (adapter == null) {
             return null;

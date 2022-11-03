@@ -23,7 +23,6 @@ public class UserLoginArgumentAdapter implements LoginArgumentAdapter, Applicati
 
     @Override
     public Object adapt(MethodParameter parameter) {
-        //假装登录用户的 id 是 1
         if (userRepository == null) {
             synchronized (this) {
                 if (userRepository == null) {
@@ -31,6 +30,7 @@ public class UserLoginArgumentAdapter implements LoginArgumentAdapter, Applicati
                 }
             }
         }
+        //假装登录用户的 id 是 1
         return userRepository.get("1");
     }
 
