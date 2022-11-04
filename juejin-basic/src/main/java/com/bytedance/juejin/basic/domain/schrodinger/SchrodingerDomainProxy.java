@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Method;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,6 +18,14 @@ public abstract class SchrodingerDomainProxy<T extends DomainObject> extends Abs
     protected String id;
 
     protected DomainContext context;
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        if ("getId".equals(method.getName())) {
+            return id;
+        }
+        return super.invoke(proxy, method, args);
+    }
 
     @Override
     public T doGetTarget() {

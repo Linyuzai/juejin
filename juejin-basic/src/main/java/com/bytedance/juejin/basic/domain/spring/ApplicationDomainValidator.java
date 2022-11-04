@@ -6,22 +6,34 @@ import org.springframework.validation.*;
 
 import java.util.Objects;
 
+/**
+ * 基于 Spring 的校验器
+ */
 @AllArgsConstructor
 public class ApplicationDomainValidator implements DomainValidator {
 
+    /**
+     * org.springframework.validation.Validator
+     */
     private Validator validator;
 
     @Override
     public void validate(Object target) {
-        BindingResult bindingResult = getBindingResult(target);
+        BindingResult bindingResult = createBindingResult(target);
         validator.validate(target, bindingResult);
         onBindingResult(target, bindingResult);
     }
 
-    protected BindingResult getBindingResult(Object target) {
+    /**
+     * 创建一个绑定结果容器
+     */
+    protected BindingResult createBindingResult(Object target) {
         return new DirectFieldBindingResult(target, target.getClass().getSimpleName());
     }
 
+    /**
+     * 处理绑定结果
+     */
     protected void onBindingResult(Object target, BindingResult bindingResult) {
         if (bindingResult.hasFieldErrors()) {
             FieldError error = Objects.requireNonNull(bindingResult.getFieldError());
