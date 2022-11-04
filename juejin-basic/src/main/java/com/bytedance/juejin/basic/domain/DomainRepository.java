@@ -38,9 +38,14 @@ public interface DomainRepository<T extends DomainObject> {
     void delete(T object);
 
     /**
+     * 根据 id 单个删除
+     */
+    void delete(String id);
+
+    /**
      * 多个删除
      */
-    void delete(Collection<? extends T> objects);
+    void delete(Collection<String> ids);
 
     /**
      * 单个 id 查询
@@ -81,4 +86,10 @@ public interface DomainRepository<T extends DomainObject> {
      * 流式读取
      */
     Stream<T> stream(Conditions conditions);
+
+    interface Interceptor<T> {
+
+
+
+    }
 }

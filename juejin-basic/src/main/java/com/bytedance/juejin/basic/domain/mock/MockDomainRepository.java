@@ -19,33 +19,38 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
     protected final Map<String, T> mockMap = new ConcurrentHashMap<>(initMockMap());
 
     @Override
-    public void create(T object) {
-        update(object);
+    public void doCreate(T object) {
+        doUpdate(object);
     }
 
     @Override
-    public void create(Collection<? extends T> objects) {
-        update(objects);
+    public void doCreate(Collection<? extends T> objects) {
+        doUpdate(objects);
     }
 
     @Override
-    public void update(T object) {
+    public void doUpdate(T object) {
         mockMap.put(object.getId(), object);
     }
 
     @Override
-    public void update(Collection<? extends T> objects) {
-        objects.forEach(this::update);
+    public void doUpdate(Collection<? extends T> objects) {
+        objects.forEach(this::doUpdate);
     }
 
     @Override
-    public void delete(T object) {
-        mockMap.remove(object.getId());
+    public void doDelete(T object) {
+        doDelete(object.getId());
     }
 
     @Override
-    public void delete(Collection<? extends T> objects) {
-        objects.forEach(this::delete);
+    public void doDelete(String id) {
+        mockMap.remove(id);
+    }
+
+    @Override
+    public void doDelete(Collection<String> ids) {
+        ids.forEach(this::doDelete);
     }
 
     @Override
@@ -67,7 +72,7 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
     }
 
     @Override
-    public void delete(Conditions conditions) {
+    public void doDelete(Conditions conditions) {
         throw new UnsupportedOperationException();
     }
 
