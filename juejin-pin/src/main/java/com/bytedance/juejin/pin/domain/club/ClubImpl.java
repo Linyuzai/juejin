@@ -89,13 +89,13 @@ public class ClubImpl implements Club {
         @NotEmpty
         protected String name;
 
-        @NotEmpty
+        @NotNull
         protected String logo;
 
-        @NotEmpty
+        @NotNull
         protected String category;
 
-        @NotEmpty
+        @NotNull
         protected String description;
 
         @NotNull

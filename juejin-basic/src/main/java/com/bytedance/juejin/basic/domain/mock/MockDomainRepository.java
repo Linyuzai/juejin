@@ -54,12 +54,12 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
     }
 
     @Override
-    public T get(String id) {
+    protected T doGet(String id) {
         return mockMap.get(id);
     }
 
     @Override
-    public Collection<T> select(Collection<String> ids) {
+    public Collection<T> doSelect(Collection<String> ids) {
         List<T> list = new ArrayList<>();
         for (String id : ids) {
             T t = mockMap.get(id);
@@ -77,27 +77,27 @@ public abstract class MockDomainRepository<T extends DomainObject> extends Abstr
     }
 
     @Override
-    public T query(Conditions conditions) {
+    public T doQuery(Conditions conditions) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Long count(Conditions conditions) {
+    public Long doCount(Conditions conditions) {
         return (long) mockMap.size();
     }
 
     @Override
-    public List<T> list(Conditions conditions) {
+    public List<T> doList(Conditions conditions) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Pages<T> page(Conditions conditions, Pages.Args page) {
+    public Pages<T> doPage(Conditions conditions, Pages.Args page) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Stream<T> stream(Conditions conditions) {
+    public Stream<T> doStream(Conditions conditions) {
         throw new UnsupportedOperationException();
     }
 
