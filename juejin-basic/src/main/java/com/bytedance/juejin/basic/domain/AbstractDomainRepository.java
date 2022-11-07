@@ -12,11 +12,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * 领域存储抽象类
+ *
+ * @param <T> 领域模型
+ * @param <P> 数据模型
+ */
 public abstract class AbstractDomainRepository<T extends DomainObject, P extends IdProvider> implements DomainRepository<T> {
 
+    /**
+     * 缓存提供者
+     */
     @Autowired
     protected CacheProvider cacheProvider;
 
+    /**
+     * 缓存
+     */
     protected volatile Cache<P> cache;
 
     protected Cache<P> getCache() {
@@ -51,6 +63,7 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
     @Override
     public void update(T object) {
         doUpdate(do2po(object));
+        //更新的时候清除缓存
         getCache().remove(object.getId());
     }
 
@@ -59,6 +72,7 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
     @Override
     public void update(Collection<? extends T> objects) {
         doUpdate(objects.stream().map(this::do2po).collect(Collectors.toList()));
+        //更新的时候清除缓存
         objects.stream().map(DomainObject::getId).forEach(getCache()::remove);
     }
 
@@ -67,6 +81,7 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
     @Override
     public void delete(T object) {
         doDelete(do2po(object));
+        //删除的时候清除缓存
         getCache().remove(object.getId());
     }
 
@@ -75,6 +90,7 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
     @Override
     public void delete(String id) {
         doDelete(id);
+        //删除的时候清除缓存
         getCache().remove(id);
     }
 
@@ -83,6 +99,7 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
     @Override
     public void delete(Collection<String> ids) {
         doDelete(ids);
+        //删除的时候清除缓存
         ids.forEach(getCache()::remove);
     }
 
@@ -90,13 +107,15 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
 
     @Override
     public T get(String id) {
+        //读取的时候先从缓存读
+        //如果没有缓存则查询后放入缓存
         P cache = getCache().get(id);
         if (cache == null) {
             P po = doGet(id);
+            getCache().set(id, po);
             if (po == null) {
                 return null;
             }
-            getCache().set(id, po);
             return po2do(po);
         }
         return po2do(cache);
@@ -111,12 +130,16 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
         for (String id : ids) {
             P cache = getCache().get(id);
             if (cache == null) {
+                //没有缓存的先保存 id
                 unCachedIds.add(id);
             } else {
+                //有缓存的直接用
                 select.add(cache);
             }
         }
+        //一次性查询没有缓存的ids
         Collection<P> pos = doSelect(unCachedIds);
+        //把这些放到缓存中
         pos.forEach(it -> getCache().set(it.getId(), it));
         select.addAll(pos);
         return select
