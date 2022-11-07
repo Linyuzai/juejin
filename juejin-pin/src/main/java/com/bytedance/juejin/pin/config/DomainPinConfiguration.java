@@ -34,6 +34,12 @@ public class DomainPinConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    public PinInstantiator pinInstantiator() {
+        return new PinInstantiatorImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public PinSearcher pinSearcher() {
         return new PinSearcherImpl();
     }
@@ -51,7 +57,7 @@ public class DomainPinConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public PinRepository pinRepository() {
-            return new MBPPinRepository();
+            return new MBPPinRepository<>();
         }
     }
 }

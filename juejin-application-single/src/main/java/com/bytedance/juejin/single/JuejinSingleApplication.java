@@ -1,4 +1,4 @@
-package com.bytedance.juejin;
+package com.bytedance.juejin.single;
 
 import com.bytedance.juejin.basic.JuejinBootApplication;
 import org.springframework.boot.SpringApplication;

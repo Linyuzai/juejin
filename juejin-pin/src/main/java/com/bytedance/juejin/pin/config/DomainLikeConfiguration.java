@@ -32,6 +32,12 @@ public class DomainLikeConfiguration {
         return new LikeFacadeAdapterImpl();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public LikeInstantiator likeInstantiator() {
+        return new LikeInstantiatorImpl();
+    }
+
     @Configuration
     @ConditionalOnMyBatisPlus
     public static class MyBatisPlusConfiguration {
@@ -45,7 +51,7 @@ public class DomainLikeConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public LikeRepository likeRepository() {
-            return new MBPLikeRepository();
+            return new MBPLikeRepository<>();
         }
     }
 }

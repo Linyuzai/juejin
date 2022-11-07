@@ -20,24 +20,24 @@ public class SchrodingerLike extends SchrodingerDomainProxy<Like> {
     }
 
     @Override
-    protected Class<Like> getDomainType() {
+    protected Class<? extends Like> getDomainType() {
         return Like.class;
     }
 
     @Override
-    protected Class<? extends DomainRepository<Like>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends Like>> getDomainRepositoryType() {
         return LikeRepository.class;
     }
 
     public static class Builder extends SchrodingerDomainProxy.Builder<Like, Builder> {
 
         @Override
-        protected Class<Like> getDomainType() {
+        protected Class<? extends Like> getDomainType() {
             return Like.class;
         }
 
         @Override
-        protected DomainProxy<Like> getDomainProxy() {
+        protected DomainProxy<? extends Like> getDomainProxy() {
             return new SchrodingerLike(id, context);
         }
     }

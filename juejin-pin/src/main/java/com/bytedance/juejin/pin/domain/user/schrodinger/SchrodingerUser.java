@@ -17,24 +17,24 @@ public class SchrodingerUser extends SchrodingerDomainProxy<User> {
     }
 
     @Override
-    protected Class<User> getDomainType() {
+    protected Class<? extends User> getDomainType() {
         return User.class;
     }
 
     @Override
-    protected Class<? extends DomainRepository<User>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends User>> getDomainRepositoryType() {
         return UserRepository.class;
     }
 
     public static class Builder extends SchrodingerDomainProxy.Builder<User, Builder> {
 
         @Override
-        protected Class<User> getDomainType() {
+        protected Class<? extends User> getDomainType() {
             return User.class;
         }
 
         @Override
-        protected DomainProxy<User> getDomainProxy() {
+        protected DomainProxy<? extends User> getDomainProxy() {
             return new SchrodingerUser(id, context);
         }
     }

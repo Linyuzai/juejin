@@ -38,13 +38,16 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
     @Autowired
     private DomainValidator validator;
 
+    @Autowired
+    private ClubInstantiator clubInstantiator;
+
     /**
      * 创建视图转圈子模型
      */
     @Override
     public Club from(ClubCreateCommand create, User user) {
         String id = clubIdGenerator.generateId(Club.class);
-        return new ClubImpl.Builder()
+        return clubInstantiator.newBuilder()
                 .id(id)
                 .name(create.getName())
                 .logo(create.getLogo())
@@ -69,7 +72,7 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
      */
     @Override
     public Club from(ClubUpdateCommand update, Club old, User user) {
-        return new ClubImpl.Builder()
+        return clubInstantiator.newBuilder()
                 .id(update.getId())
                 .name(update.getName())
                 .logo(update.getLogo())
@@ -87,7 +90,7 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
      */
     @Override
     public ClubVO do2vo(Club club) {
-        ClubVO vo = new ClubVO();
+        ClubVO vo = clubInstantiator.newView();
         vo.setId(club.getId());
         vo.setName(club.getName());
         vo.setLogo(club.getLogo());

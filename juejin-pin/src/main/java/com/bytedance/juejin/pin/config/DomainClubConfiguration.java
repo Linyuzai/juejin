@@ -34,6 +34,12 @@ public class DomainClubConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    public ClubInstantiator clubInstantiator() {
+        return new ClubInstantiatorImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public ClubSearcher clubSearcher() {
         return new ClubSearcherImpl();
     }
@@ -51,7 +57,7 @@ public class DomainClubConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public ClubRepository clubRepository() {
-            return new MBPClubRepository();
+            return new MBPClubRepository<>();
         }
     }
 }

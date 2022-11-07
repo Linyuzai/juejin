@@ -17,24 +17,24 @@ public class SchrodingerPin extends SchrodingerDomainProxy<Pin> {
     }
 
     @Override
-    protected Class<Pin> getDomainType() {
+    protected Class<? extends Pin> getDomainType() {
         return Pin.class;
     }
 
     @Override
-    protected Class<? extends DomainRepository<Pin>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends Pin>> getDomainRepositoryType() {
         return PinRepository.class;
     }
 
     public static class Builder extends SchrodingerDomainProxy.Builder<Pin, Builder> {
 
         @Override
-        protected Class<Pin> getDomainType() {
+        protected Class<? extends Pin> getDomainType() {
             return Pin.class;
         }
 
         @Override
-        protected DomainProxy<Pin> getDomainProxy() {
+        protected DomainProxy<? extends Pin> getDomainProxy() {
             return new SchrodingerPin(id, context);
         }
     }

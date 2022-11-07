@@ -114,7 +114,7 @@ public class PinImpl implements Pin {
         }
 
         @Override
-        public void initDefaultValue() {
+        protected void initDefaultValue() {
             if (createTime == null) {
                 createTime = System.currentTimeMillis();
             }

@@ -1,8 +1,6 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.pin.domain.user.UserFacadeAdapter;
-import com.bytedance.juejin.pin.domain.user.UserFacadeAdapterImpl;
-import com.bytedance.juejin.pin.domain.user.UserRepository;
+import com.bytedance.juejin.pin.domain.user.*;
 import com.bytedance.juejin.pin.domain.user.mock.MockUserRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +16,12 @@ public class DomainUserConfiguration {
     @ConditionalOnMissingBean
     public UserFacadeAdapter userFacadeAdapter() {
         return new UserFacadeAdapterImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public UserInstantiator userInstantiator() {
+        return new UserInstantiatorImpl();
     }
 
     @Configuration

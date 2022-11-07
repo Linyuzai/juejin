@@ -13,7 +13,7 @@ import com.bytedance.juejin.pin.domain.comment.view.CommentReplyVO;
 import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerCommentLikes;
 import com.bytedance.juejin.pin.domain.pin.Pin;
-import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerPin;
+import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
 import com.bytedance.juejin.pin.domain.user.User;
 import com.bytedance.juejin.pin.domain.user.UserFacadeAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,24 +38,30 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
     @Autowired
     private UserFacadeAdapter userFacadeAdapter;
 
+    @Autowired
+    private PinInstantiator pinInstantiator;
+
+    @Autowired
+    private CommentInstantiator commentInstantiator;
+
     @Override
     public Comment from(CommentCreateCommand create, User user) {
         String id = commentIdGenerator.generateId(Comment.class);
         PinOrComment owner;
         if (create.getCommentId() == null) {
-            owner = new SchrodingerPin.Builder()
+            owner = pinInstantiator.newSchrodingerBuilder()
                     .id(create.getPinId())
                     .context(context)
                     .validator(validator)
                     .build();
         } else {
-            owner = new SchrodingerComment.Builder()
+            owner = commentInstantiator.newSchrodingerBuilder()
                     .id(create.getCommentId())
                     .context(context)
                     .validator(validator)
                     .build();
         }
-        return new CommentImpl.Builder()
+        return commentInstantiator.newBuilder()
                 .id(id)
                 .owner(owner)
                 .content(create.getContent())
@@ -76,7 +82,7 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
 
     @Override
     public CommentVO do2vo(Comment comment) {
-        CommentVO vo = new CommentVO();
+        CommentVO vo = commentInstantiator.newView();
         vo.setId(comment.getId());
         vo.setContent(comment.getContent());
         vo.setUser(userFacadeAdapter.do2vo(comment.getUser()));

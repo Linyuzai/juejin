@@ -11,6 +11,7 @@ import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinImpl;
 import com.bytedance.juejin.pin.domain.pin.PinRepository;
+import com.bytedance.juejin.pin.domain.user.UserInstantiator;
 import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,8 @@ import java.util.Date;
  * 基于 MyBatis-Plus 的沸点存储实现
  */
 @Repository
-public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements PinRepository {
+@SuppressWarnings("unchecked")
+public class MBPPinRepository<P extends PinPO> extends MBPDomainRepository<Pin, P> implements PinRepository {
 
     @Autowired
     private PinMapper pinMapper;
@@ -32,9 +34,12 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
     @Autowired
     private DomainValidator validator;
 
+    @Autowired
+    private UserInstantiator userInstantiator;
+
     @Override
-    public PinPO do2po(Pin pin) {
-        PinPO po = new PinPO();
+    public P do2po(Pin pin) {
+        P po = newPO();
         po.setId(pin.getId());
         po.setContent(pin.getContent());
         if (pin.getClub() != null) {
@@ -45,8 +50,12 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
         return po;
     }
 
+    protected P newPO() {
+        return (P) new PinPO();
+    }
+
     @Override
-    public Pin po2do(PinPO po) {
+    public Pin po2do(P po) {
         Club club;
         String clubId = po.getClubId();
         if (clubId == null) {
@@ -58,11 +67,11 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
                     .validator(validator)
                     .build();
         }
-        return new PinImpl.Builder()
+        PinImpl.Builder builder = new PinImpl.Builder()
                 .id(po.getId())
                 .content(po.getContent())
                 .club(club)
-                .user(new SchrodingerUser.Builder()
+                .user(userInstantiator.newSchrodingerBuilder()
                         .id(po.getUserId())
                         .context(context)
                         .validator(validator)
@@ -78,17 +87,22 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, PinPO> implements
                         .validator(validator)
                         .build())
                 .createTime(po.getCreateTime().getTime())
-                .validator(validator)
-                .build();
+                .validator(validator);
+        postBuilder(builder, po);
+        return builder.build();
+    }
+
+    protected void postBuilder(PinImpl.Builder builder, P po) {
+
     }
 
     @Override
-    public Class<PinPO> getFetchClass() {
-        return PinPO.class;
+    public Class<P> getFetchClass() {
+        return (Class<P>) PinPO.class;
     }
 
     @Override
-    public BaseMapper<PinPO> getBaseMapper() {
-        return pinMapper;
+    public BaseMapper<P> getBaseMapper() {
+        return (BaseMapper<P>) pinMapper;
     }
 }

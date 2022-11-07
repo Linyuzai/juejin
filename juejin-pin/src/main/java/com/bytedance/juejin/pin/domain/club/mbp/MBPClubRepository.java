@@ -6,6 +6,7 @@ import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.ClubImpl;
+import com.bytedance.juejin.pin.domain.club.ClubInstantiator;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerClubPins;
 import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerClubUsers;
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Repository;
  * 圈子存储
  */
 @Repository
-public class MBPClubRepository extends MBPDomainRepository<Club, ClubPO> implements ClubRepository {
+@SuppressWarnings("unchecked")
+public class MBPClubRepository<P extends ClubPO> extends MBPDomainRepository<Club, P> implements ClubRepository {
 
     @Autowired
     private ClubMapper clubMapper;
@@ -33,11 +35,14 @@ public class MBPClubRepository extends MBPDomainRepository<Club, ClubPO> impleme
     @Autowired
     private DomainValidator validator;
 
+    @Autowired
+    private ClubInstantiator clubInstantiator;
+
     /**
      * 领域模型转数据模型
      */
     @Override
-    public ClubPO do2po(Club club) {
+    public P do2po(Club club) {
         ClubPO po = new ClubPO();
         po.setId(club.getId());
         po.setName(club.getName());
@@ -45,7 +50,7 @@ public class MBPClubRepository extends MBPDomainRepository<Club, ClubPO> impleme
         po.setCategory(club.getCategory());
         po.setDescription(club.getDescription());
         po.setAnnouncement(club.getAnnouncement());
-        return po;
+        return (P) po;
     }
 
     /**
@@ -53,7 +58,7 @@ public class MBPClubRepository extends MBPDomainRepository<Club, ClubPO> impleme
      */
     @Override
     public Club po2do(ClubPO po) {
-        return new ClubImpl.Builder()
+        return clubInstantiator.newBuilder()
                 .id(po.getId())
                 .name(po.getName())
                 .logo(po.getLogo())
@@ -75,12 +80,12 @@ public class MBPClubRepository extends MBPDomainRepository<Club, ClubPO> impleme
     }
 
     @Override
-    public Class<ClubPO> getFetchClass() {
-        return ClubPO.class;
+    public Class<P> getFetchClass() {
+        return (Class<P>) ClubPO.class;
     }
 
     @Override
-    public BaseMapper<ClubPO> getBaseMapper() {
-        return clubMapper;
+    public BaseMapper<P> getBaseMapper() {
+        return (BaseMapper<P>) clubMapper;
     }
 }

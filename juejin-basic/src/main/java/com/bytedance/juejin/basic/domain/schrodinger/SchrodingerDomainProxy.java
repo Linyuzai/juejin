@@ -29,7 +29,7 @@ public abstract class SchrodingerDomainProxy<T extends DomainObject> extends Abs
 
     @Override
     public T doGetTarget() {
-        DomainRepository<T> repository = context.get(getDomainRepositoryType());
+        DomainRepository<? extends T> repository = context.get(getDomainRepositoryType());
         T domain = repository.get(id);
         if (domain == null) {
             throw new JuejinNotFoundException(getDomainType(), id);
@@ -37,9 +37,9 @@ public abstract class SchrodingerDomainProxy<T extends DomainObject> extends Abs
         return domain;
     }
 
-    protected abstract Class<T> getDomainType();
+    protected abstract Class<? extends T> getDomainType();
 
-    protected abstract Class<? extends DomainRepository<T>> getDomainRepositoryType();
+    protected abstract Class<? extends DomainRepository<? extends T>> getDomainRepositoryType();
 
     protected abstract static class Builder<T extends DomainObject, B extends Builder<T, B>> extends AbstractDomainProxy.Builder<T, B> {
 
@@ -57,8 +57,8 @@ public abstract class SchrodingerDomainProxy<T extends DomainObject> extends Abs
             return proxy(getDomainType(), getDomainProxy());
         }
 
-        protected abstract Class<T> getDomainType();
+        protected abstract Class<? extends T> getDomainType();
 
-        protected abstract DomainProxy<T> getDomainProxy();
+        protected abstract DomainProxy<? extends T> getDomainProxy();
     }
 }

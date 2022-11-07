@@ -9,3 +9,11 @@ spring:
         server-addr: localhost:8848
       config:
         enabled: false
+  datasource:
+    url: jdbc:mysql://192.168.30.140:11801/test?serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+juejin:
+  repository:
+    mybatis-plus:
+      enabled: true

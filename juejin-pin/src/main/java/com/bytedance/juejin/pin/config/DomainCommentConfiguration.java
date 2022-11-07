@@ -34,6 +34,12 @@ public class DomainCommentConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    public CommentInstantiator commentInstantiator() {
+        return new CommentInstantiatorImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public CommentSearcher commentSearcher() {
         return new CommentSearcherImpl();
     }
@@ -51,7 +57,7 @@ public class DomainCommentConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public CommentRepository commentRepository() {
-            return new MBPCommentRepository();
+            return new MBPCommentRepository<>();
         }
     }
 }

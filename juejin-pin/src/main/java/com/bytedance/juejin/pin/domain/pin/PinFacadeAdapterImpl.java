@@ -29,6 +29,9 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     private PinIdGenerator pinIdGenerator;
 
     @Autowired
+    private PinInstantiator pinInstantiator;
+
+    @Autowired
     private DomainContext context;
 
     @Autowired
@@ -43,7 +46,7 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     @Override
     public Pin from(PinCreateCommand create, User user) {
         String id = pinIdGenerator.generateId(Pin.class);
-        return new PinImpl.Builder()
+        PinImpl.Builder builder = pinInstantiator.newBuilder()
                 .id(id)
                 .content(create.getContent())
                 .club(getClub(create.getClubId()))
@@ -58,13 +61,18 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                         .context(context)
                         .validator(validator)
                         .build())
-                .validator(validator)
-                .build();
+                .validator(validator);
+        postBuilder(builder, create);
+        return builder.build();
+    }
+
+    protected void postBuilder(PinImpl.Builder builder, PinCreateCommand create) {
+
     }
 
     @Override
     public PinVO do2vo(Pin pin) {
-        PinVO vo = new PinVO();
+        PinVO vo = pinInstantiator.newView();
         vo.setId(pin.getId());
         vo.setContent(pin.getContent());
         if (pin.getClub() != null) {

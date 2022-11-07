@@ -19,7 +19,7 @@ public abstract class AbstractDomainProxy<T extends DomainObject> implements Dom
     @SuppressWarnings("unchecked")
     protected abstract static class Builder<T extends DomainObject, B extends Builder<T, B>> extends ContextDomainBuilder<T, B> {
 
-        protected T proxy(Class<T> type, DomainProxy<T> proxy) {
+        protected T proxy(Class<? extends T> type, DomainProxy<? extends T> proxy) {
             return (T) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[]{type}, proxy);
         }
     }

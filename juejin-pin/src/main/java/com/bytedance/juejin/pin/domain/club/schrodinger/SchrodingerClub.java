@@ -23,7 +23,7 @@ public class SchrodingerClub extends SchrodingerDomainProxy<Club> {
      * 指定领域模型为圈子
      */
     @Override
-    protected Class<Club> getDomainType() {
+    protected Class<? extends Club> getDomainType() {
         return Club.class;
     }
 
@@ -31,7 +31,7 @@ public class SchrodingerClub extends SchrodingerDomainProxy<Club> {
      * 指定存储为圈子存储
      */
     @Override
-    protected Class<? extends DomainRepository<Club>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends Club>> getDomainRepositoryType() {
         return ClubRepository.class;
     }
 
@@ -41,7 +41,7 @@ public class SchrodingerClub extends SchrodingerDomainProxy<Club> {
          * 指定领域模型为圈子
          */
         @Override
-        protected Class<Club> getDomainType() {
+        protected Class<? extends Club> getDomainType() {
             return Club.class;
         }
 
@@ -49,7 +49,7 @@ public class SchrodingerClub extends SchrodingerDomainProxy<Club> {
          * 获得圈子的领域代理
          */
         @Override
-        protected DomainProxy<Club> getDomainProxy() {
+        protected DomainProxy<? extends Club> getDomainProxy() {
             return new SchrodingerClub(id, context);
         }
     }

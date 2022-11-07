@@ -17,24 +17,24 @@ public class SchrodingerComment extends SchrodingerDomainProxy<Comment> {
     }
 
     @Override
-    protected Class<Comment> getDomainType() {
+    protected Class<? extends Comment> getDomainType() {
         return Comment.class;
     }
 
     @Override
-    protected Class<? extends DomainRepository<Comment>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends Comment>> getDomainRepositoryType() {
         return CommentRepository.class;
     }
 
     public static class Builder extends SchrodingerDomainProxy.Builder<Comment, Builder> {
 
         @Override
-        protected Class<Comment> getDomainType() {
+        protected Class<? extends Comment> getDomainType() {
             return Comment.class;
         }
 
         @Override
-        protected DomainProxy<Comment> getDomainProxy() {
+        protected DomainProxy<? extends Comment> getDomainProxy() {
             return new SchrodingerComment(id, context);
         }
     }
