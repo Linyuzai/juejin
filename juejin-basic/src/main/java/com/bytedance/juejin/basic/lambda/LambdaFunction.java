@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+/**
+ * 接收 lambda 表达式
+ */
 public interface LambdaFunction extends Serializable {
 
     Map<Class<?>, SerializedLambda> cache = new ConcurrentHashMap<>();
@@ -36,6 +39,9 @@ public interface LambdaFunction extends Serializable {
 
         private String value;
 
+        /**
+         * get 方法转字段名
+         */
         public Name convertGetMethodToField() {
             if (value.startsWith("get") && !value.equals("get")) {
                 value = value.substring(3);
@@ -45,6 +51,9 @@ public interface LambdaFunction extends Serializable {
             return this;
         }
 
+        /**
+         * 获得类名
+         */
         public Name convertMethodTypeToClass() {
             if (value.startsWith("(L")) {
                 value = value.substring(2).split(";\\)")[0].replaceAll("/", ".");
@@ -52,6 +61,9 @@ public interface LambdaFunction extends Serializable {
             return this;
         }
 
+        /**
+         * 简化类名
+         */
         public Name toSimple() {
             int index = value.lastIndexOf(".");
             if (index >= 0) {
@@ -60,6 +72,9 @@ public interface LambdaFunction extends Serializable {
             return this;
         }
 
+        /**
+         * 第一个字母转小写
+         */
         public Name lowercaseFirst() {
             value = Character.toLowerCase(value.charAt(0)) + value.substring(1);
             return this;

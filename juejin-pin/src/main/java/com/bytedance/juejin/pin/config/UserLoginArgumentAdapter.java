@@ -9,6 +9,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;
 
+/**
+ * 获得当前登录的沸点用户信息
+ */
 public class UserLoginArgumentAdapter implements LoginArgumentAdapter, ApplicationContextAware {
 
     private volatile UserRepository userRepository;

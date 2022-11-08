@@ -9,6 +9,9 @@ import com.bytedance.juejin.pin.domain.like.LikeRepository;
 import com.bytedance.juejin.pin.domain.like.Likes;
 import com.bytedance.juejin.pin.domain.user.User;
 
+/**
+ * 点赞集合的薛定谔模型
+ */
 public abstract class SchrodingerLikes extends SchrodingerDomainCollection<Like> implements Likes {
 
     @Override

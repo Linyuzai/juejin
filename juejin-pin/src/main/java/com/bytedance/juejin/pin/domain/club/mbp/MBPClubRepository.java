@@ -19,6 +19,9 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unchecked")
 public class MBPClubRepository<P extends ClubPO> extends MBPDomainRepository<Club, P> implements ClubRepository {
 
+    /**
+     * 圈子 Mapper
+     */
     @Autowired
     private ClubMapper clubMapper;
 
@@ -34,12 +37,21 @@ public class MBPClubRepository<P extends ClubPO> extends MBPDomainRepository<Clu
     @Autowired
     private DomainValidator validator;
 
+    /**
+     * 圈子实例化器
+     */
     @Autowired
     private ClubInstantiator clubInstantiator;
 
+    /**
+     * 沸点实例化器
+     */
     @Autowired
     private PinInstantiator pinInstantiator;
 
+    /**
+     * 用户实例化器
+     */
     @Autowired
     private UserInstantiator userInstantiator;
 

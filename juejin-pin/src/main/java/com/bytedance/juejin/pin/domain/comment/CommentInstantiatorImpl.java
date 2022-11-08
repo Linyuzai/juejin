@@ -6,8 +6,11 @@ import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComment
 import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
 import org.springframework.stereotype.Component;
 
+/**
+ * 评论实例化器实现
+ */
 @Component
-public class CommentInstantiatorImpl implements CommentInstantiator{
+public class CommentInstantiatorImpl implements CommentInstantiator {
 
     @Override
     public CommentImpl.Builder newBuilder() {

@@ -5,6 +5,9 @@ import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerLike;
 import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
 import org.springframework.stereotype.Component;
 
+/**
+ * 点赞实例化器实现
+ */
 @Component
 public class LikeInstantiatorImpl implements LikeInstantiator {
 

@@ -10,6 +10,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * 点赞集合实现
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LikesImpl extends AbstractDomainCollection<Like> implements Likes {
 

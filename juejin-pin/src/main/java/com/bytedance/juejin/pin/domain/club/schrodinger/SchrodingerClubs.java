@@ -7,7 +7,7 @@ import com.bytedance.juejin.pin.domain.club.ClubRepository;
 import com.bytedance.juejin.pin.domain.club.Clubs;
 
 /**
- * 薛定谔的圈子集合模型
+ * 圈子集合的薛定谔模型
  */
 public abstract class SchrodingerClubs extends SchrodingerDomainCollection<Club> implements Clubs {
 

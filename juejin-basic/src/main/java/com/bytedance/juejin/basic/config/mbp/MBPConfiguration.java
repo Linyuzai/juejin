@@ -9,6 +9,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 全局的 MyBatis-Plus 配置
+ */
 @Configuration
 @ConditionalOnMyBatisPlus
 @EnableConfigurationProperties(MyBatisPlusProperties.class)

@@ -10,12 +10,24 @@ import lombok.Data;
 @TableName("t_pin_like")
 class LikePO implements IdProvider {
 
+    /**
+     * 点赞 id
+     */
     @TableId(type = IdType.INPUT)
     private String id;
 
+    /**
+     * 给沸点点赞则存在沸点 id
+     */
     private String pinId;
 
+    /**
+     * 给评论点赞则存在评论 id
+     */
     private String commentId;
 
+    /**
+     * 点赞用户
+     */
     private String userId;
 }

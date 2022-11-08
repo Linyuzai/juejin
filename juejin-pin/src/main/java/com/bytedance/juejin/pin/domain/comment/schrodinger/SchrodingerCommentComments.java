@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 
 /**
- * 薛定谔的评论集合
+ * 评论的评论集合的薛定谔模型
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SchrodingerCommentComments extends SchrodingerComments implements Comments {

@@ -11,6 +11,9 @@ import org.springframework.core.annotation.Order;
 
 import java.util.List;
 
+/**
+ * 缓存配置
+ */
 @Configuration
 public class CacheConfiguration {
 

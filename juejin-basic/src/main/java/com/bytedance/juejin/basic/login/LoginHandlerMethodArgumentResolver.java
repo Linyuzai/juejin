@@ -10,6 +10,9 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.util.List;
 
+/**
+ * 匹配标记了 {@link Login} 的参数处理器
+ */
 @AllArgsConstructor
 public class LoginHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 

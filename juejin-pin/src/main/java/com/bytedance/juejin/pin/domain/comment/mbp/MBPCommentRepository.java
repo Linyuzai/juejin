@@ -23,27 +23,51 @@ import java.util.Date;
 @SuppressWarnings("unchecked")
 public class MBPCommentRepository<P extends CommentPO> extends MBPDomainRepository<Comment, P> implements CommentRepository {
 
+    /**
+     * 评论 Mapper
+     */
     @Autowired
     private CommentMapper commentMapper;
 
+    /**
+     * 领域上下文
+     */
     @Autowired
     private DomainContext context;
 
+    /**
+     * 领域校验器
+     */
     @Autowired
     private DomainValidator validator;
 
+    /**
+     * 沸点实例化器
+     */
     @Autowired
     private PinInstantiator pinInstantiator;
 
+    /**
+     * 评论实例化器
+     */
     @Autowired
     private CommentInstantiator commentInstantiator;
 
+    /**
+     * 用户实例化器
+     */
     @Autowired
     private UserInstantiator userInstantiator;
 
+    /**
+     * 点赞实例化器
+     */
     @Autowired
     private LikeInstantiator likeInstantiator;
 
+    /**
+     * 领域模型转数据模型
+     */
     @Override
     public P do2po(Comment comment) {
         CommentPO po = new CommentPO();
@@ -62,6 +86,9 @@ public class MBPCommentRepository<P extends CommentPO> extends MBPDomainReposito
         return (P) po;
     }
 
+    /**
+     * 数据模型转领域模型
+     */
     @Override
     public Comment po2do(CommentPO po) {
         PinOrComment owner;

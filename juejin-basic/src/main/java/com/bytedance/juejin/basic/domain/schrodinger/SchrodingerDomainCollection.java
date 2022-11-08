@@ -11,13 +11,27 @@ import lombok.Getter;
 
 import java.util.stream.Stream;
 
+/**
+ * 薛定谔的集合模型
+ *
+ * @param <T>
+ */
 @Getter
 public abstract class SchrodingerDomainCollection<T extends DomainObject> extends AbstractDomainCollection<T> {
 
+    /**
+     * 所属 id
+     */
     protected String ownerId;
 
+    /**
+     * 领域上下文
+     */
     protected DomainContext context;
 
+    /**
+     * 获得所属者
+     */
     @Override
     public Object getOwner() {
         if (owner == null) {
@@ -26,6 +40,9 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         return owner;
     }
 
+    /**
+     * 获得所属者
+     */
     protected Object doGetOwner() {
         DomainRepository<?> repository = context.get(getOwnerRepositoryType());
         Object owner = repository.get(ownerId);
@@ -35,6 +52,9 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         return owner;
     }
 
+    /**
+     * 根据 id 获得领域模型
+     */
     @Override
     public T get(String id) {
         T exist = objects.get(id);
@@ -47,6 +67,9 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         return exist;
     }
 
+    /**
+     * 根据 id 获得领域模型
+     */
     protected T doGet(String id) {
         if (id == null) {
             throw new JuejinIdRequiredException(getDomainType());
@@ -59,6 +82,9 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         return domain;
     }
 
+    /**
+     * 流式数据查询
+     */
     @Override
     public Stream<? extends T> stream() {
         DomainRepository<? extends T> repository = context.get(getDomainRepositoryType());
@@ -74,17 +100,35 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         return repository.count(obtainConditions());
     }
 
+    /**
+     * 生成条件
+     */
     protected Conditions obtainConditions() {
         return onConditionsObtain(new Conditions(), ownerId);
     }
 
+    /**
+     * 条件生成回调
+     */
     protected abstract Conditions onConditionsObtain(Conditions conditions, String id);
 
+    /**
+     * 领域模型类
+     */
     protected abstract Class<? extends T> getDomainType();
 
+    /**
+     * 领域模型存储
+     */
     protected abstract Class<? extends DomainRepository<? extends T>> getDomainRepositoryType();
 
+    /**
+     * 所属者类
+     */
     protected abstract Class<?> getOwnerType();
 
+    /**
+     * 所属者模型存储
+     */
     protected abstract Class<? extends DomainRepository<?>> getOwnerRepositoryType();
 }

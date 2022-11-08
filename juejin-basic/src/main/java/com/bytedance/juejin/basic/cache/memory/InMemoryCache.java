@@ -5,6 +5,11 @@ import com.bytedance.juejin.basic.cache.Cache;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 内存缓存
+ *
+ * @param <T>
+ */
 public class InMemoryCache<T> implements Cache<T> {
 
     private final Map<String, T> cache = new ConcurrentHashMap<>();

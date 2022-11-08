@@ -10,7 +10,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * 薛定谔的点赞模型
+ * 点赞的薛定谔模型
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SchrodingerLike extends SchrodingerDomainProxy<Like> {

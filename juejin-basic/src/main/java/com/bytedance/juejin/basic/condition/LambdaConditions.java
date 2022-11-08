@@ -7,6 +7,9 @@ import com.bytedance.juejin.basic.lambda.MethodFunction;
 import java.lang.invoke.SerializedLambda;
 import java.util.Collection;
 
+/**
+ * 支持 lambda 的查询条件
+ */
 public class LambdaConditions extends Conditions {
 
     @Override
@@ -99,6 +102,11 @@ public class LambdaConditions extends Conditions {
         return this;
     }
 
+    /**
+     * 生成最终的 key
+     *
+     * @param prependClass 是否要拼接 ClassName
+     */
     protected String generate(SerializedLambda sl, boolean prependClass) {
         if (prependClass) {
             return LambdaFunction.getClassName(sl).lowercaseFirst().getValue() +

@@ -18,6 +18,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 评论领域服务
+ */
 @Service
 public class CommentService implements DomainService {
 

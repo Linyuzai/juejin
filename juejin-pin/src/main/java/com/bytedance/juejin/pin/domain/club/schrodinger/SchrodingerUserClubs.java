@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 
 /**
- * 薛定谔的用户圈子集合模型
+ * 用户圈子集合的薛定谔模型
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SchrodingerUserClubs extends SchrodingerClubs implements Clubs {

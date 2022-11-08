@@ -38,12 +38,21 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
     @Autowired
     private DomainValidator validator;
 
+    /**
+     * 圈子实例化器
+     */
     @Autowired
     private ClubInstantiator clubInstantiator;
 
+    /**
+     * 沸点实例化器
+     */
     @Autowired
     private PinInstantiator pinInstantiator;
 
+    /**
+     * 用户实例化器
+     */
     @Autowired
     private UserInstantiator userInstantiator;
 

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * 评论
+ * 评论集合实现
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentsImpl extends AbstractDomainCollection<Comment> implements Comments {

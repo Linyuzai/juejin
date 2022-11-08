@@ -9,6 +9,9 @@ import com.bytedance.juejin.pin.domain.comment.CommentRepository;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * 评论的薛定谔模型
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SchrodingerComment extends SchrodingerDomainProxy<Comment> {
 
@@ -16,6 +19,9 @@ public class SchrodingerComment extends SchrodingerDomainProxy<Comment> {
         super(id, context);
     }
 
+    /**
+     * 指定领域模型为评论
+     */
     @Override
     protected Class<? extends Comment> getDomainType() {
         return Comment.class;

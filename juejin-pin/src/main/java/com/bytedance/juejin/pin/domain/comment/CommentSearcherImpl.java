@@ -6,6 +6,9 @@ import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 评论搜索器实现
+ */
 @Component
 public class CommentSearcherImpl implements CommentSearcher {
 

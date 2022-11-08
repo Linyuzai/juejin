@@ -86,10 +86,4 @@ public interface DomainRepository<T extends DomainObject> {
      * 流式读取
      */
     Stream<T> stream(Conditions conditions);
-
-    interface Interceptor<T> {
-
-
-
-    }
 }

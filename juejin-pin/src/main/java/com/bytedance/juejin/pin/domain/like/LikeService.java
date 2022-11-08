@@ -15,6 +15,9 @@ import com.bytedance.juejin.pin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 点赞领域服务
+ */
 @Service
 public class LikeService {
 

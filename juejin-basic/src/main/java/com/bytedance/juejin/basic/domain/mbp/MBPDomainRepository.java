@@ -80,6 +80,9 @@ public abstract class MBPDomainRepository<T extends DomainObject, P extends IdPr
         doDelete(po.getId());
     }
 
+    /**
+     * 删除一条数据
+     */
     @Override
     protected void doDelete(String id) {
         getBaseMapper().deleteById(id);
@@ -115,6 +118,9 @@ public abstract class MBPDomainRepository<T extends DomainObject, P extends IdPr
         super.delete(conditions);
     }
 
+    /**
+     * 条件删除数据
+     */
     @Override
     protected void doDelete(Conditions conditions) {
         getBaseMapper().delete(getWrapper(conditions));
@@ -160,6 +166,9 @@ public abstract class MBPDomainRepository<T extends DomainObject, P extends IdPr
         return toPages(getBaseMapper().selectPage(p, getWrapper(conditions)));
     }
 
+    /**
+     * 获得数据流
+     */
     @Override
     protected Stream<P> doStream(Conditions conditions) {
         return doList(conditions).stream();
@@ -188,6 +197,9 @@ public abstract class MBPDomainRepository<T extends DomainObject, P extends IdPr
         return wrapper;
     }
 
+    /**
+     * 匹配字段，借助 MyBatis-Plus 的工具获得实体字段与数据库字段的映射
+     */
     protected String fetchColumn(Class<P> clazz, String field) {
         Map<String, ColumnCache> columnMap = LambdaUtils.getColumnMap(clazz);
         ColumnCache columnCache = columnMap.get(LambdaUtils.formatKey(field));
@@ -210,6 +222,9 @@ public abstract class MBPDomainRepository<T extends DomainObject, P extends IdPr
         return pages;
     }
 
+    /**
+     * 字段匹配类
+     */
     public abstract Class<P> getFetchClass();
 
     /**

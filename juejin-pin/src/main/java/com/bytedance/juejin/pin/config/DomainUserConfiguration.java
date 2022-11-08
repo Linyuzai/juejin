@@ -12,18 +12,27 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DomainUserConfiguration {
 
+    /**
+     * 用户模型与视图的转换适配器
+     */
     @Bean
     @ConditionalOnMissingBean
     public UserFacadeAdapter userFacadeAdapter() {
         return new UserFacadeAdapterImpl();
     }
 
+    /**
+     * 用户实例化器
+     */
     @Bean
     @ConditionalOnMissingBean
     public UserInstantiator userInstantiator() {
         return new UserInstantiatorImpl();
     }
 
+    /**
+     * 沸点 Mock 配置
+     */
     @Configuration
     public static class MockConfiguration {
 

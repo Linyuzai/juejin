@@ -14,6 +14,11 @@ import com.bytedance.juejin.pin.domain.user.UserInstantiator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 基于 MyBatis-Plus 的点赞存储
+ *
+ * @param <P>
+ */
 @Repository
 @SuppressWarnings("unchecked")
 public class MBPLikeRepository<P extends LikePO> extends MBPDomainRepository<Like, P> implements LikeRepository {

@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 评论点赞集合的薛定谔模型
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SchrodingerCommentLikes extends SchrodingerLikes implements Likes {
 

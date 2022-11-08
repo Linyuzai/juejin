@@ -10,7 +10,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * 薛定谔的圈子模型
+ * 圈子的薛定谔模型
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SchrodingerClub extends SchrodingerDomainProxy<Club> {

@@ -9,6 +9,9 @@ import com.bytedance.juejin.pin.domain.comment.Comments;
 
 import java.util.List;
 
+/**
+ * 评论集合的薛定谔模型
+ */
 public abstract class SchrodingerComments extends SchrodingerDomainCollection<Comment> implements Comments {
 
     @Override

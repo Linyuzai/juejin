@@ -6,6 +6,9 @@ import com.bytedance.juejin.pin.domain.comment.view.CommentQuery;
 import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
 import com.bytedance.juejin.pin.domain.user.User;
 
+/**
+ * 评论模型与视图的转换适配器
+ */
 public interface CommentFacadeAdapter {
 
     Comment from(CommentCreateCommand create, User user);

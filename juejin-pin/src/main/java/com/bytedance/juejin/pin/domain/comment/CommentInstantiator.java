@@ -5,6 +5,9 @@ import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerCommentCom
 import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComments;
 import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
 
+/**
+ * 评论实例化器
+ */
 public interface CommentInstantiator {
 
     CommentImpl.Builder newBuilder();

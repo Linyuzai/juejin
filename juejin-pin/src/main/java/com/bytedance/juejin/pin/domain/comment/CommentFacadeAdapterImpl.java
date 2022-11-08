@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * 评论模型与视图的转换适配器实现
+ */
 @Component
 public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
 

@@ -13,6 +13,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
+/**
+ * Mock 存储
+ *
+ * @param <T>
+ */
 @Getter
 public abstract class MockDomainRepository<T extends DomainObject> extends AbstractDomainRepository<T, T> {
 

@@ -3,6 +3,11 @@ package com.bytedance.juejin.basic.domain;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+/**
+ * 领域代理
+ *
+ * @param <T>
+ */
 public interface DomainProxy<T extends DomainObject> extends InvocationHandler {
 
     @Override

@@ -67,7 +67,7 @@ public class DomainPinConfiguration {
     public static class MyBatisPlusConfiguration {
 
         /**
-         * id 生成器
+         * 沸点 id 生成器
          */
         @Bean
         @ConditionalOnMissingBean
