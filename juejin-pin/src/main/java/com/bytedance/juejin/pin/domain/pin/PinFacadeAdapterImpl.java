@@ -68,11 +68,11 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                         .validator(validator)
                         .build())
                 .validator(validator);
-        postBuilder(builder, create);
+        beforeBuild(builder, create);
         return builder.build();
     }
 
-    protected void postBuilder(PinImpl.Builder builder, PinCreateCommand create) {
+    protected void beforeBuild(PinImpl.Builder builder, PinCreateCommand create) {
 
     }
 

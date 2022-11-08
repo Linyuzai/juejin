@@ -75,7 +75,7 @@ public interface LambdaFunction extends Serializable {
         @Override
         public SerializedLambda apply(Class<?> clazz) {
             Method method = clazz.getDeclaredMethod("writeReplace");
-            method.setAccessible(Boolean.TRUE);
+            method.setAccessible(true);
             return (SerializedLambda) method.invoke(target);
         }
     }

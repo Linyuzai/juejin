@@ -97,11 +97,11 @@ public class MBPPinRepository<P extends PinPO> extends MBPDomainRepository<Pin, 
                         .build())
                 .createTime(po.getCreateTime().getTime())
                 .validator(validator);
-        postBuilder(builder, po);
+        beforeBuild(builder, po);
         return builder.build();
     }
 
-    protected void postBuilder(PinImpl.Builder builder, P po) {
+    protected void beforeBuild(PinImpl.Builder builder, P po) {
 
     }
 

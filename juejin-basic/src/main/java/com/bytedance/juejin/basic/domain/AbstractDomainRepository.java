@@ -153,6 +153,7 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
     @Override
     public void delete(Conditions conditions) {
         doDelete(conditions);
+        stream(conditions).map(IdProvider::getId).forEach(getCache()::remove);
     }
 
     protected abstract void doDelete(Conditions conditions);

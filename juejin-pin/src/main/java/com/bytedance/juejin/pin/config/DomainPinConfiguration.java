@@ -14,30 +14,45 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DomainPinConfiguration {
 
+    /**
+     * 沸点 Controller
+     */
     @Bean
     @ConditionalOnMissingBean
     public PinController pinController() {
         return new PinController();
     }
 
+    /**
+     * 沸点 Service
+     */
     @Bean
     @ConditionalOnMissingBean
     public PinService pinService() {
         return new PinService();
     }
 
+    /**
+     * 沸点模型与视图的转换适配器
+     */
     @Bean
     @ConditionalOnMissingBean
     public PinFacadeAdapter pinFacadeAdapter() {
         return new PinFacadeAdapterImpl();
     }
 
+    /**
+     * 沸点实例化器
+     */
     @Bean
     @ConditionalOnMissingBean
     public PinInstantiator pinInstantiator() {
         return new PinInstantiatorImpl();
     }
 
+    /**
+     * 沸点搜索器
+     */
     @Bean
     @ConditionalOnMissingBean
     public PinSearcher pinSearcher() {

@@ -109,6 +109,12 @@ public abstract class MBPDomainRepository<T extends DomainObject, P extends IdPr
         return getBaseMapper().selectBatchIds(ids);
     }
 
+    @Transactional(rollbackFor = Throwable.class)
+    @Override
+    public void delete(Conditions conditions) {
+        super.delete(conditions);
+    }
+
     @Override
     protected void doDelete(Conditions conditions) {
         getBaseMapper().delete(getWrapper(conditions));

@@ -22,13 +22,11 @@ public class CommentsImpl extends AbstractDomainCollection<Comment> implements C
 
     @Override
     public List<Comment> getNewestList(int count) {
-        List<Comment> comments = getObjects().values()
+        return getObjects().values()
                 .stream()
-                .sorted(Comparator.comparingInt(o -> o.getCreateTime().intValue()))
+                .sorted((o1, o2) -> o2.getCreateTime().intValue() - o1.getCreateTime().intValue())
                 .limit(count)
                 .collect(Collectors.toList());
-        Collections.reverse(comments);
-        return comments;
     }
 
     public static class Builder extends AbstractDomainCollection.Builder<Comment, CommentsImpl, Builder> {
