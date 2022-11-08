@@ -5,6 +5,9 @@ import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerPin2;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO2;
 
+/**
+ * 沸点实例化器 v2
+ */
 public class PinInstantiatorImpl2 extends PinInstantiatorImpl {
 
     @Override

@@ -6,6 +6,9 @@ import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerUserPins;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import org.springframework.stereotype.Component;
 
+/**
+ * 沸点实例化器实现
+ */
 @Component
 public class PinInstantiatorImpl implements PinInstantiator {
 

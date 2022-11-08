@@ -6,6 +6,9 @@ import com.bytedance.juejin.pin.domain.pin.mbp.MBPPinRepository2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 沸点扩展配置 v2
+ */
 @Configuration
 public class PinConfiguration2 {
 
@@ -26,7 +29,7 @@ public class PinConfiguration2 {
 
     @Configuration
     @ConditionalOnMyBatisPlus
-    public static class MyBatisPlusConfiguration {
+    public static class MyBatisPlusConfiguration2 {
 
         @Bean
         public PinRepository pinRepository() {

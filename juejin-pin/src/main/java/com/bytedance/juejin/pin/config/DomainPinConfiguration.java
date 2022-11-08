@@ -59,16 +59,25 @@ public class DomainPinConfiguration {
         return new PinSearcherImpl();
     }
 
+    /**
+     * 沸点 MyBatis-Plus 配置
+     */
     @Configuration
     @ConditionalOnMyBatisPlus
     public static class MyBatisPlusConfiguration {
 
+        /**
+         * id 生成器
+         */
         @Bean
         @ConditionalOnMissingBean
         public PinIdGenerator pinIdGenerator() {
             return new MBPPinIdGenerator();
         }
 
+        /**
+         * 基于 MyBatis-Plus 的沸点存储
+         */
         @Bean
         @ConditionalOnMissingBean
         public PinRepository pinRepository() {
