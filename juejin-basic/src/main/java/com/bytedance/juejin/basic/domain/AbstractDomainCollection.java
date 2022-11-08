@@ -28,7 +28,7 @@ public abstract class AbstractDomainCollection<T extends DomainObject> implement
     }
 
     @Override
-    public Stream<T> stream() {
+    public Stream<? extends T> stream() {
         return objects.values().stream();
     }
 

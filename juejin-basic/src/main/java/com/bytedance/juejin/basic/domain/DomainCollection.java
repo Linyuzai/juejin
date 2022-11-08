@@ -13,7 +13,7 @@ public interface DomainCollection<T extends DomainObject> extends DomainObject {
 
     T get(String id);
 
-    Stream<T> stream();
+    Stream<? extends T> stream();
 
     Long count();
 }

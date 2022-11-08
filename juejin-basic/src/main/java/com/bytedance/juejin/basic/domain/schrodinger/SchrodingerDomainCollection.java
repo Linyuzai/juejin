@@ -51,7 +51,7 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
         if (id == null) {
             throw new JuejinIdRequiredException(getDomainType());
         }
-        DomainRepository<T> repository = context.get(getDomainRepositoryType());
+        DomainRepository<? extends T> repository = context.get(getDomainRepositoryType());
         T domain = repository.get(id);
         if (domain == null) {
             throw new JuejinNotFoundException(getDomainType(), id);
@@ -60,8 +60,8 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
     }
 
     @Override
-    public Stream<T> stream() {
-        DomainRepository<T> repository = context.get(getDomainRepositoryType());
+    public Stream<? extends T> stream() {
+        DomainRepository<? extends T> repository = context.get(getDomainRepositoryType());
         return repository.stream(obtainConditions());
     }
 
@@ -70,7 +70,7 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
      */
     @Override
     public Long count() {
-        DomainRepository<T> repository = context.get(getDomainRepositoryType());
+        DomainRepository<? extends T> repository = context.get(getDomainRepositoryType());
         return repository.count(obtainConditions());
     }
 
@@ -80,9 +80,9 @@ public abstract class SchrodingerDomainCollection<T extends DomainObject> extend
 
     protected abstract Conditions onConditionsObtain(Conditions conditions, String id);
 
-    protected abstract Class<T> getDomainType();
+    protected abstract Class<? extends T> getDomainType();
 
-    protected abstract Class<? extends DomainRepository<T>> getDomainRepositoryType();
+    protected abstract Class<? extends DomainRepository<? extends T>> getDomainRepositoryType();
 
     protected abstract Class<?> getOwnerType();
 

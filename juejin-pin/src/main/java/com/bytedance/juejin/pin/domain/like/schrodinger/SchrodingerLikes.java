@@ -4,18 +4,20 @@ import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.DomainObject;
 import com.bytedance.juejin.basic.domain.DomainRepository;
 import com.bytedance.juejin.basic.domain.schrodinger.SchrodingerDomainCollection;
-import com.bytedance.juejin.pin.domain.like.*;
+import com.bytedance.juejin.pin.domain.like.Like;
+import com.bytedance.juejin.pin.domain.like.LikeRepository;
+import com.bytedance.juejin.pin.domain.like.Likes;
 import com.bytedance.juejin.pin.domain.user.User;
 
 public abstract class SchrodingerLikes extends SchrodingerDomainCollection<Like> implements Likes {
 
     @Override
-    protected Class<Like> getDomainType() {
+    protected Class<? extends Like> getDomainType() {
         return Like.class;
     }
 
     @Override
-    protected Class<? extends DomainRepository<Like>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends Like>> getDomainRepositoryType() {
         return LikeRepository.class;
     }
 

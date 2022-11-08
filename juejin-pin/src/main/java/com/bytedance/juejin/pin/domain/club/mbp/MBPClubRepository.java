@@ -5,11 +5,10 @@ import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.club.Club;
-import com.bytedance.juejin.pin.domain.club.ClubImpl;
 import com.bytedance.juejin.pin.domain.club.ClubInstantiator;
 import com.bytedance.juejin.pin.domain.club.ClubRepository;
-import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerClubPins;
-import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerClubUsers;
+import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
+import com.bytedance.juejin.pin.domain.user.UserInstantiator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,6 +37,12 @@ public class MBPClubRepository<P extends ClubPO> extends MBPDomainRepository<Clu
     @Autowired
     private ClubInstantiator clubInstantiator;
 
+    @Autowired
+    private PinInstantiator pinInstantiator;
+
+    @Autowired
+    private UserInstantiator userInstantiator;
+
     /**
      * 领域模型转数据模型
      */
@@ -65,12 +70,12 @@ public class MBPClubRepository<P extends ClubPO> extends MBPDomainRepository<Clu
                 .category(po.getCategory())
                 .description(po.getDescription())
                 .announcement(po.getAnnouncement())
-                .users(new SchrodingerClubUsers.Builder()
+                .users(userInstantiator.newSchrodingerCollectionBuilderOwnedClub()
                         .clubId(po.getId())
                         .context(context)
                         .validator(validator)
                         .build())
-                .pins(new SchrodingerClubPins.Builder()
+                .pins(pinInstantiator.newSchrodingerCollectionBuilderOwnedClub()
                         .clubId(po.getId())
                         .context(context)
                         .validator(validator)

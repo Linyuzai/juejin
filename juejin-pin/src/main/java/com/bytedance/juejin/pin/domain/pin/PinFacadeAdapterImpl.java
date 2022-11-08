@@ -7,8 +7,8 @@ import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
 import com.bytedance.juejin.pin.domain.comment.CommentFacadeAdapter;
-import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComments;
-import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
+import com.bytedance.juejin.pin.domain.comment.CommentInstantiator;
+import com.bytedance.juejin.pin.domain.like.LikeInstantiator;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
@@ -43,6 +43,12 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     @Autowired
     private CommentFacadeAdapter commentFacadeAdapter;
 
+    @Autowired
+    private CommentInstantiator commentInstantiator;
+
+    @Autowired
+    private LikeInstantiator likeInstantiator;
+
     @Override
     public Pin from(PinCreateCommand create, User user) {
         String id = pinIdGenerator.generateId(Pin.class);
@@ -51,12 +57,12 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                 .content(create.getContent())
                 .club(getClub(create.getClubId()))
                 .user(user)
-                .comments(new SchrodingerPinComments.Builder()
+                .comments(commentInstantiator.newSchrodingerCollectionBuilderOwnedPin()
                         .pinId(id)
                         .context(context)
                         .validator(validator)
                         .build())
-                .likes(new SchrodingerPinLikes.Builder()
+                .likes(likeInstantiator.newSchrodingerCollectionBuilderOwnedPin()
                         .pinId(id)
                         .context(context)
                         .validator(validator)

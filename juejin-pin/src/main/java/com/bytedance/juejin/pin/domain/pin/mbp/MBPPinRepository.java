@@ -6,13 +6,13 @@ import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.club.Club;
 import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
-import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerPinComments;
-import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerPinLikes;
+import com.bytedance.juejin.pin.domain.comment.CommentInstantiator;
+import com.bytedance.juejin.pin.domain.like.LikeInstantiator;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinImpl;
+import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
 import com.bytedance.juejin.pin.domain.pin.PinRepository;
 import com.bytedance.juejin.pin.domain.user.UserInstantiator;
-import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +35,16 @@ public class MBPPinRepository<P extends PinPO> extends MBPDomainRepository<Pin, 
     private DomainValidator validator;
 
     @Autowired
+    private PinInstantiator pinInstantiator;
+
+    @Autowired
     private UserInstantiator userInstantiator;
+
+    @Autowired
+    private CommentInstantiator commentInstantiator;
+
+    @Autowired
+    private LikeInstantiator likeInstantiator;
 
     @Override
     public P do2po(Pin pin) {
@@ -67,7 +76,7 @@ public class MBPPinRepository<P extends PinPO> extends MBPDomainRepository<Pin, 
                     .validator(validator)
                     .build();
         }
-        PinImpl.Builder builder = new PinImpl.Builder()
+        PinImpl.Builder builder = pinInstantiator.newBuilder()
                 .id(po.getId())
                 .content(po.getContent())
                 .club(club)
@@ -76,12 +85,12 @@ public class MBPPinRepository<P extends PinPO> extends MBPDomainRepository<Pin, 
                         .context(context)
                         .validator(validator)
                         .build())
-                .comments(new SchrodingerPinComments.Builder()
+                .comments(commentInstantiator.newSchrodingerCollectionBuilderOwnedPin()
                         .pinId(po.getId())
                         .context(context)
                         .validator(validator)
                         .build())
-                .likes(new SchrodingerPinLikes.Builder()
+                .likes(likeInstantiator.newSchrodingerCollectionBuilderOwnedPin()
                         .pinId(po.getId())
                         .context(context)
                         .validator(validator)

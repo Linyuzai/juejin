@@ -3,8 +3,8 @@ package com.bytedance.juejin.pin.domain.user.mock;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mock.MockDomainRepository;
-import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerUserClubs;
-import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerUserPins;
+import com.bytedance.juejin.pin.domain.club.ClubInstantiator;
+import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
 import com.bytedance.juejin.pin.domain.user.User;
 import com.bytedance.juejin.pin.domain.user.UserImpl;
 import com.bytedance.juejin.pin.domain.user.UserInstantiator;
@@ -28,6 +28,12 @@ public class MockUserRepository extends MockDomainRepository<User> implements Us
     @Autowired
     private UserInstantiator userInstantiator;
 
+    @Autowired
+    private ClubInstantiator clubInstantiator;
+
+    @Autowired
+    private PinInstantiator pinInstantiator;
+
     @Override
     public Map<String, User> initMockMap() {
         return Collections.emptyMap();
@@ -41,12 +47,12 @@ public class MockUserRepository extends MockDomainRepository<User> implements Us
                 .id(userId)
                 .name(userName)
                 .profilePicture("https://oss-juejin.com/user/1.jpg")
-                .clubs(new SchrodingerUserClubs.Builder()
+                .clubs(clubInstantiator.newSchrodingerCollectionBuilderOwnedUser()
                         .userId(userId)
                         .context(context)
                         .validator(validator)
                         .build())
-                .pins(new SchrodingerUserPins.Builder()
+                .pins(pinInstantiator.newSchrodingerCollectionBuilderOwnedUser()
                         .userId(userId)
                         .context(context)
                         .validator(validator)

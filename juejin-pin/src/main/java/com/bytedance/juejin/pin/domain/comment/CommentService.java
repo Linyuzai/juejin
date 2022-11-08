@@ -9,13 +9,14 @@ import com.bytedance.juejin.pin.domain.comment.event.CommentDeletedEvent;
 import com.bytedance.juejin.pin.domain.comment.view.CommentCreateCommand;
 import com.bytedance.juejin.pin.domain.comment.view.CommentDeleteCommand;
 import com.bytedance.juejin.pin.domain.like.LikeRepository;
-import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class CommentService implements DomainService {

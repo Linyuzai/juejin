@@ -7,7 +7,7 @@ import com.bytedance.juejin.pin.domain.user.User;
 import lombok.Getter;
 
 @Getter
-public class PinImpl2 extends PinImpl {
+public class PinImpl2 extends PinImpl implements Pin2 {
 
     protected String location;
 

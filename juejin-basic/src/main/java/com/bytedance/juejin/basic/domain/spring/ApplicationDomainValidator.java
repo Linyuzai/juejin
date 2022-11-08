@@ -2,7 +2,10 @@ package com.bytedance.juejin.basic.domain.spring;
 
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import lombok.AllArgsConstructor;
-import org.springframework.validation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DirectFieldBindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.Validator;
 
 import java.util.Objects;
 

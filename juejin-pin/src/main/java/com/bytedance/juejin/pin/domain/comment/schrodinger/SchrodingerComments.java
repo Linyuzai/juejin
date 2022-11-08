@@ -12,12 +12,12 @@ import java.util.List;
 public abstract class SchrodingerComments extends SchrodingerDomainCollection<Comment> implements Comments {
 
     @Override
-    protected Class<Comment> getDomainType() {
+    protected Class<? extends Comment> getDomainType() {
         return Comment.class;
     }
 
     @Override
-    protected Class<? extends DomainRepository<Comment>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends Comment>> getDomainRepositoryType() {
         return CommentRepository.class;
     }
 

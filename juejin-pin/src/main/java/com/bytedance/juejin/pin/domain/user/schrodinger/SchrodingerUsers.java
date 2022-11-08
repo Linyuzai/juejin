@@ -9,12 +9,12 @@ import com.bytedance.juejin.pin.domain.user.Users;
 public abstract class SchrodingerUsers extends SchrodingerDomainCollection<User> implements Users {
 
     @Override
-    protected Class<User> getDomainType() {
+    protected Class<? extends User> getDomainType() {
         return User.class;
     }
 
     @Override
-    protected Class<? extends DomainRepository<User>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends User>> getDomainRepositoryType() {
         return UserRepository.class;
     }
 }

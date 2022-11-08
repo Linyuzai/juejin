@@ -6,15 +6,11 @@ import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.PinOrComment;
 import com.bytedance.juejin.pin.domain.comment.Comment;
-import com.bytedance.juejin.pin.domain.comment.CommentImpl;
 import com.bytedance.juejin.pin.domain.comment.CommentInstantiator;
 import com.bytedance.juejin.pin.domain.comment.CommentRepository;
-import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComment;
-import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerCommentComments;
-import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerCommentLikes;
+import com.bytedance.juejin.pin.domain.like.LikeInstantiator;
 import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
 import com.bytedance.juejin.pin.domain.user.UserInstantiator;
-import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -44,6 +40,9 @@ public class MBPCommentRepository<P extends CommentPO> extends MBPDomainReposito
 
     @Autowired
     private UserInstantiator userInstantiator;
+
+    @Autowired
+    private LikeInstantiator likeInstantiator;
 
     @Override
     public P do2po(Comment comment) {
@@ -88,12 +87,12 @@ public class MBPCommentRepository<P extends CommentPO> extends MBPDomainReposito
                         .context(context)
                         .validator(validator)
                         .build())
-                .comments(new SchrodingerCommentComments.Builder()
+                .comments(commentInstantiator.newSchrodingerCollectionBuilderOwnedComment()
                         .commentId(po.getId())
                         .context(context)
                         .validator(validator)
                         .build())
-                .likes(new SchrodingerCommentLikes.Builder()
+                .likes(likeInstantiator.newSchrodingerCollectionBuilderOwnedComment()
                         .commentId(po.getId())
                         .context(context)
                         .validator(validator)

@@ -3,9 +3,11 @@ package com.bytedance.juejin.pin.domain.user;
 import com.bytedance.juejin.basic.domain.AbstractDomainBuilder;
 import com.bytedance.juejin.pin.domain.club.Clubs;
 import com.bytedance.juejin.pin.domain.pin.Pins;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter

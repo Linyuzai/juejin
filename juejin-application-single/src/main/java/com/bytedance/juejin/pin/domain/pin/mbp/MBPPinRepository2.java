@@ -20,6 +20,11 @@ public class MBPPinRepository2 extends MBPPinRepository<PinPO2> {
     }
 
     @Override
+    protected PinPO2 newPO() {
+        return new PinPO2();
+    }
+
+    @Override
     protected void postBuilder(PinImpl.Builder builder, PinPO2 po) {
         ((PinImpl2.Builder) builder).location(po.getLocation());
     }

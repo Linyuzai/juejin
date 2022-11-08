@@ -1,8 +1,11 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.bytedance.juejin.basic.page.Pages;
 import com.bytedance.juejin.basic.login.Login;
-import com.bytedance.juejin.pin.domain.pin.view.*;
+import com.bytedance.juejin.basic.page.Pages;
+import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
+import com.bytedance.juejin.pin.domain.pin.view.PinDeleteCommand;
+import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
+import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import com.bytedance.juejin.pin.domain.user.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

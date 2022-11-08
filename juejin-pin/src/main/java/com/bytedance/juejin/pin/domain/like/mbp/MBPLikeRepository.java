@@ -6,14 +6,11 @@ import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.basic.domain.mbp.MBPDomainRepository;
 import com.bytedance.juejin.pin.domain.PinOrComment;
 import com.bytedance.juejin.pin.domain.comment.CommentInstantiator;
-import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComment;
 import com.bytedance.juejin.pin.domain.like.Like;
-import com.bytedance.juejin.pin.domain.like.LikeImpl;
 import com.bytedance.juejin.pin.domain.like.LikeInstantiator;
 import com.bytedance.juejin.pin.domain.like.LikeRepository;
 import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
 import com.bytedance.juejin.pin.domain.user.UserInstantiator;
-import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

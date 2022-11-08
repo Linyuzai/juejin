@@ -5,13 +5,11 @@ import com.bytedance.juejin.basic.condition.LambdaConditions;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainValidator;
 import com.bytedance.juejin.pin.domain.PinOrComment;
-import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerComment;
-import com.bytedance.juejin.pin.domain.comment.schrodinger.SchrodingerCommentComments;
 import com.bytedance.juejin.pin.domain.comment.view.CommentCreateCommand;
 import com.bytedance.juejin.pin.domain.comment.view.CommentQuery;
 import com.bytedance.juejin.pin.domain.comment.view.CommentReplyVO;
 import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
-import com.bytedance.juejin.pin.domain.like.schrodinger.SchrodingerCommentLikes;
+import com.bytedance.juejin.pin.domain.like.LikeInstantiator;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
 import com.bytedance.juejin.pin.domain.user.User;
@@ -44,6 +42,9 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
     @Autowired
     private CommentInstantiator commentInstantiator;
 
+    @Autowired
+    private LikeInstantiator likeInstantiator;
+
     @Override
     public Comment from(CommentCreateCommand create, User user) {
         String id = commentIdGenerator.generateId(Comment.class);
@@ -66,12 +67,12 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
                 .owner(owner)
                 .content(create.getContent())
                 .user(user)
-                .comments(new SchrodingerCommentComments.Builder()
+                .comments(commentInstantiator.newSchrodingerCollectionBuilderOwnedComment()
                         .commentId(id)
                         .context(context)
                         .validator(validator)
                         .build())
-                .likes(new SchrodingerCommentLikes.Builder()
+                .likes(likeInstantiator.newSchrodingerCollectionBuilderOwnedComment()
                         .commentId(id)
                         .context(context)
                         .validator(validator)

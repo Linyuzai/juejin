@@ -4,14 +4,13 @@ import com.bytedance.juejin.basic.condition.Conditions;
 import com.bytedance.juejin.basic.domain.ContextDomainBuilder;
 import com.bytedance.juejin.basic.domain.DomainContext;
 import com.bytedance.juejin.basic.domain.DomainRepository;
-import com.bytedance.juejin.pin.domain.comment.*;
+import com.bytedance.juejin.pin.domain.comment.Comments;
 import com.bytedance.juejin.pin.domain.pin.Pin;
 import com.bytedance.juejin.pin.domain.pin.PinRepository;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * 薛定谔的评论集合

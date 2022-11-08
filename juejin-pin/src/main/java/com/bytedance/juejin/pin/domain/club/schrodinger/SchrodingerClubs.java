@@ -15,7 +15,7 @@ public abstract class SchrodingerClubs extends SchrodingerDomainCollection<Club>
      * 指定领域模型为圈子
      */
     @Override
-    protected Class<Club> getDomainType() {
+    protected Class<? extends Club> getDomainType() {
         return Club.class;
     }
 
@@ -23,7 +23,7 @@ public abstract class SchrodingerClubs extends SchrodingerDomainCollection<Club>
      * 指定存储为圈子存储
      */
     @Override
-    protected Class<? extends DomainRepository<Club>> getDomainRepositoryType() {
+    protected Class<? extends DomainRepository<? extends Club>> getDomainRepositoryType() {
         return ClubRepository.class;
     }
 }

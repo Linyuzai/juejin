@@ -8,9 +8,9 @@ import com.bytedance.juejin.pin.domain.club.view.ClubCreateCommand;
 import com.bytedance.juejin.pin.domain.club.view.ClubQuery;
 import com.bytedance.juejin.pin.domain.club.view.ClubUpdateCommand;
 import com.bytedance.juejin.pin.domain.club.view.ClubVO;
-import com.bytedance.juejin.pin.domain.pin.schrodinger.SchrodingerClubPins;
+import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
 import com.bytedance.juejin.pin.domain.user.User;
-import com.bytedance.juejin.pin.domain.user.schrodinger.SchrodingerClubUsers;
+import com.bytedance.juejin.pin.domain.user.UserInstantiator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +41,12 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
     @Autowired
     private ClubInstantiator clubInstantiator;
 
+    @Autowired
+    private PinInstantiator pinInstantiator;
+
+    @Autowired
+    private UserInstantiator userInstantiator;
+
     /**
      * 创建视图转圈子模型
      */
@@ -53,12 +59,12 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
                 .logo(create.getLogo())
                 .category(create.getCategory())
                 .description(create.getDescription())
-                .users(new SchrodingerClubUsers.Builder()
+                .users(userInstantiator.newSchrodingerCollectionBuilderOwnedClub()
                         .clubId(id)
                         .context(context)
                         .validator(validator)
                         .build())
-                .pins(new SchrodingerClubPins.Builder()
+                .pins(pinInstantiator.newSchrodingerCollectionBuilderOwnedClub()
                         .clubId(id)
                         .context(context)
                         .validator(validator)
