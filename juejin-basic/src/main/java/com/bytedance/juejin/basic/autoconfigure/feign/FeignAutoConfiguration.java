@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureBefore(LoadBalancerAutoConfiguration.class)
 @EnableConfigurationProperties(FeignProperties.class)
 @EnableFeignClients(basePackages = "com.bytedance.juejin.basic.rpc.feign")
-public class FeignConfiguration {
+public class FeignAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean

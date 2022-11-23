@@ -1,5 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.bytedance.juejin.basic.autoconfigure.cache.CacheConfiguration,\
-com.bytedance.juejin.basic.autoconfigure.feign.FeignConfiguration,\
-com.bytedance.juejin.basic.autoconfigure.mbp.MBPConfiguration,\
-com.bytedance.juejin.basic.autoconfigure.swagger.SpringDocConfiguration
+com.bytedance.juejin.basic.autoconfigure.cache.CacheAutoConfiguration,\
+com.bytedance.juejin.basic.autoconfigure.feign.FeignAutoConfiguration,\
+com.bytedance.juejin.basic.autoconfigure.mbp.MyBatisPlusAutoConfiguration,\
+com.bytedance.juejin.basic.autoconfigure.swagger.SpringDocAutoConfiguration
