@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.config.cache;
+package com.bytedance.juejin.basic.autoconfigure.cache;
 
 import com.bytedance.juejin.basic.cache.CacheAdapter;
 import com.bytedance.juejin.basic.cache.CacheProvider;

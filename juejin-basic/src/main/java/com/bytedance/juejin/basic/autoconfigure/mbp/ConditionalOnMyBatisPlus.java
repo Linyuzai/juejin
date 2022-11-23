@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.config.mbp;
+package com.bytedance.juejin.basic.autoconfigure.mbp;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 

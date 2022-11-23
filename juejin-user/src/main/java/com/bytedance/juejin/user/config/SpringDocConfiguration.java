@@ -1,4 +1,4 @@
-package com.bytedance.juejin.pin.config;
+package com.bytedance.juejin.user.config;
 
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class SpringDocConfiguration {
 
     @Bean
-    public GroupedOpenApi pinOpenApi() {
+    public GroupedOpenApi userOpenApi() {
         return GroupedOpenApi.builder()
-                .group("沸点")
-                .packagesToScan("com.bytedance.juejin.pin")
+                .group("用户")
+                .packagesToScan("com.bytedance.juejin.user")
                 .build();
     }
 }

@@ -15,7 +15,7 @@ public class BasicConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public UserLoginArgumentAdapter userLoginArgumentAdapter() {
+    public UserLoginArgumentAdapter pinUserLoginArgumentAdapter() {
         return new UserLoginArgumentAdapter();
     }
 }

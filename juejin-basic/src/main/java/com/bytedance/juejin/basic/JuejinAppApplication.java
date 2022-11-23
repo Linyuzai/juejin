@@ -1,5 +1,7 @@
 package com.bytedance.juejin.basic;
 
+import com.bytedance.juejin.basic.name.JuejinBeanNameGenerator;
+import com.github.linyuzai.concept.cloud.web.EnableWebConcept;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,7 +22,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(JuejinAppConfiguration.class)
-@ComponentScan(basePackages = "com.bytedance.juejin.*.config")
+@EnableWebConcept
+@ComponentScan(basePackages = "com.bytedance.juejin.*.config",
+        nameGenerator = JuejinBeanNameGenerator.class)
 @SpringBootApplication
 public @interface JuejinAppApplication {
 }

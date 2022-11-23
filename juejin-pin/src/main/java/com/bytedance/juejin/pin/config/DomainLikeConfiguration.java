@@ -1,6 +1,6 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.basic.config.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.pin.domain.like.*;
 import com.bytedance.juejin.pin.domain.like.mbp.MBPLikeIdGenerator;
 import com.bytedance.juejin.pin.domain.like.mbp.MBPLikeRepository;
@@ -19,7 +19,7 @@ public class DomainLikeConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public LikeController likeController() {
+    public LikeController pinLikeController() {
         return new LikeController();
     }
 
@@ -28,7 +28,7 @@ public class DomainLikeConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public LikeService likeService() {
+    public LikeService pinLikeService() {
         return new LikeService();
     }
 
@@ -37,7 +37,7 @@ public class DomainLikeConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public LikeFacadeAdapter likeFacadeAdapter() {
+    public LikeFacadeAdapter pinLikeFacadeAdapter() {
         return new LikeFacadeAdapterImpl();
     }
 
@@ -62,7 +62,7 @@ public class DomainLikeConfiguration {
          */
         @Bean
         @ConditionalOnMissingBean
-        public LikeIdGenerator likeIdGenerator() {
+        public LikeIdGenerator pinLikeIdGenerator() {
             return new MBPLikeIdGenerator();
         }
 
@@ -71,7 +71,7 @@ public class DomainLikeConfiguration {
          */
         @Bean
         @ConditionalOnMissingBean
-        public LikeRepository likeRepository() {
+        public LikeRepository pinLikeRepository() {
             return new MBPLikeRepository<>();
         }
     }

@@ -8,6 +8,7 @@ import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
 import com.bytedance.juejin.pin.domain.user.User;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class PinController {
 
     @Operation(summary = "沸点详情")
     @GetMapping("/{id}")
-    public PinVO get(@PathVariable String id) {
+    public PinVO get(@Parameter(description = "沸点ID") @PathVariable String id) {
         return pinSearcher.get(id);
     }
 

@@ -16,6 +16,9 @@ public class InMemoryCache<T> implements Cache<T> {
 
     @Override
     public void set(String id, T cache) {
+        if (cache == null) {
+            return;
+        }
         this.cache.put(id, cache);
     }
 

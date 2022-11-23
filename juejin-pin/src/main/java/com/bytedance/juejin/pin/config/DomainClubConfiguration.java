@@ -1,6 +1,6 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.basic.config.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.pin.domain.club.*;
 import com.bytedance.juejin.pin.domain.club.mbp.MBPClubIdGenerator;
 import com.bytedance.juejin.pin.domain.club.mbp.MBPClubRepository;
@@ -19,7 +19,7 @@ public class DomainClubConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public ClubController clubController() {
+    public ClubController pinClubController() {
         return new ClubController();
     }
 
@@ -28,7 +28,7 @@ public class DomainClubConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public ClubService clubService() {
+    public ClubService pinClubService() {
         return new ClubService();
     }
 
@@ -37,7 +37,7 @@ public class DomainClubConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public ClubFacadeAdapter clubFacadeAdapter() {
+    public ClubFacadeAdapter pinClubFacadeAdapter() {
         return new ClubFacadeAdapterImpl();
     }
 
@@ -46,7 +46,7 @@ public class DomainClubConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public ClubInstantiator clubInstantiator() {
+    public ClubInstantiator pinClubInstantiator() {
         return new ClubInstantiatorImpl();
     }
 
@@ -55,7 +55,7 @@ public class DomainClubConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public ClubSearcher clubSearcher() {
+    public ClubSearcher pinClubSearcher() {
         return new ClubSearcherImpl();
     }
 
@@ -71,7 +71,7 @@ public class DomainClubConfiguration {
          */
         @Bean
         @ConditionalOnMissingBean
-        public ClubIdGenerator clubIdGenerator() {
+        public ClubIdGenerator pinClubIdGenerator() {
             return new MBPClubIdGenerator();
         }
 
@@ -80,7 +80,7 @@ public class DomainClubConfiguration {
          */
         @Bean
         @ConditionalOnMissingBean
-        public ClubRepository clubRepository() {
+        public ClubRepository pinClubRepository() {
             return new MBPClubRepository<>();
         }
     }

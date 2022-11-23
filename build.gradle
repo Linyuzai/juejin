@@ -35,15 +35,18 @@ allprojects {
         if (!excludeBasic.contains(project.name)) {
             implementation project(':juejin-basic')
         }
-        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
         implementation 'org.springframework.cloud:spring-cloud-loadbalancer'
-        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
+        implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
+        implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
 
         implementation 'org.hibernate.validator:hibernate-validator'
 
         if (!excludeMVC.contains(project.name)) {
             implementation 'org.springframework.boot:spring-boot-starter-web'
+            implementation 'com.github.linyuzai:concept-cloud-web:0.0.2'
             implementation 'mysql:mysql-connector-java'
             implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
         }

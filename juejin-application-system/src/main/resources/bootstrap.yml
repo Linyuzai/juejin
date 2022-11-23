@@ -17,3 +17,6 @@ juejin:
   repository:
     mybatis-plus:
       enabled: true
+  rpc:
+    feign:
+      enabled: true

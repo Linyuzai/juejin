@@ -1,7 +1,7 @@
 package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.pin.domain.user.*;
-import com.bytedance.juejin.pin.domain.user.mock.MockUserRepository;
+import com.bytedance.juejin.pin.domain.user.remote.RemoteUserRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class DomainUserConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public UserFacadeAdapter userFacadeAdapter() {
+    public UserFacadeAdapter pinUserFacadeAdapter() {
         return new UserFacadeAdapterImpl();
     }
 
@@ -26,23 +26,16 @@ public class DomainUserConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public UserInstantiator userInstantiator() {
+    public UserInstantiator pinUserInstantiator() {
         return new UserInstantiatorImpl();
     }
 
     /**
-     * 沸点 Mock 配置
+     * 远程用户存储
      */
-    @Configuration
-    public static class MockConfiguration {
-
-        /**
-         * 暂时写在这里，等到写服务间调用的时候再重新实现
-         */
-        @Bean
-        @ConditionalOnMissingBean
-        public UserRepository userRepository() {
-            return new MockUserRepository();
-        }
+    @Bean
+    @ConditionalOnMissingBean
+    public UserRepository pinUserRepository() {
+        return new RemoteUserRepository();
     }
 }

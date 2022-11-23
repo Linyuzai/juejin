@@ -1,6 +1,6 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.basic.config.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.pin.domain.comment.*;
 import com.bytedance.juejin.pin.domain.comment.mbp.MBPCommentIdGenerator;
 import com.bytedance.juejin.pin.domain.comment.mbp.MBPCommentRepository;
@@ -19,7 +19,7 @@ public class DomainCommentConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CommentController commentController() {
+    public CommentController pinCommentController() {
         return new CommentController();
     }
 
@@ -28,7 +28,7 @@ public class DomainCommentConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CommentService commentService() {
+    public CommentService pinCommentService() {
         return new CommentService();
     }
 
@@ -37,7 +37,7 @@ public class DomainCommentConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CommentFacadeAdapter commentFacadeAdapter() {
+    public CommentFacadeAdapter pinCommentFacadeAdapter() {
         return new CommentFacadeAdapterImpl();
     }
 
@@ -46,7 +46,7 @@ public class DomainCommentConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CommentInstantiator commentInstantiator() {
+    public CommentInstantiator pinCommentInstantiator() {
         return new CommentInstantiatorImpl();
     }
 
@@ -55,7 +55,7 @@ public class DomainCommentConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CommentSearcher commentSearcher() {
+    public CommentSearcher pinCommentSearcher() {
         return new CommentSearcherImpl();
     }
 
@@ -71,7 +71,7 @@ public class DomainCommentConfiguration {
          */
         @Bean
         @ConditionalOnMissingBean
-        public CommentIdGenerator commentIdGenerator() {
+        public CommentIdGenerator pinCommentIdGenerator() {
             return new MBPCommentIdGenerator();
         }
 
@@ -80,7 +80,7 @@ public class DomainCommentConfiguration {
          */
         @Bean
         @ConditionalOnMissingBean
-        public CommentRepository commentRepository() {
+        public CommentRepository pinCommentRepository() {
             return new MBPCommentRepository<>();
         }
     }

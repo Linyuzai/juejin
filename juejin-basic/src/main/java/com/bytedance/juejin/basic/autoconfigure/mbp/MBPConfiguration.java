@@ -1,9 +1,10 @@
-package com.bytedance.juejin.basic.config.mbp;
+package com.bytedance.juejin.basic.autoconfigure.mbp;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.bytedance.juejin.basic.name.JuejinBeanNameGenerator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnMyBatisPlus
 @EnableConfigurationProperties(MyBatisPlusProperties.class)
-@MapperScan(basePackages = "com.bytedance.juejin.*.domain.*.mbp")
+@MapperScan(basePackages = "com.bytedance.juejin.*.domain.*.mbp",
+        nameGenerator = JuejinBeanNameGenerator.class)
 public class MBPConfiguration {
 
     @Bean

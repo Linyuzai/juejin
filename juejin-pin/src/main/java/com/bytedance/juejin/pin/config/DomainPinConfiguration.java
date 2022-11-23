@@ -1,6 +1,6 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.basic.config.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.pin.domain.pin.*;
 import com.bytedance.juejin.pin.domain.pin.mbp.MBPPinIdGenerator;
 import com.bytedance.juejin.pin.domain.pin.mbp.MBPPinRepository;
