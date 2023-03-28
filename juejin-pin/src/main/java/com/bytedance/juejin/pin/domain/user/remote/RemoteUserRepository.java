@@ -46,18 +46,18 @@ public class RemoteUserRepository extends AbstractDomainRepository<User, UserRO>
     }
 
     @Override
-    public User po2do(UserRO ru) {
+    public User po2do(UserRO ro) {
         return userInstantiator.newBuilder()
-                .id(ru.getId())
-                .name(ru.getName())
-                .profilePicture(ru.getProfilePicture())
+                .id(ro.getId())
+                .name(ro.getName())
+                .profilePicture(ro.getProfilePicture())
                 .clubs(clubInstantiator.newSchrodingerCollectionBuilderOwnedUser()
-                        .userId(ru.getId())
+                        .userId(ro.getId())
                         .context(context)
                         .validator(validator)
                         .build())
                 .pins(pinInstantiator.newSchrodingerCollectionBuilderOwnedUser()
-                        .userId(ru.getId())
+                        .userId(ro.getId())
                         .context(context)
                         .validator(validator)
                         .build())

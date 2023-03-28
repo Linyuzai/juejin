@@ -21,6 +21,7 @@ allprojects {
     group = 'com.bytedance.juejin'
     //编译版本jdk8
     sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
 
     //仓库地址
     repositories {

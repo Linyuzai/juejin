@@ -163,10 +163,10 @@ public abstract class AbstractDomainRepository<T extends DomainObject, P extends
         P cache = getCache().get(id);
         if (cache == null) {
             P po = doGet(id);
-            getCache().set(id, po);
             if (po == null) {
                 return null;
             }
+            getCache().set(id, po);
             return po2do(po);
         }
         return po2do(cache);
