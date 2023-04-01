@@ -1,0 +1,7 @@
+dependencies {
+    implementation project(':juejin-module:module-pin')
+}
+
+bootJar {
+    archiveBaseName = 'juejin-application-cloud-pin'
+}

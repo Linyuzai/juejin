@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnMyBatisPlus
 @EnableConfigurationProperties(MyBatisPlusProperties.class)
-@MapperScan(basePackages = "com.bytedance.juejin.*.domain.*.mbp",
+@MapperScan(basePackages = "com.bytedance.juejin.*.infrastructure.*.mbp",
         nameGenerator = JuejinBeanNameGenerator.class)
 public class MyBatisPlusAutoConfiguration {
 

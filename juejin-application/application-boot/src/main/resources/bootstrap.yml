@@ -1,0 +1,18 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: juejin-application-boot
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+  datasource:
+    url: jdbc:mysql://192.168.30.140:11801/test?serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

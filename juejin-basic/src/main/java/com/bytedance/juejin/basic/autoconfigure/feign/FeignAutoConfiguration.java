@@ -1,15 +1,11 @@
 package com.bytedance.juejin.basic.autoconfigure.feign;
 
-import com.bytedance.juejin.basic.rpc.RouterLoadBalancerClientFactory;
 import com.bytedance.juejin.basic.rpc.api.user.UserApi;
 import com.bytedance.juejin.basic.rpc.feign.user.FeignUserApi;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties;
 import org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration;
-import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +21,5 @@ public class FeignAutoConfiguration {
     @ConditionalOnMissingBean
     public UserApi userApi() {
         return new FeignUserApi();
-    }
-
-    @Bean
-    public LoadBalancerClientFactory routerLoadBalancerClientFactory(LoadBalancerClientsProperties properties,
-                                                                     DiscoveryClient discoveryClient) {
-        return new RouterLoadBalancerClientFactory(properties, discoveryClient);
     }
 }

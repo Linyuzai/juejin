@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(JuejinBootConfiguration.class)
-@JuejinAppApplication
+@JuejinBasicApplication
 public @interface JuejinBootApplication {
 }
