@@ -12,7 +12,7 @@ include 'juejin-module:module-user'
 
 include 'juejin-application'
 include 'juejin-application:application-boot'
-include 'juejin-application:application-gateway'
-include 'juejin-application:application-pin'
-include 'juejin-application:application-system'
+include 'juejin-application:application-cloud-gateway'
+include 'juejin-application:application-cloud-pin'
+include 'juejin-application:application-cloud-system'
 
