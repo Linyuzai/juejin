@@ -1,6 +1,7 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.bytedance.juejin.basic.domain.DomainIdGenerator;
+import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
+import com.github.linyuzai.domain.core.DomainIdGenerator;
 
-public interface PinIdGenerator extends DomainIdGenerator<Pin> {
+public interface PinIdGenerator extends DomainIdGenerator<PinCreateCommand> {
 }

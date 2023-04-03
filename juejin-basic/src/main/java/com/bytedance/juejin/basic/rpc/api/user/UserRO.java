@@ -1,14 +1,23 @@
 package com.bytedance.juejin.basic.rpc.api.user;
 
-import com.bytedance.juejin.basic.domain.IdProvider;
+import com.bytedance.juejin.domain.user.User;
+import com.github.linyuzai.domain.core.Identifiable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class UserRO implements IdProvider {
+@NoArgsConstructor
+public class UserRO implements Identifiable {
 
     private String id;
 
-    private String name;
+    private String nickname;
 
-    private String profilePicture;
+    private String avatar;
+
+    public UserRO(User user) {
+        this.id = user.getId();
+        this.nickname = user.getNickname();
+        this.avatar = user.getAvatar();
+    }
 }

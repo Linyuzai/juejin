@@ -1,8 +1,8 @@
 package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.basic.login.Login;
+import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.club.view.*;
-import com.bytedance.juejin.pin.domain.user.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +16,27 @@ import java.util.List;
 public class ClubController {
 
     @Autowired
-    private ClubService clubService;
+    protected ClubApplicationService clubApplicationService;
 
     @Autowired
-    private ClubSearcher clubSearcher;
+    protected ClubSearcher clubSearcher;
 
     @Operation(summary = "新建圈子")
     @PostMapping
     public void create(@RequestBody ClubCreateCommand create, @Login User user) {
-        clubService.create(create, user);
+        clubApplicationService.create(create, user);
     }
 
     @Operation(summary = "更新圈子")
     @PutMapping
     public void update(@RequestBody ClubUpdateCommand update, @Login User user) {
-        clubService.update(update, user);
+        clubApplicationService.update(update, user);
     }
 
     @Operation(summary = "发布公告圈子")
     @PostMapping("/announcement")
     public void publishAnnouncement(@RequestBody ClubAnnouncementPublishCommand publish, @Login User user) {
-        clubService.publishAnnouncement(publish, user);
+        clubApplicationService.publishAnnouncement(publish, user);
     }
 
     @Operation(summary = "圈子详情")

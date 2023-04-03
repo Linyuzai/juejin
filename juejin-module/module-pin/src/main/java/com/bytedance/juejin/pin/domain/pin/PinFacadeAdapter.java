@@ -1,10 +1,11 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.bytedance.juejin.basic.condition.Conditions;
+import com.bytedance.juejin.domain.pin.Pin;
+import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
-import com.bytedance.juejin.pin.domain.user.User;
+import com.github.linyuzai.domain.core.condition.Conditions;
 
 /**
  * 沸点模型与视图的转换适配器

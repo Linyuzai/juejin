@@ -1,22 +1,24 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.bytedance.juejin.basic.condition.Conditions;
-import com.bytedance.juejin.basic.condition.LambdaConditions;
-import com.bytedance.juejin.basic.domain.DomainContext;
-import com.bytedance.juejin.basic.domain.DomainValidator;
-import com.bytedance.juejin.pin.domain.club.Club;
-import com.bytedance.juejin.pin.domain.club.schrodinger.SchrodingerClub;
+import com.bytedance.juejin.domain.club.Club;
+import com.bytedance.juejin.domain.comment.PinComments;
+import com.bytedance.juejin.domain.like.PinLikes;
+import com.bytedance.juejin.domain.pin.Pin;
+import com.bytedance.juejin.domain.pin.PinImpl;
+import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.comment.CommentFacadeAdapter;
-import com.bytedance.juejin.pin.domain.comment.CommentInstantiator;
-import com.bytedance.juejin.pin.domain.like.LikeInstantiator;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
+import com.bytedance.juejin.pin.domain.pin.view.PinUserVO;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
-import com.bytedance.juejin.pin.domain.user.User;
-import com.bytedance.juejin.pin.domain.user.UserFacadeAdapter;
+import com.github.linyuzai.domain.core.DomainFactory;
+import com.github.linyuzai.domain.core.DomainValidator;
+import com.github.linyuzai.domain.core.condition.Conditions;
+import com.github.linyuzai.domain.core.condition.LambdaConditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
@@ -29,63 +31,45 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     private PinIdGenerator pinIdGenerator;
 
     @Autowired
-    private PinInstantiator pinInstantiator;
+    private CommentFacadeAdapter commentFacadeAdapter;
 
     @Autowired
-    private DomainContext context;
+    private DomainFactory factory;
 
     @Autowired
     private DomainValidator validator;
 
-    @Autowired
-    private UserFacadeAdapter userFacadeAdapter;
-
-    @Autowired
-    private CommentFacadeAdapter commentFacadeAdapter;
-
-    @Autowired
-    private CommentInstantiator commentInstantiator;
-
-    @Autowired
-    private LikeInstantiator likeInstantiator;
-
     @Override
     public Pin from(PinCreateCommand create, User user) {
-        String id = pinIdGenerator.generateId(Pin.class);
-        PinImpl.Builder builder = pinInstantiator.newBuilder()
+        String id = pinIdGenerator.generateId(create);
+        Club club;
+        if (create.getClubId() == null) {
+            club = null;
+        } else {
+            club = factory.createObject(Club.class, create.getClubId());
+        }
+        PinComments comments = factory.createCollection(PinComments.class, Collections.emptyList());
+        PinLikes likes = factory.createCollection(PinLikes.class, Collections.emptyList());
+        return new PinImpl.Builder()
                 .id(id)
+                .club(club)
                 .content(create.getContent())
-                .club(getClub(create.getClubId()))
                 .user(user)
-                .comments(commentInstantiator.newSchrodingerCollectionBuilderOwnedPin()
-                        .pinId(id)
-                        .context(context)
-                        .validator(validator)
-                        .build())
-                .likes(likeInstantiator.newSchrodingerCollectionBuilderOwnedPin()
-                        .pinId(id)
-                        .context(context)
-                        .validator(validator)
-                        .build())
-                .validator(validator);
-        beforeBuild(builder, create);
-        return builder.build();
-    }
-
-    protected void beforeBuild(PinImpl.Builder builder, PinCreateCommand create) {
-
+                .comments(comments)
+                .likes(likes)
+                .build(validator);
     }
 
     @Override
     public PinVO do2vo(Pin pin) {
-        PinVO vo = pinInstantiator.newView();
+        PinVO vo = new PinVO();
         vo.setId(pin.getId());
         vo.setContent(pin.getContent());
         if (pin.getClub() != null) {
             vo.setClubId(pin.getClub().getId());
             vo.setClubName(pin.getClub().getName());
         }
-        vo.setUser(userFacadeAdapter.do2vo(pin.getUser()));
+        vo.setUser(getUser(pin.getUser()));
         vo.setComments(pin.getComments()
                 .getNewestList(5)
                 .stream()
@@ -93,7 +77,7 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
                 .collect(Collectors.toList()));
         vo.setCommentCount(pin.getComments().count());
         vo.setLikeCount(pin.getLikes().count());
-        vo.setCreateTime(pin.getCreateTime());
+        vo.setCreateTime(pin.getCreateTime().getTime());
         return vo;
     }
 
@@ -105,18 +89,11 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
         return conditions;
     }
 
-    /**
-     * 获得圈子领域模型
-     */
-    public Club getClub(String clubId) {
-        if (clubId == null) {
-            return null;
-        }
-        //返回薛定谔的圈子模型
-        return new SchrodingerClub.Builder()
-                .id(clubId)
-                .context(context)
-                .validator(validator)
-                .build();
+    private PinUserVO getUser(User user) {
+        PinUserVO vo = new PinUserVO();
+        vo.setId(user.getId());
+        vo.setNickname(user.getNickname());
+        vo.setAvatar(user.getAvatar());
+        return vo;
     }
 }

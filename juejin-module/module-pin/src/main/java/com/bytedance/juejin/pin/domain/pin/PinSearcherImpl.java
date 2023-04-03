@@ -1,9 +1,10 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.bytedance.juejin.basic.exception.JuejinNotFoundException;
-import com.bytedance.juejin.basic.page.Pages;
+import com.bytedance.juejin.domain.pin.Pin;
+import com.bytedance.juejin.domain.pin.PinRepository;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
+import com.github.linyuzai.domain.core.page.Pages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,7 @@ public class PinSearcherImpl implements PinSearcher {
     public PinVO get(String id) {
         Pin pin = pinRepository.get(id);
         if (pin == null) {
-            throw new JuejinNotFoundException(Pin.class, id);
+            return null;
         }
         return pinFacadeAdapter.do2vo(pin);
     }

@@ -1,8 +1,9 @@
 package com.bytedance.juejin.pin.domain.comment;
 
-import com.bytedance.juejin.basic.page.Pages;
+import com.bytedance.juejin.domain.comment.CommentRepository;
 import com.bytedance.juejin.pin.domain.comment.view.CommentQuery;
 import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
+import com.github.linyuzai.domain.core.page.Pages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

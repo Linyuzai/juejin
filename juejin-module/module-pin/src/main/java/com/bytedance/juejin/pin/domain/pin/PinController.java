@@ -1,12 +1,12 @@
 package com.bytedance.juejin.pin.domain.pin;
 
 import com.bytedance.juejin.basic.login.Login;
-import com.bytedance.juejin.basic.page.Pages;
+import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinDeleteCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinQuery;
 import com.bytedance.juejin.pin.domain.pin.view.PinVO;
-import com.bytedance.juejin.pin.domain.user.User;
+import com.github.linyuzai.domain.core.page.Pages;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class PinController {
 
     @Autowired
-    private PinService pinService;
+    private PinApplicationService pinApplicationService;
 
     @Autowired
     private PinSearcher pinSearcher;
@@ -27,13 +27,13 @@ public class PinController {
     @Operation(summary = "发布沸点")
     @PostMapping
     public void create(@RequestBody PinCreateCommand create, @Login User user) {
-        pinService.create(create, user);
+        pinApplicationService.create(create, user);
     }
 
     @Operation(summary = "删除沸点")
     @DeleteMapping
     public void delete(@RequestBody PinDeleteCommand delete, @Login User user) {
-        pinService.delete(delete, user);
+        pinApplicationService.delete(delete, user);
     }
 
     @Operation(summary = "沸点详情")

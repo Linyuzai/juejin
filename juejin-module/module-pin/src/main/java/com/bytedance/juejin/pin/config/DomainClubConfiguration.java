@@ -1,9 +1,11 @@
 package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.domain.club.ClubRepository;
+import com.bytedance.juejin.domain.club.ClubService;
 import com.bytedance.juejin.pin.domain.club.*;
-import com.bytedance.juejin.pin.domain.club.mbp.MBPClubIdGenerator;
-import com.bytedance.juejin.pin.domain.club.mbp.MBPClubRepository;
+import com.bytedance.juejin.pin.infrastructure.club.mbp.MBPClubIdGenerator;
+import com.bytedance.juejin.pin.infrastructure.club.mbp.MBPClubRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +34,12 @@ public class DomainClubConfiguration {
         return new ClubService();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public ClubApplicationService clubApplicationService() {
+        return new ClubApplicationService();
+    }
+
     /**
      * 沸点圈子模型与视图的转换适配器
      */
@@ -39,15 +47,6 @@ public class DomainClubConfiguration {
     @ConditionalOnMissingBean
     public ClubFacadeAdapter pinClubFacadeAdapter() {
         return new ClubFacadeAdapterImpl();
-    }
-
-    /**
-     * 沸点圈子实例化器
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public ClubInstantiator pinClubInstantiator() {
-        return new ClubInstantiatorImpl();
     }
 
     /**
@@ -81,7 +80,7 @@ public class DomainClubConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public ClubRepository pinClubRepository() {
-            return new MBPClubRepository<>();
+            return new MBPClubRepository();
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.domain.like.LikeRepository;
+import com.bytedance.juejin.domain.like.LikeService;
 import com.bytedance.juejin.pin.domain.like.*;
-import com.bytedance.juejin.pin.domain.like.mbp.MBPLikeIdGenerator;
-import com.bytedance.juejin.pin.domain.like.mbp.MBPLikeRepository;
+import com.bytedance.juejin.pin.infrastructure.like.mbp.MBPLikeIdGenerator;
+import com.bytedance.juejin.pin.infrastructure.like.mbp.MBPLikeRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +21,14 @@ public class DomainLikeConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public LikeController pinLikeController() {
+    public LikeController likeController() {
         return new LikeController();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public LikeService likeService() {
+        return new LikeService();
     }
 
     /**
@@ -28,8 +36,8 @@ public class DomainLikeConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public LikeService pinLikeService() {
-        return new LikeService();
+    public LikeApplicationService likeApplicationService() {
+        return new LikeApplicationService();
     }
 
     /**
@@ -39,15 +47,6 @@ public class DomainLikeConfiguration {
     @ConditionalOnMissingBean
     public LikeFacadeAdapter pinLikeFacadeAdapter() {
         return new LikeFacadeAdapterImpl();
-    }
-
-    /**
-     * 点赞实例化器
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public LikeInstantiator likeInstantiator() {
-        return new LikeInstantiatorImpl();
     }
 
     /**
@@ -72,7 +71,7 @@ public class DomainLikeConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public LikeRepository pinLikeRepository() {
-            return new MBPLikeRepository<>();
+            return new MBPLikeRepository();
         }
     }
 }

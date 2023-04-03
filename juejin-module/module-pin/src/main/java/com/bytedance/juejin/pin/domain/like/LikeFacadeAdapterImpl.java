@@ -1,12 +1,15 @@
 package com.bytedance.juejin.pin.domain.like;
 
-import com.bytedance.juejin.basic.domain.DomainContext;
-import com.bytedance.juejin.basic.domain.DomainValidator;
-import com.bytedance.juejin.pin.domain.PinOrComment;
-import com.bytedance.juejin.pin.domain.comment.CommentInstantiator;
+import com.bytedance.juejin.domain.comment.Comment;
+import com.bytedance.juejin.domain.like.CommentLikeImpl;
+import com.bytedance.juejin.domain.like.Like;
+import com.bytedance.juejin.domain.like.PinLikeImpl;
+import com.bytedance.juejin.domain.pin.Pin;
+import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.like.view.LikeCreateCommand;
-import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
-import com.bytedance.juejin.pin.domain.user.User;
+import com.github.linyuzai.domain.core.DomainFactory;
+import com.github.linyuzai.domain.core.DomainValidator;
+import com.github.linyuzai.domain.core.exception.DomainException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,42 +23,30 @@ public class LikeFacadeAdapterImpl implements LikeFacadeAdapter {
     private LikeIdGenerator likeIdGenerator;
 
     @Autowired
-    private DomainContext context;
+    private DomainFactory factory;
 
     @Autowired
     private DomainValidator validator;
 
-    @Autowired
-    private PinInstantiator pinInstantiator;
-
-    @Autowired
-    private CommentInstantiator commentInstantiator;
-
-    @Autowired
-    private LikeInstantiator likeInstantiator;
-
     @Override
     public Like from(LikeCreateCommand create, User user) {
-        String id = likeIdGenerator.generateId(Like.class);
-        PinOrComment owner;
-        if (create.getCommentId() == null) {
-            owner = pinInstantiator.newSchrodingerBuilder()
-                    .id(create.getPinId())
-                    .context(context)
-                    .validator(validator)
-                    .build();
+        String id = likeIdGenerator.generateId(create);
+        if (Pin.class.getSimpleName().equalsIgnoreCase(create.getType())) {
+            Pin pin = factory.createObject(Pin.class, create.getLikedId());
+            return new PinLikeImpl.Builder()
+                    .id(id)
+                    .liked(pin)
+                    .user(user)
+                    .build(validator);
+        } else if (Comment.class.getSimpleName().equalsIgnoreCase(create.getType())) {
+            Comment comment = factory.createObject(Comment.class, create.getLikedId());
+            return new CommentLikeImpl.Builder()
+                    .id(id)
+                    .liked(comment)
+                    .user(user)
+                    .build(validator);
         } else {
-            owner = commentInstantiator.newSchrodingerBuilder()
-                    .id(create.getCommentId())
-                    .context(context)
-                    .validator(validator)
-                    .build();
+            throw new DomainException("Type not matched");
         }
-        return likeInstantiator.newBuilder()
-                .id(id)
-                .owner(owner)
-                .user(user)
-                .validator(validator)
-                .build();
     }
 }

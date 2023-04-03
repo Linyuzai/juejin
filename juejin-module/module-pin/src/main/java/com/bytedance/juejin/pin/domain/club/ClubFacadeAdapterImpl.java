@@ -1,18 +1,17 @@
 package com.bytedance.juejin.pin.domain.club;
 
-import com.bytedance.juejin.basic.condition.Conditions;
-import com.bytedance.juejin.basic.condition.LambdaConditions;
-import com.bytedance.juejin.basic.domain.DomainContext;
-import com.bytedance.juejin.basic.domain.DomainValidator;
-import com.bytedance.juejin.pin.domain.club.view.ClubCreateCommand;
-import com.bytedance.juejin.pin.domain.club.view.ClubQuery;
-import com.bytedance.juejin.pin.domain.club.view.ClubUpdateCommand;
-import com.bytedance.juejin.pin.domain.club.view.ClubVO;
-import com.bytedance.juejin.pin.domain.pin.PinInstantiator;
-import com.bytedance.juejin.pin.domain.user.User;
-import com.bytedance.juejin.pin.domain.user.UserInstantiator;
+import com.bytedance.juejin.domain.club.Club;
+import com.bytedance.juejin.domain.club.ClubImpl;
+import com.bytedance.juejin.domain.user.Users;
+import com.bytedance.juejin.pin.domain.club.view.*;
+import com.github.linyuzai.domain.core.DomainFactory;
+import com.github.linyuzai.domain.core.DomainValidator;
+import com.github.linyuzai.domain.core.condition.Conditions;
+import com.github.linyuzai.domain.core.condition.LambdaConditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 /**
  * 圈子模型与视图的转换适配器实现
@@ -26,11 +25,8 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
     @Autowired
     private ClubIdGenerator clubIdGenerator;
 
-    /**
-     * 领域上下文
-     */
     @Autowired
-    private DomainContext context;
+    private DomainFactory factory;
 
     /**
      * 领域校验器
@@ -39,55 +35,27 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
     private DomainValidator validator;
 
     /**
-     * 圈子实例化器
-     */
-    @Autowired
-    private ClubInstantiator clubInstantiator;
-
-    /**
-     * 沸点实例化器
-     */
-    @Autowired
-    private PinInstantiator pinInstantiator;
-
-    /**
-     * 用户实例化器
-     */
-    @Autowired
-    private UserInstantiator userInstantiator;
-
-    /**
      * 创建视图转圈子模型
      */
     @Override
-    public Club from(ClubCreateCommand create, User user) {
-        String id = clubIdGenerator.generateId(Club.class);
-        return clubInstantiator.newBuilder()
+    public Club from(ClubCreateCommand create) {
+        String id = clubIdGenerator.generateId(create);
+        return new ClubImpl.Builder()
                 .id(id)
                 .name(create.getName())
                 .logo(create.getLogo())
                 .category(create.getCategory())
                 .description(create.getDescription())
-                .users(userInstantiator.newSchrodingerCollectionBuilderOwnedClub()
-                        .clubId(id)
-                        .context(context)
-                        .validator(validator)
-                        .build())
-                .pins(pinInstantiator.newSchrodingerCollectionBuilderOwnedClub()
-                        .clubId(id)
-                        .context(context)
-                        .validator(validator)
-                        .build())
-                .validator(validator)
-                .build();
+                .users(factory.createCollection(Users.class, Collections.emptyList()))
+                .build(validator);
     }
 
     /**
      * 更新视图转圈子模型
      */
     @Override
-    public Club from(ClubUpdateCommand update, Club old, User user) {
-        return clubInstantiator.newBuilder()
+    public Club from(ClubUpdateCommand update, Club old) {
+        return new ClubImpl.Builder()
                 .id(update.getId())
                 .name(update.getName())
                 .logo(update.getLogo())
@@ -95,9 +63,7 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
                 .description(update.getDescription())
                 .announcement(old.getAnnouncement())
                 .users(old.getUsers())
-                .pins(old.getPins())
-                .validator(validator)
-                .build();
+                .build(validator);
     }
 
     /**
@@ -105,16 +71,27 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
      */
     @Override
     public ClubVO do2vo(Club club) {
-        ClubVO vo = clubInstantiator.newView();
+        ClubVO vo = new ClubVO();
+        fill(club, vo);
+        return vo;
+    }
+
+    @Override
+    public ClubFullVO do2full(Club club) {
+        ClubFullVO vo = new ClubFullVO();
+        fill(club, vo);
+        vo.setUserCount(club.getUsers().count());
+        vo.setPinCount(club.getPins().count());
+        return vo;
+    }
+
+    private void fill(Club club, ClubVO vo) {
         vo.setId(club.getId());
         vo.setName(club.getName());
         vo.setLogo(club.getLogo());
         vo.setCategory(club.getCategory());
         vo.setDescription(club.getDescription());
         vo.setAnnouncement(club.getAnnouncement());
-        vo.setUserCount(club.getUsers().count());
-        vo.setPinCount(club.getPins().count());
-        return vo;
     }
 
     /**
@@ -122,8 +99,7 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
      */
     @Override
     public Conditions toConditions(ClubQuery query) {
-        LambdaConditions conditions = new LambdaConditions();
-        conditions.like(Club::getName, query.getName(), false);
-        return conditions;
+        return new LambdaConditions()
+                .like(Club::getName, query.getName());
     }
 }

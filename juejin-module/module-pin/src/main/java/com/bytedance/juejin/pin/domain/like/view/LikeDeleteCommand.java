@@ -7,9 +7,9 @@ import lombok.Data;
 @Schema(description = "沸点点赞删除命令")
 public class LikeDeleteCommand {
 
-    @Schema(description = "沸点ID")
-    private String pinId;
-
-    @Schema(description = "评论ID")
-    private String commentId;
+    /**
+     * 可以通过拼接 pinId/commentId + userId
+     */
+    @Schema(description = "点赞ID")
+    private String id;
 }

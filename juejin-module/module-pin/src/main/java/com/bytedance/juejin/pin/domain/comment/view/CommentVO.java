@@ -1,6 +1,5 @@
 package com.bytedance.juejin.pin.domain.comment.view;
 
-import com.bytedance.juejin.pin.domain.user.view.UserVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -17,7 +16,7 @@ public class CommentVO {
     private String content;
 
     @Schema(description = "评论用户")
-    private UserVO user;
+    private CommentUserVO user;
 
     @Schema(description = "评论回复")
     private List<CommentReplyVO> replies;

@@ -24,10 +24,4 @@ public class ClubVO {
 
     @Schema(description = "圈子公告")
     private String announcement;
-
-    @Schema(description = "用户数量")
-    private Long userCount;
-
-    @Schema(description = "沸点数量")
-    private Long pinCount;
 }

@@ -1,9 +1,11 @@
 package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.domain.comment.CommentRepository;
+import com.bytedance.juejin.domain.comment.CommentService;
 import com.bytedance.juejin.pin.domain.comment.*;
-import com.bytedance.juejin.pin.domain.comment.mbp.MBPCommentIdGenerator;
-import com.bytedance.juejin.pin.domain.comment.mbp.MBPCommentRepository;
+import com.bytedance.juejin.pin.infrastructure.comment.mbp.MBPCommentIdGenerator;
+import com.bytedance.juejin.pin.infrastructure.comment.mbp.MBPCommentRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +21,14 @@ public class DomainCommentConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CommentController pinCommentController() {
+    public CommentController commentController() {
         return new CommentController();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CommentService commentService() {
+        return new CommentService();
     }
 
     /**
@@ -28,8 +36,8 @@ public class DomainCommentConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public CommentService pinCommentService() {
-        return new CommentService();
+    public CommentApplicationService commentApplicationService() {
+        return new CommentApplicationService();
     }
 
     /**
@@ -39,15 +47,6 @@ public class DomainCommentConfiguration {
     @ConditionalOnMissingBean
     public CommentFacadeAdapter pinCommentFacadeAdapter() {
         return new CommentFacadeAdapterImpl();
-    }
-
-    /**
-     * 评论实例化器
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public CommentInstantiator pinCommentInstantiator() {
-        return new CommentInstantiatorImpl();
     }
 
     /**
@@ -81,7 +80,7 @@ public class DomainCommentConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public CommentRepository pinCommentRepository() {
-            return new MBPCommentRepository<>();
+            return new MBPCommentRepository();
         }
     }
 }

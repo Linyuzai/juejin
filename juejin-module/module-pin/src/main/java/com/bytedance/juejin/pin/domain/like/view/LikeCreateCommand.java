@@ -7,9 +7,9 @@ import lombok.Data;
 @Schema(description = "沸点点赞命令")
 public class LikeCreateCommand {
 
-    @Schema(description = "沸点ID")
-    private String pinId;
+    @Schema(description = "沸点ID/评论ID")
+    private String likedId;
 
-    @Schema(description = "评论ID")
-    private String commentId;
+    @Schema(description = "沸点/评论")
+    private String type;
 }

@@ -1,9 +1,11 @@
 package com.bytedance.juejin.pin.config;
 
 import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
+import com.bytedance.juejin.domain.pin.PinRepository;
+import com.bytedance.juejin.domain.pin.PinService;
 import com.bytedance.juejin.pin.domain.pin.*;
-import com.bytedance.juejin.pin.domain.pin.mbp.MBPPinIdGenerator;
-import com.bytedance.juejin.pin.domain.pin.mbp.MBPPinRepository;
+import com.bytedance.juejin.pin.infrastructure.pin.mbp.MBPPinIdGenerator;
+import com.bytedance.juejin.pin.infrastructure.pin.mbp.MBPPinRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,13 +25,19 @@ public class DomainPinConfiguration {
         return new PinController();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public PinService pinService() {
+        return new PinService();
+    }
+
     /**
      * 沸点 Service
      */
     @Bean
     @ConditionalOnMissingBean
-    public PinService pinService() {
-        return new PinService();
+    public PinApplicationService pinApplicationService() {
+        return new PinApplicationService();
     }
 
     /**
@@ -39,15 +47,6 @@ public class DomainPinConfiguration {
     @ConditionalOnMissingBean
     public PinFacadeAdapter pinFacadeAdapter() {
         return new PinFacadeAdapterImpl();
-    }
-
-    /**
-     * 沸点实例化器
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public PinInstantiator pinInstantiator() {
-        return new PinInstantiatorImpl();
     }
 
     /**
@@ -81,7 +80,7 @@ public class DomainPinConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public PinRepository pinRepository() {
-            return new MBPPinRepository<>();
+            return new MBPPinRepository();
         }
     }
 }

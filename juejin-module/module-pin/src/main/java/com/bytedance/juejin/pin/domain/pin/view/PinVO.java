@@ -1,7 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin.view;
 
 import com.bytedance.juejin.pin.domain.comment.view.CommentVO;
-import com.bytedance.juejin.pin.domain.user.view.UserVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -24,7 +23,7 @@ public class PinVO {
     private String clubName;
 
     @Schema(description = "沸点用户")
-    private UserVO user;
+    private PinUserVO user;
 
     @Schema(description = "沸点评论")
     private List<CommentVO> comments;
