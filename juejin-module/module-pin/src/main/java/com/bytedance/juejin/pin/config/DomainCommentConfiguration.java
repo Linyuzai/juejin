@@ -1,6 +1,5 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.domain.comment.CommentRepository;
 import com.bytedance.juejin.domain.comment.CommentService;
 import com.bytedance.juejin.pin.domain.comment.*;
@@ -62,7 +61,6 @@ public class DomainCommentConfiguration {
      * 评论 MyBatis-Plus 配置
      */
     @Configuration
-    @ConditionalOnMyBatisPlus
     public static class MyBatisPlusConfiguration {
 
         /**

@@ -1,9 +1,7 @@
 package com.bytedance.juejin.user.domain.user;
 
-import com.bytedance.juejin.basic.rpc.api.user.UserRO;
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.user.domain.user.view.UserVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

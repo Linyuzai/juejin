@@ -1,6 +1,5 @@
 package com.bytedance.juejin.user.config;
 
-import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.domain.user.UserRepository;
 import com.bytedance.juejin.user.domain.user.*;
 import com.bytedance.juejin.user.infrastructure.user.mbp.MBPUserRepository;
@@ -33,7 +32,6 @@ public class DomainUserConfiguration {
      * 用户 MyBatis-Plus 配置
      */
     @Configuration
-    @ConditionalOnMyBatisPlus
     public static class MyBatisPlusConfiguration {
 
         @Bean

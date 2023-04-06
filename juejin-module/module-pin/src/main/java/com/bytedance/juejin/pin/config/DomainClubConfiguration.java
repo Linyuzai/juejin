@@ -1,6 +1,5 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.domain.club.ClubRepository;
 import com.bytedance.juejin.domain.club.ClubService;
 import com.bytedance.juejin.pin.domain.club.*;
@@ -62,7 +61,6 @@ public class DomainClubConfiguration {
      * 沸点圈子 MyBatis-Plus 配置
      */
     @Configuration
-    @ConditionalOnMyBatisPlus
     public static class MyBatisPlusConfiguration {
 
         /**

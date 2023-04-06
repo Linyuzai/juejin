@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInt
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.bytedance.juejin.basic.name.JuejinBeanNameGenerator;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,8 +13,6 @@ import org.springframework.context.annotation.Configuration;
  * 全局的 MyBatis-Plus 配置
  */
 @Configuration
-@ConditionalOnMyBatisPlus
-@EnableConfigurationProperties(MyBatisPlusProperties.class)
 @MapperScan(basePackages = "com.bytedance.juejin.*.infrastructure.*.mbp",
         nameGenerator = JuejinBeanNameGenerator.class)
 public class MyBatisPlusAutoConfiguration {

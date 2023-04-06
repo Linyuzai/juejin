@@ -1,6 +1,5 @@
 package com.bytedance.juejin.pin.config;
 
-import com.bytedance.juejin.basic.autoconfigure.mbp.ConditionalOnMyBatisPlus;
 import com.bytedance.juejin.domain.like.LikeRepository;
 import com.bytedance.juejin.domain.like.LikeService;
 import com.bytedance.juejin.pin.domain.like.*;
@@ -53,7 +52,6 @@ public class DomainLikeConfiguration {
      * 点赞 MyBatis-Plus 配置
      */
     @Configuration
-    @ConditionalOnMyBatisPlus
     public static class MyBatisPlusConfiguration {
 
         /**

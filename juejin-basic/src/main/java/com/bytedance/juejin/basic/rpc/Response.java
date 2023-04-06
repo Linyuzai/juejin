@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.rpc.api;
+package com.bytedance.juejin.basic.rpc;
 
 import lombok.Data;
 
