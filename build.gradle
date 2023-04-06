@@ -59,6 +59,8 @@ allprojects {
         implementation 'mysql:mysql-connector-java'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
 
+        implementation project(':juejin-security')
+
         if (project.name == 'juejin-basic') {
             return
         }

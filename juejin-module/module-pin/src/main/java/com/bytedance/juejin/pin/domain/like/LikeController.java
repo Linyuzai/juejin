@@ -1,6 +1,6 @@
 package com.bytedance.juejin.pin.domain.like;
 
-import com.bytedance.juejin.basic.login.Login;
+import com.bytedance.juejin.security.login.Login;
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.like.view.LikeCreateCommand;
 import com.bytedance.juejin.pin.domain.like.view.LikeDeleteCommand;

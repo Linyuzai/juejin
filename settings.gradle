@@ -1,6 +1,7 @@
 rootProject.name = 'juejin'
 
 include 'juejin-basic'
+include 'juejin-security'
 
 include 'juejin-domain'
 include 'juejin-domain:domain-pin'
@@ -16,5 +17,4 @@ include 'juejin-application:application-boot'
 include 'juejin-application:application-cloud-gateway'
 include 'juejin-application:application-cloud-pin'
 include 'juejin-application:application-cloud-system'
-
 

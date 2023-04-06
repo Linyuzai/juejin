@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.login;
+package com.bytedance.juejin.security.login;
 
 import io.swagger.v3.oas.annotations.Hidden;
 

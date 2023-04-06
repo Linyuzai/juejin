@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.bytedance.juejin.basic.name.JuejinBeanNameGenerator;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * 全局的 MyBatis-Plus 配置
  */
 @Configuration
-@MapperScan(basePackages = "com.bytedance.juejin.*.infrastructure.*.mbp",
-        nameGenerator = JuejinBeanNameGenerator.class)
+@MapperScan(basePackages = "com.bytedance.juejin.*.infrastructure.*.mbp")
 public class MyBatisPlusAutoConfiguration {
 
     @Bean

@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.login;
+package com.bytedance.juejin.security.login;
 
 import com.github.linyuzai.cloud.web.servlet.WebContextManager;
 

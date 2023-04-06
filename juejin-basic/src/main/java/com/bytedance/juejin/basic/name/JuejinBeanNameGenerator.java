@@ -5,6 +5,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.lang.NonNull;
 
+@Deprecated
 public class JuejinBeanNameGenerator extends AnnotationBeanNameGenerator {
 
     @Override

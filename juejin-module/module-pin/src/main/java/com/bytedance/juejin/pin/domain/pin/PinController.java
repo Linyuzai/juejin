@@ -1,6 +1,6 @@
 package com.bytedance.juejin.pin.domain.pin;
 
-import com.bytedance.juejin.basic.login.Login;
+import com.bytedance.juejin.security.login.Login;
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.pin.view.PinCreateCommand;
 import com.bytedance.juejin.pin.domain.pin.view.PinDeleteCommand;

@@ -1,10 +1,10 @@
 package com.bytedance.juejin.basic;
 
-import com.bytedance.juejin.basic.login.Login;
-import com.bytedance.juejin.basic.login.LoginArgumentAdapter;
-import com.bytedance.juejin.basic.login.LoginHandlerMethodArgumentResolver;
-import com.bytedance.juejin.basic.login.UserLoginArgumentAdapter;
-import com.bytedance.juejin.domain.user.User;
+import com.bytedance.juejin.security.login.Login;
+import com.bytedance.juejin.security.login.LoginArgumentAdapter;
+import com.bytedance.juejin.security.login.LoginHandlerMethodArgumentResolver;
+import com.bytedance.juejin.security.login.LoginUserArgumentAdapter;
+import com.github.linyuzai.domain.core.DomainFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +22,8 @@ import java.util.List;
 public class JuejinBasicConfiguration {
 
     @Bean
-    public LoginArgumentAdapter userLoginArgumentAdapterInBase() {
-        return new UserLoginArgumentAdapter(User.class);
+    public LoginUserArgumentAdapter loginUserArgumentAdapter(DomainFactory factory) {
+        return new LoginUserArgumentAdapter(factory);
     }
 
     @Configuration

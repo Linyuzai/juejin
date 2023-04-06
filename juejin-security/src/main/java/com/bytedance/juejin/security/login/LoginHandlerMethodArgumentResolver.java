@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.login;
+package com.bytedance.juejin.security.login;
 
 import lombok.AllArgsConstructor;
 import org.springframework.core.MethodParameter;
