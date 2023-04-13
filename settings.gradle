@@ -1,14 +1,18 @@
 rootProject.name = 'juejin'
 
 include 'juejin-basic'
+
 include 'juejin-security'
+include 'juejin-security:security-login'
+include 'juejin-security:security-token'
 
 include 'juejin-domain'
 include 'juejin-domain:domain-pin'
 include 'juejin-domain:domain-user'
 
 include 'juejin-module'
-include 'juejin-module:module-message'
+include 'juejin-module:module-login'
+include 'juejin-module:module-notification'
 include 'juejin-module:module-pin'
 include 'juejin-module:module-user'
 
