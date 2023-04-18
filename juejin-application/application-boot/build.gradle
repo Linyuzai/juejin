@@ -1,4 +1,5 @@
 dependencies {
+    implementation project(':juejin-module:module-login')
     implementation project(':juejin-module:module-user')
     implementation project(':juejin-module:module-pin')
     implementation project(':juejin-module:module-notification')

@@ -24,12 +24,19 @@ public class TokenWebInterceptor implements WebInterceptor {
     @Override
     public Object intercept(WebContext context, ValueReturner returner, WebInterceptorChain chain) {
         HttpServletRequest request = context.get(HttpServletRequest.class);
-        String token = request.getHeader("Token");
+        String token = request.getHeader("Authorization");
         if (token == null) {
             throw new IllegalArgumentException("Token not found");
         }
-        User user = tokenCodec.decode(token);
+        User user = tokenCodec.decode(handleToken(token));
         LoginContext.setUser(user);
         return chain.next(context, returner);
+    }
+
+    private String handleToken(String token) {
+        if (token.startsWith("Bearer") || token.startsWith("bearer")) {
+            return token.substring(6).trim();
+        }
+        return token.trim();
     }
 }

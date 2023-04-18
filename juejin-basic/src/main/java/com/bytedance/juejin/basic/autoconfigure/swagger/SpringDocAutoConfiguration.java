@@ -1,5 +1,8 @@
 package com.bytedance.juejin.basic.autoconfigure.swagger;
 
+import com.github.linyuzai.cloud.web.core.intercept.annotation.BreakIntercept;
+import com.github.linyuzai.cloud.web.core.intercept.annotation.OnRequest;
+import com.github.linyuzai.cloud.web.core.intercept.annotation.OnResponse;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -7,7 +10,10 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Configuration
 public class SpringDocAutoConfiguration {
@@ -25,6 +31,15 @@ public class SpringDocAutoConfiguration {
                                 .name(HttpHeaders.AUTHORIZATION)
                                 .type(SecurityScheme.Type.HTTP)
                                 .scheme("bearer")
-                                .bearerFormat("JWT")));
+                                .bearerFormat("JWT")
+                        ));
+    }
+
+    @Order(-1)
+    @BreakIntercept
+    @OnRequest
+    @OnResponse
+    public boolean nonIntercept(HttpServletRequest request) {
+        return request.getRequestURI().contains("/api-docs/");
     }
 }
