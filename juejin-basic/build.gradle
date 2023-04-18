@@ -1,3 +1,4 @@
 dependencies {
     implementation project(':juejin-domain:domain-user')
+    implementation project(':juejin-security:security-token')
 }

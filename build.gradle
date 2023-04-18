@@ -48,18 +48,26 @@ allprojects {
             return
         }
 
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'com.github.linyuzai:concept-cloud-web:1.3.0'
+
+        if (project.name == 'security-login') {
+            return
+        }
+
+        implementation project(':juejin-security:security-login')
+
+        if (project.name.startsWith('security-')) {
+            return
+        }
+
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
         implementation 'org.hibernate.validator:hibernate-validator'
 
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-
-        implementation 'com.github.linyuzai:concept-cloud-web:1.3.0'
         implementation 'com.github.linyuzai:concept-domain-mbp:1.6.1.1'
 
         implementation 'mysql:mysql-connector-java'
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
-
-        implementation project(':juejin-security:security-login')
 
         if (project.name == 'juejin-basic') {
             return

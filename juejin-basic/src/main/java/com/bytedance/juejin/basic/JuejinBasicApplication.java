@@ -3,6 +3,7 @@ package com.bytedance.juejin.basic;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGenerator;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -20,7 +21,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(JuejinBasicConfiguration.class)
-@ComponentScan(basePackages = "com.bytedance.juejin.*.config")
+@ComponentScan(basePackages = "com.bytedance.juejin.*.config",
+        nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class)
 @SpringBootApplication
 public @interface JuejinBasicApplication {
 }

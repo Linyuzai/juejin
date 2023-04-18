@@ -8,9 +8,4 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JuejinBasicConfiguration {
 
-    /*@Bean(initMethod = "init", destroyMethod = "close")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DruidDataSource druidDataSource() {
-        return new DruidDataSource();
-    }*/
 }
