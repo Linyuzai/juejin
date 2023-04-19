@@ -22,10 +22,10 @@ public class LoginController {
     public LoginVO login(@RequestParam String username, @RequestParam String password) {
         User user = userRepository.get(new LambdaConditions().equal(User::getUsername, username));
         if (user == null || !user.getPassword().equals(password)) {
-            throw new RuntimeException("账号或密码错误");
+            throw new RuntimeException("login@module.username-or-password.error");
         }
         if (!user.getEnabled()) {
-            throw new IllegalStateException("账号已禁用");
+            throw new IllegalStateException("login@module.account.disabled");
         }
         String token = tokenCodec.encode(user);
         LoginVO vo = new LoginVO();
