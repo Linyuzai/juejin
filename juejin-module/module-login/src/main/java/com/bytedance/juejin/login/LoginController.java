@@ -4,7 +4,6 @@ import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.domain.user.UserRepository;
 import com.bytedance.juejin.security.token.TokenCodec;
 import com.github.linyuzai.domain.core.condition.LambdaConditions;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,17 +31,9 @@ public class LoginController {
         LoginVO vo = new LoginVO();
         vo.setId(user.getId());
         vo.setNickname(user.getNickname());
+        vo.setAvatar(user.getAvatar());
         vo.setToken(token);
         return vo;
     }
 
-    @Data
-    public static class LoginVO {
-
-        private String id;
-
-        private String nickname;
-
-        private String token;
-    }
 }

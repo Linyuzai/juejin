@@ -48,7 +48,6 @@ public class UserImpl implements User {
         @NotEmpty
         protected String nickname;
 
-        @NotNull
         protected String avatar;
 
         @NotNull
