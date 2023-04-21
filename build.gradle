@@ -34,8 +34,6 @@ allprojects {
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery'
         implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config'
 
-        implementation 'com.github.linyuzai:concept-domain-spring-boot-starter:1.6.1'
-
         implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 
         compileOnly 'org.projectlombok:lombok'
@@ -44,7 +42,13 @@ allprojects {
         annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-        if (project.name == 'application-gateway' || project.name.startsWith('domain-')) {
+        if (project.name == 'application-cloud-gateway') {
+            return
+        }
+
+        implementation 'com.github.linyuzai:concept-domain-spring-boot-starter:1.6.1'
+
+        if (project.name.startsWith('domain-')) {
             return
         }
 
@@ -107,6 +111,7 @@ allprojects {
         //生成路由文件
         doLast {
             if (isApplication(project)) {
+                //route.json
                 Set<String> moduleSet = getDependenceModuleNames(project)
                 //如果包含了业务模块
                 if (!moduleSet.isEmpty()) {
@@ -124,6 +129,28 @@ allprojects {
                     properties.store(os, "Routers generated file")
                     os.close()
                 }
+
+                //i18n
+                /*Set<String> i18nSet = new HashSet<>();
+                getResourcesFiles(project, new HashSet<String>(), i18nSet)
+                File i18nBuild = new File(project.buildDir, '/resources/main/i18n')
+                if (!i18nBuild.exists()) {
+                    i18nBuild.mkdirs()
+                }
+                i18nSet.forEach {
+                    File file = new File(it, '/src/main/resources/i18n')
+                    if (file.exists()) {
+                        def arrayOfFiles = file.listFiles()
+                        if (arrayOfFiles != null) {
+                            for (final File f in arrayOfFiles) {
+                                copy {
+                                    from f
+                                    into i18nBuild
+                                }
+                            }
+                        }
+                    }
+                }*/
             }
         }
     }
@@ -150,7 +177,7 @@ static def getDependenceModuleNames(Project project) {
     Set<String> mSet = new HashSet<>()
     //遍历所有的依赖
     project.configurations.forEach(configuration -> {
-        configuration.allDependencies.forEach(dependency -> {
+        configuration.dependencies.forEach(dependency -> {
             //如果是我们项目中的业务模块则添加该模块名称
             if (dependency.group == 'com.bytedance') {
                 if (dependency.name.startsWith('module-')) {
@@ -160,4 +187,20 @@ static def getDependenceModuleNames(Project project) {
         })
     })
     return mSet
+}
+
+static def getResourcesFiles(Project project, Set<String> modules, Set<String> paths) {
+    if (modules.contains(project.name)) {
+        return
+    }
+    modules.add(project.name)
+    project.configurations.forEach(configuration -> {
+        configuration.dependencies.forEach(dependency -> {
+            //如果是我们项目中的业务模块则添加该模块名称
+            if (dependency.group == 'com.bytedance' && dependency instanceof ProjectDependency) {
+                paths.add(dependency.dependencyProject.projectDir.absolutePath)
+                getResourcesFiles(dependency.dependencyProject, modules, paths)
+            }
+        })
+    })
 }

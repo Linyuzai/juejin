@@ -19,12 +19,14 @@ public class MessageSourceBasename {
             if (filename == null) {
                 continue;
             }
+            String basename;
             int indexOf = filename.indexOf("_");
             if (indexOf == -1) {
-                basenames.add(filename);
+                basename = filename;
             } else {
-                basenames.add(filename.substring(0, indexOf));
+                basename = filename.substring(0, indexOf);
             }
+            basenames.add("i18n/" + basename);
         }
         return basenames.toArray(new String[0]);
     }
