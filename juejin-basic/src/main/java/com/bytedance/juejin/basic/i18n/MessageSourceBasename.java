@@ -13,7 +13,7 @@ public class MessageSourceBasename {
     @SneakyThrows
     public static String[] get(ApplicationContext context) {
         Set<String> basenames = new HashSet<>();
-        Resource[] resources = context.getResources(ResourceUtils.CLASSPATH_URL_PREFIX + "i18n/**");
+        Resource[] resources = context.getResources("classpath*:i18n/**");
         for (Resource resource : resources) {
             String filename = resource.getFilename();
             if (filename == null) {
