@@ -104,47 +104,60 @@ allprojects {
     }
 
     processResources {
-        //资源文件处理之前生成路由文件
-        doFirst {
-            Set<String> mSet = new HashSet<>()
-            //遍历所有的依赖
-            project.configurations.forEach(configuration -> {
-                configuration.allDependencies.forEach(dependency -> {
-                    //如果是我们项目中的业务模块则添加该模块名称
-                    if (dependency.group == 'com.bytedance.juejin') {
-                        mSet.add(dependency.name.replace('module-', ''))
+        //生成路由文件
+        doLast {
+            if (isApplication(project)) {
+                Set<String> moduleSet = getDependenceModuleNames(project)
+                //如果包含了业务模块
+                if (!moduleSet.isEmpty()) {
+                    //获得资源目录
+                    File resourcesDir = new File(project.buildDir, '/resources/main')
+                    //创建路由文件
+                    File file = new File(resourcesDir, 'router.properties')
+                    if (!file.exists()) {
+                        file.createNewFile()
                     }
-                })
-            })
-            //移除，基础模块不需要路由
-            mSet.remove('juejin-basic')
-            //如果包含了业务模块
-            if (!mSet.isEmpty()) {
-                //获得资源目录
-                File resourcesDir = new File(project.projectDir, '/src/main/resources')
-                //创建路由文件
-                File file = new File(resourcesDir, 'router.properties')
-                if (!file.exists()) {
-                    file.createNewFile()
+                    //将模块信息写入文件
+                    Properties properties = new Properties()
+                    properties.setProperty("routers", String.join(',', moduleSet))
+                    OutputStream os = new FileOutputStream(file)
+                    properties.store(os, "Routers generated file")
+                    os.close()
                 }
-                //将模块信息写入文件
-                Properties properties = new Properties()
-                properties.setProperty("routers", String.join(',', mSet))
-                OutputStream os = new FileOutputStream(file)
-                properties.store(os, "Routers generated file")
-                os.close()
             }
         }
     }
 
-    clean {
+    /*clean {
         doLast {
-            //删除路由文件
-            File resourcesDir = new File(project.projectDir, '/src/main/resources')
-            File file = new File(resourcesDir, 'router.properties')
-            if (file.exists()) {
-                file.delete()
+            if (isApplication(project)) {
+                //删除路由文件
+                File resourcesDir = new File(project.projectDir, '/src/main/resources')
+                File file = new File(resourcesDir, 'router.properties')
+                if (file.exists()) {
+                    file.delete()
+                }
             }
         }
-    }
+    }*/
+}
+
+static def isApplication(Project project) {
+    return project.name.startsWith('application-')
+}
+
+static def getDependenceModuleNames(Project project) {
+    Set<String> mSet = new HashSet<>()
+    //遍历所有的依赖
+    project.configurations.forEach(configuration -> {
+        configuration.allDependencies.forEach(dependency -> {
+            //如果是我们项目中的业务模块则添加该模块名称
+            if (dependency.group == 'com.bytedance') {
+                if (dependency.name.startsWith('module-')) {
+                    mSet.add(dependency.name.replace('module-', ''))
+                }
+            }
+        })
+    })
+    return mSet
 }

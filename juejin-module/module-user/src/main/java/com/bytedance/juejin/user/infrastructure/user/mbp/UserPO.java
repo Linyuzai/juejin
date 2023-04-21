@@ -3,7 +3,6 @@ package com.bytedance.juejin.user.infrastructure.user.mbp;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.bytedance.juejin.basic.domain.IdProvider;
 import com.github.linyuzai.domain.core.Identifiable;
 import lombok.Data;
 
