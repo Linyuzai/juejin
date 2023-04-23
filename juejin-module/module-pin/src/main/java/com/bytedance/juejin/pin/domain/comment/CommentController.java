@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "沸点评论")
 @RestController
-@RequestMapping("/pin-comment")
+@RequestMapping("/comment")
 public class CommentController {
 
     @Autowired

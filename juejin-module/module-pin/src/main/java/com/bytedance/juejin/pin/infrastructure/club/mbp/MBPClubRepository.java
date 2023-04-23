@@ -6,9 +6,11 @@ import com.bytedance.juejin.domain.club.Club;
 import com.bytedance.juejin.domain.club.ClubImpl;
 import com.bytedance.juejin.domain.club.ClubRepository;
 import com.bytedance.juejin.domain.club.Clubs;
+import com.bytedance.juejin.domain.pin.Pins;
 import com.bytedance.juejin.domain.user.Users;
 import com.github.linyuzai.domain.core.DomainFactory;
 import com.github.linyuzai.domain.core.DomainValidator;
+import com.github.linyuzai.domain.core.condition.LambdaConditions;
 import com.github.linyuzai.domain.mbp.MBPDomainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -81,6 +83,8 @@ public class MBPClubRepository extends MBPDomainRepository<Club, Clubs, ClubPO> 
                 .description(po.getDescription())
                 .announcement(po.getAnnouncement())
                 .users(users)
+                .pins(factory.createCollection(Pins.class, new LambdaConditions()
+                        .equal(Club::getId, po.getId(), true)))
                 .build(validator);
     }
 

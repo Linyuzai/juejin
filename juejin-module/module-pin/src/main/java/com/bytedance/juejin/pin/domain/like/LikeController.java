@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "沸点点赞")
 @RestController
-@RequestMapping("pin-like")
+@RequestMapping("like")
 public class LikeController {
 
     @Autowired

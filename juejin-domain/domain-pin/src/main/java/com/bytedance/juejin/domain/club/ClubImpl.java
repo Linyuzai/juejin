@@ -74,7 +74,6 @@ public class ClubImpl implements Club {
         @NotEmpty
         protected String name;
 
-        @NotNull
         protected String logo;
 
         @NotNull
@@ -83,7 +82,6 @@ public class ClubImpl implements Club {
         @NotNull
         protected String description;
 
-        @NotNull
         protected String announcement;
 
         @NotNull

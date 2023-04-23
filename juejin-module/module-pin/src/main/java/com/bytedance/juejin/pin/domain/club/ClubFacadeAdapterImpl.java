@@ -2,6 +2,7 @@ package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.domain.club.Club;
 import com.bytedance.juejin.domain.club.ClubImpl;
+import com.bytedance.juejin.domain.pin.Pins;
 import com.bytedance.juejin.domain.user.Users;
 import com.bytedance.juejin.pin.domain.club.view.*;
 import com.github.linyuzai.domain.core.DomainFactory;
@@ -47,6 +48,7 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
                 .category(create.getCategory())
                 .description(create.getDescription())
                 .users(factory.createCollection(Users.class, Collections.emptyList()))
+                .pins(factory.createCollection(Pins.class, Collections.emptyList()))
                 .build(validator);
     }
 
@@ -63,6 +65,7 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
                 .description(update.getDescription())
                 .announcement(old.getAnnouncement())
                 .users(old.getUsers())
+                .pins(old.getPins())
                 .build(validator);
     }
 
