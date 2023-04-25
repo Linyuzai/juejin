@@ -1,5 +1,7 @@
 dependencies {
-    implementation project(':juejin-module:module-login')
+    implementation project(':juejin-basic:basic-boot')
+    implementation project(':juejin-login:login-password')
+    implementation project(':juejin-token:token-jwt')
     implementation project(':juejin-module:module-user')
     implementation project(':juejin-module:module-pin')
     implementation project(':juejin-module:module-notification')

@@ -1,7 +1,7 @@
 package com.bytedance.juejin.pin.domain.comment;
 
-import com.bytedance.juejin.security.login.Login;
 import com.bytedance.juejin.domain.user.User;
+import com.bytedance.juejin.login.core.Login;
 import com.bytedance.juejin.pin.domain.comment.view.CommentCreateCommand;
 import com.bytedance.juejin.pin.domain.comment.view.CommentDeleteCommand;
 import com.bytedance.juejin.pin.domain.comment.view.CommentQuery;

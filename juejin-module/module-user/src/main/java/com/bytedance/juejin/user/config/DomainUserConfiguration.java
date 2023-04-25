@@ -29,7 +29,7 @@ public class DomainUserConfiguration {
     }
 
     /**
-     * 用户 MyBatis-Plus 配置
+     * 沸点圈子 MyBatis-Plus 配置
      */
     @Configuration
     public static class MyBatisPlusConfiguration {

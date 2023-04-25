@@ -1,4 +1,4 @@
 dependencies {
-    implementation project(':juejin-domain:domain-pin')
-    implementation project(':juejin-domain:domain-user')
+    api project(':juejin-domain:domain-pin')
+    api project(':juejin-domain:domain-user')
 }

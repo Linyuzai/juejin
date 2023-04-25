@@ -1,4 +1,5 @@
 dependencies {
+    implementation project(':juejin-basic:basic-cloud')
     implementation project(':juejin-module:module-user')
     implementation project(':juejin-module:module-notification')
 }

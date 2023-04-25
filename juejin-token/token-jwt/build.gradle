@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':juejin-token:token-core')
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+}

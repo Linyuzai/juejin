@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.bytedance.juejin.login.core.autoconfigure.LoginAutoConfiguration,\
+com.bytedance.juejin.login.core.autoconfigure.SpringDocConfiguration

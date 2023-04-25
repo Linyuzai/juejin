@@ -1,6 +1,6 @@
 package com.bytedance.juejin.boot;
 
-import com.bytedance.juejin.basic.JuejinBootApplication;
+import com.bytedance.juejin.basic.boot.JuejinBootApplication;
 import org.springframework.boot.SpringApplication;
 
 @JuejinBootApplication
