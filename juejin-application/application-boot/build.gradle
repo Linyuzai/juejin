@@ -6,7 +6,3 @@ dependencies {
     implementation project(':juejin-module:module-pin')
     implementation project(':juejin-module:module-notification')
 }
-
-bootJar {
-    archiveBaseName = 'juejin-application-boot'
-}

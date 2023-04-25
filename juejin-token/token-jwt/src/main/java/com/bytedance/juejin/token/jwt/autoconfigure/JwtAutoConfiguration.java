@@ -1,6 +1,6 @@
 package com.bytedance.juejin.token.jwt.autoconfigure;
 
-import com.bytedance.juejin.token.core.TokenCodec;
+import com.bytedance.juejin.token.TokenCodec;
 import com.bytedance.juejin.token.jwt.JwtTokenCodec;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,7 @@
 package com.bytedance.juejin.pin.domain.club;
 
 import com.bytedance.juejin.domain.user.User;
-import com.bytedance.juejin.login.core.Login;
+import com.bytedance.juejin.login.Login;
 import com.bytedance.juejin.pin.domain.club.view.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

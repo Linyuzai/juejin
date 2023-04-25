@@ -2,8 +2,8 @@ package com.bytedance.juejin.login.password;
 
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.domain.user.UserRepository;
-import com.bytedance.juejin.login.core.LoginVO;
-import com.bytedance.juejin.token.core.TokenCodec;
+import com.bytedance.juejin.login.LoginVO;
+import com.bytedance.juejin.token.TokenCodec;
 import com.github.linyuzai.domain.core.condition.LambdaConditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,10 +23,10 @@ public class PasswordLoginController {
     public LoginVO login(@RequestParam String username, @RequestParam String password) {
         User user = userRepository.get(new LambdaConditions().equal(User::getUsername, username));
         if (user == null || !user.getPassword().equals(password)) {
-            throw new RuntimeException("login@core.username-or-password.error");
+            throw new RuntimeException("login.username-or-password.error");
         }
         if (!user.getEnabled()) {
-            throw new IllegalStateException("login@core.account.disabled");
+            throw new IllegalStateException("login.account.disabled");
         }
         String token = tokenCodec.encode(user);
         LoginVO vo = new LoginVO();

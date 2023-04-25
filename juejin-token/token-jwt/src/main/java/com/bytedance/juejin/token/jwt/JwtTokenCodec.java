@@ -1,7 +1,7 @@
 package com.bytedance.juejin.token.jwt;
 
 import com.bytedance.juejin.domain.user.User;
-import com.bytedance.juejin.token.core.TokenCodec;
+import com.bytedance.juejin.token.TokenCodec;
 import com.github.linyuzai.domain.core.DomainFactory;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

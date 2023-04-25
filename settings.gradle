@@ -15,7 +15,6 @@ include 'juejin-domain:domain-pin'
 include 'juejin-domain:domain-user'
 
 include 'juejin-login'
-include 'juejin-login:login-core'
 include 'juejin-login:login-password'
 
 include 'juejin-module'
@@ -24,10 +23,8 @@ include 'juejin-module:module-pin'
 include 'juejin-module:module-user'
 
 include 'juejin-rpc'
-include 'juejin-rpc:rpc-core'
 include 'juejin-rpc:rpc-feign'
 
 include 'juejin-token'
-include 'juejin-token:token-core'
 include 'juejin-token:token-jwt'
 

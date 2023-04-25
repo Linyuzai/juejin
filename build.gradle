@@ -49,7 +49,7 @@ allprojects {
         implementation 'com.github.linyuzai:concept-cloud-web:1.3.0'
 
         if (project.name.startsWith('module-')) {
-            implementation project(':juejin-login:login-core')
+            implementation project(':juejin-login')
 
             implementation 'com.github.linyuzai:concept-domain-mbp:1.6.1.1'
         }
@@ -79,10 +79,17 @@ allprojects {
     //application 启动模块 用 bootJar 打包，其他模块用 jar 打包
     if (project.name.contains("application-")) {
         bootJar.enabled = true
+        bootJar.archiveBaseName = "juejin-${project.name}"
         jar.enabled = false
     } else {
-        bootJar.enabled = false
         jar.enabled = true
+        if (project.depth <= 1) {
+            jar.archiveBaseName = "aa-${project.name}"
+        } else {
+            jar.archiveBaseName = "aa-juejin-${project.name}"
+        }
+
+        bootJar.enabled = false
     }
 
     processResources {

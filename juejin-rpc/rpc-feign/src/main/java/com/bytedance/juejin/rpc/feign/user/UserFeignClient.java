@@ -1,7 +1,7 @@
 package com.bytedance.juejin.rpc.feign.user;
 
 import com.bytedance.juejin.rpc.core.Response;
-import com.bytedance.juejin.rpc.core.user.UserRO;
+import com.bytedance.juejin.rpc.user.UserRO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
