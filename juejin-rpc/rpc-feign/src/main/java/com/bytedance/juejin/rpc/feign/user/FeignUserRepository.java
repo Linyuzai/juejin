@@ -1,6 +1,6 @@
 package com.bytedance.juejin.rpc.feign.user;
 
-import com.bytedance.juejin.rpc.core.Response;
+import com.bytedance.juejin.rpc.Response;
 import com.bytedance.juejin.rpc.user.RPCUserFacadeAdapter;
 import com.bytedance.juejin.rpc.user.UserRO;
 import com.bytedance.juejin.domain.user.User;
