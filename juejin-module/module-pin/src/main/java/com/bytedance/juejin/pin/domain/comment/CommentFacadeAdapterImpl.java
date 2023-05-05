@@ -101,8 +101,8 @@ public class CommentFacadeAdapterImpl implements CommentFacadeAdapter {
     @Override
     public Conditions toConditions(CommentQuery query) {
         LambdaConditions conditions = new LambdaConditions();
-        conditions.equal(Pin::getId, query.getPinId());
-        conditions.isNull(Comment::getId);
+        conditions.equal(Pin::getId, query.getPinId(), true);
+        conditions.isNull(Comment::getId, true);
         conditions.orderBy(Comment::getCreateTime, true);
         return conditions;
     }
