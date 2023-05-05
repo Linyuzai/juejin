@@ -7,10 +7,12 @@ import com.bytedance.juejin.token.TokenCodec;
 import com.github.linyuzai.domain.core.condition.LambdaConditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/login")
 public class PasswordLoginController {
 
     @Autowired
@@ -19,8 +21,8 @@ public class PasswordLoginController {
     @Autowired
     protected TokenCodec tokenCodec;
 
-    @PostMapping("/login")
-    public LoginVO login(@RequestParam String username, @RequestParam String password) {
+    @PostMapping("/password")
+    public LoginVO pwdLogin(@RequestParam String username, @RequestParam String password) {
         User user = userRepository.get(new LambdaConditions().equal(User::getUsername, username));
         if (user == null || !user.getPassword().equals(password)) {
             throw new RuntimeException("login.username-or-password.error");

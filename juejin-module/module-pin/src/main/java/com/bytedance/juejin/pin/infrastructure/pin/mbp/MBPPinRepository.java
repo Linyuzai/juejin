@@ -61,6 +61,7 @@ public class MBPPinRepository extends MBPDomainRepository<Pin, Pins, PinPO> impl
         PinLikes likes = factory.createCollection(PinLikes.class, new LambdaConditions()
                 .equal(Pin::getId, po.getId(), true));
         return new PinImpl.Builder()
+                .id(po.getId())
                 .club(club)
                 .content(po.getContent())
                 .user(user)

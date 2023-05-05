@@ -19,7 +19,6 @@ import java.util.Date;
  * 基于 MyBatis-Plus 的评论存储实现
  */
 @Repository
-@SuppressWarnings("unchecked")
 public class MBPCommentRepository extends MBPDomainRepository<Comment, Comments<Comment>, CommentPO> implements CommentRepository {
 
     /**
