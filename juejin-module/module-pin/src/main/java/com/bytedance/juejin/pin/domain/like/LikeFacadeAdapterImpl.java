@@ -30,7 +30,7 @@ public class LikeFacadeAdapterImpl implements LikeFacadeAdapter {
 
     @Override
     public Like from(LikeCreateCommand create, User user) {
-        String id = likeIdGenerator.generateId(create);
+        String id = likeIdGenerator.generateId(new Object[]{create, user});
         if (Pin.class.getSimpleName().equalsIgnoreCase(create.getType())) {
             Pin pin = factory.createObject(Pin.class, create.getLikedId());
             return new PinLikeImpl.Builder()

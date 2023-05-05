@@ -3,7 +3,7 @@ package com.bytedance.juejin.pin.config;
 import com.bytedance.juejin.domain.like.LikeRepository;
 import com.bytedance.juejin.domain.like.LikeService;
 import com.bytedance.juejin.pin.domain.like.*;
-import com.bytedance.juejin.pin.infrastructure.like.mbp.MBPLikeIdGenerator;
+import com.bytedance.juejin.pin.domain.like.LikeIdGeneratorImpl;
 import com.bytedance.juejin.pin.infrastructure.like.mbp.MBPLikeRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -49,19 +49,19 @@ public class DomainLikeConfiguration {
     }
 
     /**
+     * 点赞 id 生成器
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public LikeIdGenerator pinLikeIdGenerator() {
+        return new LikeIdGeneratorImpl();
+    }
+
+    /**
      * 点赞 MyBatis-Plus 配置
      */
     @Configuration
     public static class MyBatisPlusConfiguration {
-
-        /**
-         * 点赞 id 生成器
-         */
-        @Bean
-        @ConditionalOnMissingBean
-        public LikeIdGenerator pinLikeIdGenerator() {
-            return new MBPLikeIdGenerator();
-        }
 
         /**
          * 基于 MyBatis-Plus 的点赞存储
