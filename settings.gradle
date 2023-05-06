@@ -15,7 +15,7 @@ include 'juejin-domain:domain-pin'
 include 'juejin-domain:domain-user'
 
 include 'juejin-login'
-include 'juejin-login:login-password'
+include 'juejin-login:login-username'
 
 include 'juejin-module'
 include 'juejin-module:module-notification'
