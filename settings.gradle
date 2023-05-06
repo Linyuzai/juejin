@@ -11,6 +11,7 @@ include 'juejin-basic:basic-boot'
 include 'juejin-basic:basic-cloud'
 
 include 'juejin-domain'
+include 'juejin-domain:domain-notification'
 include 'juejin-domain:domain-pin'
 include 'juejin-domain:domain-user'
 
