@@ -41,7 +41,7 @@ allprojects {
         }
 
         if (project.name.startsWith('domain-')) {
-            api 'com.github.linyuzai:concept-domain-spring-boot-starter:1.6.6'
+            api 'com.github.linyuzai:concept-domain-spring-boot-starter:1.6.7'
             return
         }
 
@@ -51,7 +51,7 @@ allprojects {
         if (project.name.startsWith('module-')) {
             implementation project(':juejin-login')
 
-            implementation 'com.github.linyuzai:concept-domain-mbp:1.6.6'
+            implementation 'com.github.linyuzai:concept-domain-mbp:1.6.7'
         }
 
         implementation 'mysql:mysql-connector-java'
