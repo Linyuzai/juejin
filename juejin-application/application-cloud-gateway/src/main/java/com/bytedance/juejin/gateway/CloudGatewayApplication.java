@@ -3,6 +3,9 @@ package com.bytedance.juejin.gateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * 微服务网关启动类
+ */
 @SpringBootApplication
 public class CloudGatewayApplication {
 

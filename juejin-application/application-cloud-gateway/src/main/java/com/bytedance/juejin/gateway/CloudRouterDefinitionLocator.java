@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 向注册中心注册自身服务支持的模块
+ */
 @Component
 @RequiredArgsConstructor
 public class CloudRouterDefinitionLocator implements RouteDefinitionLocator {
@@ -64,11 +67,11 @@ public class CloudRouterDefinitionLocator implements RouteDefinitionLocator {
                 rd.setUri(URI.create("lb://" + service));
                 PredicateDefinition pd = new PredicateDefinition();
                 pd.setName("Path");
-                pd.addArg("juejin", "/" + router + "/**");
+                pd.addArg("arg0", "/" + router + "/**");
                 rd.setPredicates(Collections.singletonList(pd));
                 FilterDefinition fd = new FilterDefinition();
                 fd.setName("StripPrefix");
-                fd.addArg("juejin", "1");
+                fd.addArg("arg0", "1");
                 rd.setFilters(Collections.singletonList(fd));
                 newRouteDefinitions.add(rd);
             }

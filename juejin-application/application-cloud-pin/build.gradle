@@ -1,8 +1,4 @@
 dependencies {
-    implementation project(':juejin-basic:basic-cloud')
-    implementation project(':juejin-module:module-pin')
-}
-
-bootJar {
-    archiveBaseName = 'juejin-application-cloud-pin'
+    implementation project(':juejin-basic:basic-cloud') //微服务基础依赖
+    implementation project(':juejin-module:module-pin') //沸点模块
 }
