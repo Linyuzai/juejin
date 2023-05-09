@@ -7,6 +7,9 @@ import org.springframework.core.MethodParameter;
 
 import java.util.Objects;
 
+/**
+ * 自动填充标记了 {@link Login} 的 {@link User} 参数
+ */
 @Getter
 @RequiredArgsConstructor
 public class LoginUserArgumentAdapter implements LoginArgumentAdapter {
@@ -25,7 +28,7 @@ public class LoginUserArgumentAdapter implements LoginArgumentAdapter {
             if (!Objects.requireNonNull(annotation).required()) {
                 return null;
             }
-            throw new IllegalStateException("未登录");
+            throw new IllegalStateException("login.not-login");
         }
         return user;
     }

@@ -4,6 +4,7 @@ import com.bytedance.juejin.login.Login;
 import com.bytedance.juejin.login.LoginArgumentAdapter;
 import com.bytedance.juejin.login.LoginHandlerMethodArgumentResolver;
 import com.bytedance.juejin.login.LoginUserArgumentAdapter;
+import com.github.linyuzai.cloud.web.core.concept.Request;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.BreakIntercept;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.OnRequest;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Configuration
@@ -23,8 +23,9 @@ public class LoginAutoConfiguration {
     @Order(-1)
     @BreakIntercept
     @OnRequest
-    public boolean nonIntercept(HttpServletRequest request) {
-        return request.getRequestURI().startsWith("/login/");
+    public boolean nonIntercept(Request request) {
+        return request.getPath().startsWith("/login/") ||
+                request.getPath().startsWith("/register/");
     }
 
     @Bean

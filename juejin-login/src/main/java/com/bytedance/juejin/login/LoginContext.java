@@ -3,6 +3,9 @@ package com.bytedance.juejin.login;
 import com.bytedance.juejin.domain.user.User;
 import com.github.linyuzai.cloud.web.servlet.WebContextManager;
 
+/**
+ * 登录上下文
+ */
 public class LoginContext {
 
     private static final String USER = LoginContext.class.getName() + "@user";

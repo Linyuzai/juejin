@@ -3,7 +3,9 @@ package com.bytedance.juejin.login;
 import org.springframework.core.MethodParameter;
 
 /**
- * 用于适配不同的参数类型
+ * 标记了 {@link Login} 的参数
+ * <p>
+ * 适配不同的参数类型返回对应的值
  */
 public interface LoginArgumentAdapter {
 
