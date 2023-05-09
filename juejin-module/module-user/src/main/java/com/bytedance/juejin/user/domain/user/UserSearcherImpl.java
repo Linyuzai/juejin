@@ -6,6 +6,9 @@ import com.bytedance.juejin.user.domain.user.view.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 用户搜索实现
+ */
 @Component
 public class UserSearcherImpl implements UserSearcher {
 

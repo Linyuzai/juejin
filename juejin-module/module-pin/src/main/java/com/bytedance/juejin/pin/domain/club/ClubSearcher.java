@@ -12,12 +12,12 @@ import java.util.List;
 public interface ClubSearcher {
 
     /**
-     * 根据 id 查询圈子视图
+     * 根据 id 查询圈子全量视图
      */
     ClubFullVO get(String id);
 
     /**
-     * 条件查询圈子列表
+     * 条件查询圈子视图列表
      */
     List<ClubVO> list(ClubQuery query);
 }

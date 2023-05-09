@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
- * 沸点领域模型和视图的转换适配器
+ * 沸点领域模型转换适配器实现
  */
 @Component
 public class PinFacadeAdapterImpl implements PinFacadeAdapter {

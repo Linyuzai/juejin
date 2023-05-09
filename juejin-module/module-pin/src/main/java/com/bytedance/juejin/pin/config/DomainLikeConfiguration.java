@@ -10,14 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 点赞领域相关配置
+ * 点赞配置
  */
 @Configuration
 public class DomainLikeConfiguration {
 
-    /**
-     * 点赞 Controller
-     */
     @Bean
     @ConditionalOnMissingBean
     public LikeController likeController() {
@@ -30,27 +27,18 @@ public class DomainLikeConfiguration {
         return new LikeService();
     }
 
-    /**
-     * 点赞 Service
-     */
     @Bean
     @ConditionalOnMissingBean
     public LikeApplicationService likeApplicationService() {
         return new LikeApplicationService();
     }
 
-    /**
-     * 点赞模型与视图的转换适配器
-     */
     @Bean
     @ConditionalOnMissingBean
     public LikeFacadeAdapter pinLikeFacadeAdapter() {
         return new LikeFacadeAdapterImpl();
     }
 
-    /**
-     * 点赞 id 生成器
-     */
     @Bean
     @ConditionalOnMissingBean
     public LikeIdGenerator pinLikeIdGenerator() {
@@ -58,14 +46,11 @@ public class DomainLikeConfiguration {
     }
 
     /**
-     * 点赞 MyBatis-Plus 配置
+     * MyBatis-Plus 配置
      */
     @Configuration
     public static class MyBatisPlusConfiguration {
 
-        /**
-         * 基于 MyBatis-Plus 的点赞存储
-         */
         @Bean
         @ConditionalOnMissingBean
         public LikeRepository pinLikeRepository() {

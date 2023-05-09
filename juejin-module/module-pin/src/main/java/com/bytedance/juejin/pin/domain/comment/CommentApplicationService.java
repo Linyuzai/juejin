@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 评论领域服务
+ * 评论应用服务
  */
 @Service
 public class CommentApplicationService {
@@ -25,11 +25,17 @@ public class CommentApplicationService {
     @Autowired
     private CommentFacadeAdapter commentFacadeAdapter;
 
+    /**
+     * 创建评论
+     */
     public void create(CommentCreateCommand create, User user) {
         Comment comment = commentFacadeAdapter.from(create, user);
         commentService.create(comment, user);
     }
 
+    /**
+     * 删除评论
+     */
     public void delete(CommentDeleteCommand delete, User user) {
         Comment comment = commentRepository.get(delete.getId());
         if (comment == null) {

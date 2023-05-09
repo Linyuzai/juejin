@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.linyuzai.domain.core.Identifiable;
 import lombok.Data;
 
+/**
+ * 圈子用户数据模型
+ */
 @Data
 @TableName("t_club_user")
 public class ClubUserPO implements Identifiable {

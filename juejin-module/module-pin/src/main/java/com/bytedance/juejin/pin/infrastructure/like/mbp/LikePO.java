@@ -8,6 +8,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 点赞数据模型
+ */
 @Data
 @TableName("t_like")
 class LikePO implements Identifiable {
@@ -33,5 +36,8 @@ class LikePO implements Identifiable {
      */
     private String userId;
 
+    /**
+     * 点赞时间
+     */
     private Date createTime;
 }

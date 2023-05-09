@@ -9,6 +9,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 评论数据模型
+ */
 @Data
 @TableName("t_comment")
 class CommentPO implements Identifiable {

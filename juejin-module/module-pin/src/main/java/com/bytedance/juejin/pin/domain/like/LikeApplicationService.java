@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 点赞领域服务
+ * 点赞应用服务
  */
 @Service
 public class LikeApplicationService {
@@ -25,6 +25,9 @@ public class LikeApplicationService {
     @Autowired
     private LikeRepository likeRepository;
 
+    /**
+     * 点赞
+     */
     public void create(LikeCreateCommand create, User user) {
         Like like = likeFacadeAdapter.from(create, user);
         Like exist = likeRepository.get(like.getId());
@@ -35,6 +38,9 @@ public class LikeApplicationService {
         }
     }
 
+    /**
+     * 取消点赞
+     */
     public void delete(LikeDeleteCommand delete, User user) {
         Like like = likeRepository.get(delete.getId());
         if (like == null) {

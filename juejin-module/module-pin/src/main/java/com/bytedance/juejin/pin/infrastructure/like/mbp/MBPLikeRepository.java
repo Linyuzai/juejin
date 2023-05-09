@@ -12,10 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * 基于 MyBatis-Plus 的点赞存储
+ * 基于 MBP 的点赞存储
  */
 @Repository
-@SuppressWarnings("unchecked")
 public class MBPLikeRepository extends MBPDomainRepository<Like, Likes<Like>, LikePO> implements LikeRepository {
 
     @Autowired

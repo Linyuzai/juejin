@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Schema(description = "沸点圈子视图")
+@Schema(description = "沸点圈子全量视图")
 public class ClubFullVO extends ClubVO {
 
     @Schema(description = "用户数量")

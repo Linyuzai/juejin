@@ -6,7 +6,7 @@ import com.github.linyuzai.domain.mbp.MBPDomainIdGenerator;
 import org.springframework.stereotype.Component;
 
 /**
- * 评论 id 生成器
+ * 基于 MBP id 生成器 的 评论 id 生成器
  */
 @Component
 public class MBPCommentIdGenerator extends MBPDomainIdGenerator<CommentCreateCommand> implements CommentIdGenerator {

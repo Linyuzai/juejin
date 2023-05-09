@@ -6,7 +6,7 @@ import com.github.linyuzai.domain.mbp.MBPDomainIdGenerator;
 import org.springframework.stereotype.Component;
 
 /**
- * 基于 {@link com.baomidou.mybatisplus.core.toolkit.IdWorker} 的圈子 id 生成器
+ * 基于 MBP id 生成器 的 圈子 id 生成器
  */
 @Component
 public class MBPClubIdGenerator extends MBPDomainIdGenerator<ClubCreateCommand> implements ClubIdGenerator {

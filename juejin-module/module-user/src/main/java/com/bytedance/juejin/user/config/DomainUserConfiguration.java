@@ -1,7 +1,9 @@
 package com.bytedance.juejin.user.config;
 
+import com.bytedance.juejin.domain.user.UserIdGenerator;
 import com.bytedance.juejin.domain.user.UserRepository;
 import com.bytedance.juejin.user.domain.user.*;
+import com.bytedance.juejin.user.infrastructure.user.mbp.MBPUserIdGenerator;
 import com.bytedance.juejin.user.infrastructure.user.mbp.MBPUserRepository;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -29,10 +31,16 @@ public class DomainUserConfiguration {
     }
 
     /**
-     * 沸点圈子 MyBatis-Plus 配置
+     * MyBatis-Plus 配置
      */
     @Configuration
     public static class MyBatisPlusConfiguration {
+
+        @Bean
+        @ConditionalOnMissingBean
+        public UserIdGenerator userIdGenerator() {
+            return new MBPUserIdGenerator();
+        }
 
         @Bean
         @ConditionalOnMissingBean

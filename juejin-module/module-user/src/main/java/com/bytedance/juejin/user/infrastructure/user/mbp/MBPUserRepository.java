@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * 基于 MyBatis-Plus 的用户存储实现
+ * 基于 MBP 的用户存储实现
  */
 @Repository
 public class MBPUserRepository extends MBPDomainRepository<User, Users, UserPO> implements UserRepository {

@@ -11,6 +11,9 @@ import com.github.linyuzai.domain.core.exception.DomainNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 圈子应用服务
+ */
 @Service
 public class ClubApplicationService {
 
@@ -23,11 +26,17 @@ public class ClubApplicationService {
     @Autowired
     protected ClubRepository clubRepository;
 
+    /**
+     * 创建圈子
+     */
     public void create(ClubCreateCommand create, User user) {
         Club club = clubFacadeAdapter.from(create);
         clubService.create(club, user);
     }
 
+    /**
+     * 更新圈子
+     */
     public void update(ClubUpdateCommand update, User user) {
         Club oldClub = clubRepository.get(update.getId());
         if (oldClub == null) {
@@ -37,6 +46,9 @@ public class ClubApplicationService {
         clubService.update(newClub, oldClub, user);
     }
 
+    /**
+     * 发布公告
+     */
     public void publishAnnouncement(ClubAnnouncementPublishCommand publish, User user) {
         Club club = clubRepository.get(publish.getId());
         if (club == null) {

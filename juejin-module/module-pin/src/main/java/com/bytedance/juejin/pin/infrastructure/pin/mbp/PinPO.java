@@ -9,6 +9,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 沸点数据模型
+ */
 @Data
 @TableName("t_pin")
 class PinPO implements Identifiable {

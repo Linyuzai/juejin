@@ -5,9 +5,12 @@ import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.pin.domain.like.view.LikeCreateCommand;
 
 /**
- * 点赞模型与视图的转换适配器
+ * 点赞领域模型转换适配器
  */
 public interface LikeFacadeAdapter {
 
+    /**
+     * 创建视图转点赞领域模型
+     */
     Like from(LikeCreateCommand create, User user);
 }

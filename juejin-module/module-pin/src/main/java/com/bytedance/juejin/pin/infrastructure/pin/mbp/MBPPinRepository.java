@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * 基于 MyBatis-Plus 的沸点存储实现
+ * 基于 MBP 的沸点存储实现
  */
 @Repository
 public class MBPPinRepository extends MBPDomainRepository<Pin, Pins, PinPO> implements PinRepository {

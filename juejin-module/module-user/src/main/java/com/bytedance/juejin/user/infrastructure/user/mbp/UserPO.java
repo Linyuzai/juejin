@@ -8,6 +8,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * 用户数据模型
+ */
 @Data
 @TableName("t_user")
 class UserPO implements Identifiable {

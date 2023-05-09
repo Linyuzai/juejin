@@ -16,29 +16,20 @@ import java.util.Collections;
 import java.util.Date;
 
 /**
- * 基于 MyBatis-Plus 的评论存储实现
+ * 基于 MBP 的评论存储实现
  */
 @Repository
 public class MBPCommentRepository extends MBPDomainRepository<Comment, Comments<Comment>, CommentPO> implements CommentRepository {
 
-    /**
-     * 评论 Mapper
-     */
     @Autowired
     private CommentMapper commentMapper;
 
     @Autowired
     private DomainFactory factory;
 
-    /**
-     * 领域校验器
-     */
     @Autowired
     private DomainValidator validator;
 
-    /**
-     * 领域模型转数据模型
-     */
     @Override
     public CommentPO do2po(Comment comment) {
         CommentPO po = new CommentPO();
@@ -53,9 +44,6 @@ public class MBPCommentRepository extends MBPDomainRepository<Comment, Comments<
         return po;
     }
 
-    /**
-     * 数据模型转领域模型
-     */
     @Override
     public Comment po2do(CommentPO po) {
         Pin pin = factory.createObject(Pin.class, po.getPinId());

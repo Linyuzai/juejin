@@ -21,14 +21,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * 圈子存储
+ * 基于 MBP 的圈子存储
  */
 @Repository
 public class MBPClubRepository extends MBPDomainRepository<Club, Clubs, ClubPO> implements ClubRepository {
 
-    /**
-     * 圈子 Mapper
-     */
     @Autowired
     private ClubMapper clubMapper;
 
@@ -38,15 +35,9 @@ public class MBPClubRepository extends MBPDomainRepository<Club, Clubs, ClubPO> 
     @Autowired
     private DomainFactory factory;
 
-    /**
-     * 领域校验器
-     */
     @Autowired
     private DomainValidator validator;
 
-    /**
-     * 领域模型转数据模型
-     */
     @Override
     public ClubPO do2po(Club club) {
         ClubPO po = new ClubPO();
@@ -59,9 +50,6 @@ public class MBPClubRepository extends MBPDomainRepository<Club, Clubs, ClubPO> 
         return po;
     }
 
-    /**
-     * 数据模型转领域模型
-     */
     @Override
     public Club po2do(ClubPO po) {
         List<ClubUserPO> pos = clubUserMapper.selectList(Wrappers.<ClubUserPO>lambdaQuery()

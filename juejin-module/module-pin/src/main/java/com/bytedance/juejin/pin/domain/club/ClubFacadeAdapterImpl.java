@@ -15,29 +15,20 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 
 /**
- * 圈子模型与视图的转换适配器实现
+ * 圈子领域模型转换适配器实现
  */
 @Component
 public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
 
-    /**
-     * 圈子 id 生成器
-     */
     @Autowired
     private ClubIdGenerator clubIdGenerator;
 
     @Autowired
     private DomainFactory factory;
 
-    /**
-     * 领域校验器
-     */
     @Autowired
     private DomainValidator validator;
 
-    /**
-     * 创建视图转圈子模型
-     */
     @Override
     public Club from(ClubCreateCommand create) {
         String id = clubIdGenerator.generateId(create);
@@ -52,9 +43,6 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
                 .build(validator);
     }
 
-    /**
-     * 更新视图转圈子模型
-     */
     @Override
     public Club from(ClubUpdateCommand update, Club old) {
         return new ClubImpl.Builder()
@@ -69,9 +57,6 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
                 .build(validator);
     }
 
-    /**
-     * 圈子模型转圈子视图
-     */
     @Override
     public ClubVO do2vo(Club club) {
         ClubVO vo = new ClubVO();
@@ -97,9 +82,6 @@ public class ClubFacadeAdapterImpl implements ClubFacadeAdapter {
         vo.setAnnouncement(club.getAnnouncement());
     }
 
-    /**
-     * 圈子查询转条件
-     */
     @Override
     public Conditions toConditions(ClubQuery query) {
         return new LambdaConditions()
