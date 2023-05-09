@@ -8,8 +8,16 @@ import org.springframework.util.ResourceUtils;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * i18n basename
+ */
 public class MessageSourceBasename {
 
+    /**
+     * 获得所有的 basename
+     * <p>
+     * resources/i18n/{basename}_(en_US/zh_CN).properties
+     */
     @SneakyThrows
     public static String[] get(ApplicationContext context) {
         Set<String> basenames = new HashSet<>();

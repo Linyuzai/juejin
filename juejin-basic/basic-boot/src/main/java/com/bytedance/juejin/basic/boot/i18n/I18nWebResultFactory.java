@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
+/**
+ * 异常时尝试用 i18n 的配置处理异常信息
+ */
 @Component
 public class I18nWebResultFactory extends BooleanWebResultFactory {
 
@@ -22,6 +25,6 @@ public class I18nWebResultFactory extends BooleanWebResultFactory {
     @Override
     protected String getFailureMessage(Throwable e, WebContext context) {
         String failureMessage = super.getFailureMessage(e, context);
-        return messageSource.getMessage(failureMessage,null, Locale.CHINA);
+        return messageSource.getMessage(failureMessage, null, Locale.CHINA);
     }
 }

@@ -10,14 +10,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 /**
- * 单体应用需要而微服务不需要注入的组件
+ * 单体应用配置
  */
 @Configuration
 public class JuejinBootConfiguration {
 
+    /**
+     * i18n
+     */
     @Bean
     public MessageSource messageSource(ApplicationContext context) {
-        //Locale.setDefault(Locale.CHINESE);
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasenames(MessageSourceBasename.get(context));
         messageSource.setUseCodeAsDefaultMessage(true);
@@ -25,6 +27,9 @@ public class JuejinBootConfiguration {
         return messageSource;
     }
 
+    /**
+     * i18n处理了失败信息的返回值工厂
+     */
     @Bean
     public WebResultFactory webResultFactory() {
         return new I18nWebResultFactory();

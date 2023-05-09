@@ -1,5 +1,6 @@
 package com.bytedance.juejin.basic.boot.autoconfigure.swagger;
 
+import com.github.linyuzai.cloud.web.core.concept.Request;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.BreakIntercept;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.OnRequest;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.OnResponse;
@@ -15,6 +16,9 @@ import org.springframework.http.HttpHeaders;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 全局 Spring Doc 配置
+ */
 @Configuration
 public class SpringDocAutoConfiguration {
 
@@ -35,11 +39,14 @@ public class SpringDocAutoConfiguration {
                         ));
     }
 
+    /**
+     * 不拦截 /api-docs/
+     */
     @Order(-1)
     @BreakIntercept
     @OnRequest
     @OnResponse
-    public boolean nonIntercept(HttpServletRequest request) {
-        return request.getRequestURI().contains("/api-docs/");
+    public boolean nonIntercept(Request request) {
+        return request.getPath().contains("/api-docs/");
     }
 }
