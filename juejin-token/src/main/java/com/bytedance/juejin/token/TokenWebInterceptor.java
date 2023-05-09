@@ -2,6 +2,7 @@ package com.bytedance.juejin.token;
 
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.login.LoginContext;
+import com.github.linyuzai.cloud.web.core.concept.Request;
 import com.github.linyuzai.cloud.web.core.context.WebContext;
 import com.github.linyuzai.cloud.web.core.intercept.ValueReturner;
 import com.github.linyuzai.cloud.web.core.intercept.WebInterceptor;
@@ -11,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-
+/**
+ * Token 拦截器
+ */
 @Order(0)
 @OnRequest
 @Component
@@ -21,9 +23,12 @@ public class TokenWebInterceptor implements WebInterceptor {
     @Autowired
     private TokenCodec tokenCodec;
 
+    /**
+     * 请求 Token 拦截
+     */
     @Override
     public Object intercept(WebContext context, ValueReturner returner, WebInterceptorChain chain) {
-        HttpServletRequest request = context.get(HttpServletRequest.class);
+        Request request = context.get(Request.class);
         String token = request.getHeader("Authorization");
         if (token == null) {
             throw new IllegalArgumentException("Token not found");

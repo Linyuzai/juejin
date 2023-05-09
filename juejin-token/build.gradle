@@ -1,3 +1,3 @@
 dependencies {
-    api project(':juejin-login')
+    api project(':juejin-login') //登录模块
 }

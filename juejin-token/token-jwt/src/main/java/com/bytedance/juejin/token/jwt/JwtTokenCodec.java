@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * JWT token 编解码实现
+ */
 @Getter
 @Component
 public class JwtTokenCodec implements TokenCodec {
@@ -36,7 +39,6 @@ public class JwtTokenCodec implements TokenCodec {
         Map<String, Object> claims = new HashMap<>();
         claims.put(ID, user.getId());
         return Jwts.builder()
-                //.setHeaderParam("alg", "HS256")
                 .setIssuedAt(new Date())
                 .addClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, key)
