@@ -39,6 +39,9 @@ public interface Club extends DomainEntity {
      */
     Users getUsers();
 
+    /**
+     * 圈子沸点
+     */
     Pins getPins();
 
     /**

@@ -28,17 +28,17 @@ public class PinImpl implements Pin {
     protected String id;
 
     /**
-     * 沸点圈子
+     * 圈子
      */
     protected Club club;
 
     /**
-     * 沸点内容
+     * 内容
      */
     protected String content;
 
     /**
-     * 沸点用户
+     * 发布沸点的用户
      */
     protected User user;
 

@@ -11,9 +11,18 @@ import java.util.Date;
  */
 public interface Like extends DomainEntity {
 
+    /**
+     * 被点赞的对象，沸点或评论
+     */
     DomainObject getLiked();
 
+    /**
+     * 点赞的用户
+     */
     User getUser();
 
+    /**
+     * 点赞时间
+     */
     Date getCreateTime();
 }

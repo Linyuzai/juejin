@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * 被点赞的沸点实现
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PinLikeImpl extends AbstractLike implements PinLike {
 

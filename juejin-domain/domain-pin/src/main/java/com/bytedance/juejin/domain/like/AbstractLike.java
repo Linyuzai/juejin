@@ -19,12 +19,24 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class AbstractLike implements Like {
 
+    /**
+     * 点赞ID
+     */
     protected String id;
 
+    /**
+     * 被点赞的对象，沸点或评论
+     */
     protected DomainObject liked;
 
+    /**
+     * 点赞的用户
+     */
     protected User user;
 
+    /**
+     * 点赞时间
+     */
     protected Date createTime;
 
     @SuppressWarnings("unchecked")

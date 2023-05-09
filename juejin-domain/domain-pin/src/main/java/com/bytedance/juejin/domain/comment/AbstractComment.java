@@ -15,27 +15,51 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * 评论领域模型实现
+ * 评论抽象
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractComment implements Comment {
 
+    /**
+     * 评论ID
+     */
     protected String id;
 
+    /**
+     * 沸点
+     */
     protected Pin pin;
 
+    /**
+     * 被评论的对象，沸点或评论
+     */
     protected DomainObject replyTo;
 
+    /**
+     * 内容
+     */
     protected String content;
 
+    /**
+     * 发布评论的用户
+     */
     protected User user;
 
+    /**
+     * 评论
+     */
     protected CommentComments comments;
 
+    /**
+     * 点赞
+     */
     protected CommentLikes likes;
 
+    /**
+     * 评论时间
+     */
     protected Date createTime;
 
     @SuppressWarnings("unchecked")

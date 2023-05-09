@@ -17,10 +17,13 @@ public class ClubAnnouncementPublishedEvent {
      */
     private final Club club;
 
+    /**
+     * 新公告内容
+     */
     private final String newAnnouncement;
 
     /**
-     * 公告内容
+     * 旧公告内容
      */
     private final String oldAnnouncement;
 

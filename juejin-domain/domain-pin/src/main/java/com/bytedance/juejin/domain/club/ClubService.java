@@ -9,20 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 圈子服务
+ * 圈子领域服务
  */
 @Service
 public class ClubService {
 
-    /**
-     * 圈子存储
-     */
     @Autowired
     private ClubRepository clubRepository;
 
-    /**
-     * 领域事件发布器
-     */
     @Autowired
     private DomainEventPublisher eventPublisher;
 

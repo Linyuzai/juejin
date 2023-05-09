@@ -54,6 +54,9 @@ public class ClubImpl implements Club {
      */
     protected Users users;
 
+    /**
+     * 圈子沸点
+     */
     protected Pins pins;
 
     /**

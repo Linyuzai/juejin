@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 沸点服务
+ * 沸点领域服务
  */
 @Service
 public class PinService {

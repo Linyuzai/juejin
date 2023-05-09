@@ -10,23 +10,47 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * 用户实现
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserImpl implements User {
 
+    /**
+     * 用户ID
+     */
     protected String id;
 
+    /**
+     * 用户名
+     */
     protected String username;
 
+    /**
+     * 密码
+     */
     protected String password;
 
+    /**
+     * 昵称
+     */
     protected String nickname;
 
+    /**
+     * 头像
+     */
     protected String avatar;
 
+    /**
+     * 启用
+     */
     protected Boolean enabled;
 
+    /**
+     * 创建时间
+     */
     protected Date createTime;
 
     @Override

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 评论领域模型实现
+ * 沸点的评论实现
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PinCommentImpl extends AbstractComment implements PinComment {

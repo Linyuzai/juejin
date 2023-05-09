@@ -13,15 +13,33 @@ import java.util.Date;
  */
 public interface Pin extends DomainEntity {
 
+    /**
+     * 圈子
+     */
     Club getClub();
 
+    /**
+     * 内容
+     */
     String getContent();
 
+    /**
+     * 发布沸点的用户
+     */
     User getUser();
 
+    /**
+     * 评论
+     */
     PinComments getComments();
 
+    /**
+     * 点赞
+     */
     PinLikes getLikes();
 
+    /**
+     * 发布时间
+     */
     Date getCreateTime();
 }

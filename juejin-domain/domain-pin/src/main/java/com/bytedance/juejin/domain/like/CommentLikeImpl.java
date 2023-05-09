@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * 被点赞的评论实现
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentLikeImpl extends AbstractLike implements CommentLike {
 

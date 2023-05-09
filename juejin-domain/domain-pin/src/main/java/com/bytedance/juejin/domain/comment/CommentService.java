@@ -19,11 +19,17 @@ public class CommentService {
     @Autowired
     private DomainEventPublisher eventPublisher;
 
+    /**
+     * 创建评论
+     */
     public void create(Comment comment, User user) {
         commentRepository.create(comment);
         eventPublisher.publish(new CommentCreatedEvent(comment, user));
     }
 
+    /**
+     * 删除评论
+     */
     public void delete(Comment comment, User user) {
         commentRepository.delete(comment);
         eventPublisher.publish(new CommentDeletedEvent(comment, user));

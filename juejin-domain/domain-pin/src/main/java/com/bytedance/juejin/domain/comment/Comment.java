@@ -13,17 +13,38 @@ import java.util.Date;
  */
 public interface Comment extends DomainEntity {
 
+    /**
+     * 沸点
+     */
     Pin getPin();
 
+    /**
+     * 被评论的对象，沸点或评论
+     */
     DomainObject getReplyTo();
 
+    /**
+     * 内容
+     */
     String getContent();
 
+    /**
+     * 发布评论的用户
+     */
     User getUser();
 
+    /**
+     * 评论
+     */
     CommentComments getComments();
 
+    /**
+     * 点赞
+     */
     CommentLikes getLikes();
 
+    /**
+     * 评论时间
+     */
     Date getCreateTime();
 }

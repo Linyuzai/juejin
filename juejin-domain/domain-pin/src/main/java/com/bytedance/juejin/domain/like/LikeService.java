@@ -19,11 +19,17 @@ public class LikeService {
     @Autowired
     private DomainEventPublisher eventPublisher;
 
+    /**
+     * 点赞
+     */
     public void create(Like like, User user) {
         likeRepository.create(like);
         eventPublisher.publish(new LikeCreatedEvent(like, user));
     }
 
+    /**
+     * 取消点赞
+     */
     public void delete(Like like, User user) {
         likeRepository.delete(like);
         eventPublisher.publish(new LikeDeletedEvent(like, user));
