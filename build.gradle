@@ -28,8 +28,6 @@ allprojects {
     //依赖
     dependencies {
 
-        implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
-
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
 
@@ -39,6 +37,8 @@ allprojects {
         if (project.name == 'application-cloud-gateway') {
             return
         }
+
+        implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 
         if (project.name.startsWith('domain-')) {
             api 'com.github.linyuzai:concept-domain-spring-boot-starter:1.6.7'
