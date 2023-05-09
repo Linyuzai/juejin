@@ -2,12 +2,15 @@ package com.bytedance.juejin.rpc;
 
 import lombok.Data;
 
+/**
+ * 远程响应
+ *
+ * @param <T>
+ */
 @Data
 public class Response<T> {
 
-    private boolean success;
-
-    private String code;
+    private Boolean result;
 
     private String message;
 

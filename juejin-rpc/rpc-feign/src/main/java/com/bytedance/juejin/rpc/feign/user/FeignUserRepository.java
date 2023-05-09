@@ -6,16 +6,18 @@ import com.bytedance.juejin.rpc.user.UserRO;
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.domain.user.UserRepository;
 import com.bytedance.juejin.domain.user.Users;
-import com.github.linyuzai.domain.core.AbstractDomainRepository;
+import com.github.linyuzai.domain.core.QueryDomainRepository;
 import com.github.linyuzai.domain.core.condition.Conditions;
-import com.github.linyuzai.domain.core.page.Pages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+/**
+ * 基于 Feign 的用户存储
+ */
 @Component
-public class FeignUserRepository extends AbstractDomainRepository<User, Users, UserRO> implements UserRepository {
+public class FeignUserRepository extends QueryDomainRepository<User, Users, UserRO> implements UserRepository {
 
     @Autowired
     private RPCUserFacadeAdapter rpcUserFacadeAdapter;
@@ -33,40 +35,11 @@ public class FeignUserRepository extends AbstractDomainRepository<User, Users, U
         return rpcUserFacadeAdapter.ro2do(ro);
     }
 
-    @Override
-    protected void doCreate(UserRO po) {
-
-    }
-
-    @Override
-    protected void doCreate(Collection<? extends UserRO> pos) {
-
-    }
-
-    @Override
-    protected void doUpdate(UserRO po) {
-
-    }
-
-    @Override
-    protected void doUpdate(Collection<? extends UserRO> pos) {
-
-    }
-
-    @Override
-    protected void doDelete(UserRO po) {
-
-    }
-
-    @Override
-    protected void doDelete(Collection<? extends UserRO> pos) {
-
-    }
 
     @Override
     protected UserRO doGet(String id) {
         Response<UserRO> response = userFeignClient.get(id);
-        if (response.isSuccess()) {
+        if (response.getResult()) {
             return response.getObject();
         }
         throw new RuntimeException(response.getMessage());
@@ -74,31 +47,16 @@ public class FeignUserRepository extends AbstractDomainRepository<User, Users, U
 
     @Override
     protected Collection<UserRO> doSelect(Collection<String> ids) {
-        return null;
-    }
-
-    @Override
-    protected void doDelete(Conditions conditions) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected UserRO doGet(Conditions conditions) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected Collection<UserRO> doSelect(Conditions conditions) {
-        return null;
-    }
-
-    @Override
-    protected Long doCount(Conditions conditions) {
-        return null;
-    }
-
-    @Override
-    protected Pages<UserRO> doPage(Conditions conditions, Pages.Args page) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }

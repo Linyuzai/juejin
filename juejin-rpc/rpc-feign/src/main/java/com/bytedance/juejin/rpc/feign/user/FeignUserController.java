@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 提供给 Feign 调用的用户接口
+ */
 @RestController
 @RequestMapping("/feign/user")
 public class FeignUserController {
@@ -20,6 +23,9 @@ public class FeignUserController {
     @Autowired
     private RPCUserFacadeAdapter rpcUserFacadeAdapter;
 
+    /**
+     * 根据用户 id 获得用户信息
+     */
     @GetMapping("/{id}")
     public UserRO get(@PathVariable String id) {
         User user = userRepository.get(id);

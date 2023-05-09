@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * 用户领域模型和用户远程对象转换适配器
+ */
 @Component
 public class RPCUserFacadeAdapter implements RemoteObjectFacadeAdapter<User, UserRO> {
 

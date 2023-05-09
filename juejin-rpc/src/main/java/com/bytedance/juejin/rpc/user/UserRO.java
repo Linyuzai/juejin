@@ -3,6 +3,9 @@ package com.bytedance.juejin.rpc.user;
 import com.github.linyuzai.domain.core.Identifiable;
 import lombok.Data;
 
+/**
+ * 用户远程对象 remote object
+ */
 @Data
 public class UserRO implements Identifiable {
 

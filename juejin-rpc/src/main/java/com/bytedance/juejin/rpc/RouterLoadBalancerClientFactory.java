@@ -10,6 +10,9 @@ import org.springframework.context.event.EventListener;
 
 import java.util.*;
 
+/**
+ * 负载均衡服务路由
+ */
 @Slf4j
 public class RouterLoadBalancerClientFactory extends LoadBalancerClientFactory {
 
