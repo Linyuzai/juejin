@@ -13,7 +13,8 @@ public class SpringDocConfiguration {
     @Bean
     public GroupedOpenApi pinOpenApi() {
         return GroupedOpenApi.builder()
-                .group("沸点")
+                .group("pin")
+                .displayName("沸点")
                 .packagesToScan("com.bytedance.juejin.pin")
                 .build();
     }

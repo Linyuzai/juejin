@@ -167,6 +167,8 @@ static def getDependenceModuleNames(Project project) {
             if (dependency.group == 'com.bytedance') {
                 if (dependency.name.startsWith('module-')) {
                     mSet.add(dependency.name.replace('module-', ''))
+                } else if (dependency.name.startsWith('login-')) {
+                    mSet.add('login')
                 }
             }
         })

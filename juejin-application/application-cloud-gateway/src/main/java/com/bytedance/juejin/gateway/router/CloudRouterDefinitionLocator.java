@@ -8,7 +8,6 @@ import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -29,11 +28,6 @@ public class CloudRouterDefinitionLocator implements RouteDefinitionLocator {
      * 服务发现组件
      */
     private final DiscoveryClient discoveryClient;
-
-    /**
-     * 事件发布者
-     */
-    private final ApplicationEventPublisher eventPublisher;
 
     /**
      * 路由缓存
@@ -68,6 +62,9 @@ public class CloudRouterDefinitionLocator implements RouteDefinitionLocator {
             String[] routers = routersMetadata.split(",");
             //生成新的 RouteDefinition
             for (String router : routers) {
+                if (router.isEmpty()) {
+                    continue;
+                }
                 RouteDefinition rd = new RouteDefinition();
                 rd.getMetadata().put("router", router);
                 rd.setId("router@" + service);
@@ -85,6 +82,5 @@ public class CloudRouterDefinitionLocator implements RouteDefinitionLocator {
         }
         //更新缓存
         this.routeDefinitions = newRouteDefinitions;
-        this.eventPublisher.publishEvent(new RoutersRefreshedEvent(newRouteDefinitions));
     }
 }

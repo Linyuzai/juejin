@@ -13,7 +13,8 @@ public class SpringDocConfiguration {
     @Bean
     public GroupedOpenApi userOpenApi() {
         return GroupedOpenApi.builder()
-                .group("用户")
+                .group("user")
+                .displayName("用户")
                 .packagesToScan("com.bytedance.juejin.user")
                 .build();
     }
