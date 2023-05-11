@@ -20,6 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenWebInterceptor implements WebInterceptor {
 
+    public static final String TOKEN_HEADER = "Authorization";
+
     @Autowired
     private TokenCodec tokenCodec;
 
@@ -29,12 +31,13 @@ public class TokenWebInterceptor implements WebInterceptor {
     @Override
     public Object intercept(WebContext context, ValueReturner returner, WebInterceptorChain chain) {
         Request request = context.get(Request.class);
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader(TOKEN_HEADER);
         if (token == null) {
             throw new IllegalArgumentException("Token not found");
         }
         User user = tokenCodec.decode(handleToken(token));
         LoginContext.setUser(user);
+        LoginContext.setToken(token);
         return chain.next(context, returner);
     }
 

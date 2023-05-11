@@ -59,11 +59,14 @@ public class RouterLoadBalancerClientFactory extends LoadBalancerClientFactory {
             String[] routers = routersMetadata.split(",");
 
             for (String router : routers) {
+                if (router.isEmpty()) {
+                    continue;
+                }
                 newRouterMap.put(router, service);
             }
         }
         if (!this.routerMap.equals(newRouterMap)) {
-            log.info("Update router map => {}", newRouterMap);
+            log.info("Update routers mapping => {}", newRouterMap);
         }
         //更新缓存
         this.routerMap = newRouterMap;

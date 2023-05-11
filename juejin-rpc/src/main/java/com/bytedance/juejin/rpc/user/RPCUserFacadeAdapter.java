@@ -12,35 +12,5 @@ import java.util.Date;
 /**
  * 用户领域模型和用户远程对象转换适配器
  */
-@Component
-public class RPCUserFacadeAdapter implements RemoteObjectFacadeAdapter<User, UserRO> {
-
-    @Autowired
-    private DomainValidator validator;
-
-    @Override
-    public UserRO do2ro(User user) {
-        UserRO ro = new UserRO();
-        ro.setId(user.getId());
-        ro.setUsername(user.getUsername());
-        ro.setPassword("******");
-        ro.setNickname(user.getNickname());
-        ro.setAvatar(user.getAvatar());
-        ro.setEnabled(user.getEnabled());
-        ro.setCreateTime(user.getCreateTime().getTime());
-        return ro;
-    }
-
-    @Override
-    public User ro2do(UserRO ro) {
-        return new UserImpl.Builder()
-                .id(ro.getId())
-                .username(ro.getUsername())
-                .password(ro.getPassword())
-                .nickname(ro.getNickname())
-                .avatar(ro.getAvatar())
-                .enabled(ro.getEnabled())
-                .createTime(new Date(ro.getCreateTime()))
-                .build(validator);
-    }
+public interface RPCUserFacadeAdapter extends RemoteObjectFacadeAdapter<User, UserRO> {
 }
