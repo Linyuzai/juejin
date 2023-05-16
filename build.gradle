@@ -46,7 +46,7 @@ allprojects {
         }
 
         implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'com.github.linyuzai:concept-cloud-web:1.4.0'
+        implementation 'com.github.linyuzai:concept-cloud-web:1.5.1'
 
         if (project.name.startsWith('module-')) {
             implementation project(':juejin-login')
@@ -83,6 +83,9 @@ allprojects {
         jar.enabled = false
     } else {
         jar.enabled = true
+
+        //指定名称
+        //前缀aa方便查看压缩包
         if (project.depth <= 1) {
             jar.archiveBaseName = "aa-${project.name}"
         } else {
@@ -95,12 +98,12 @@ allprojects {
     processResources {
         //生成路由文件
         doLast {
-            if (isApplication(project)) {
+            if (project.name.startsWith('application-')) {
                 //route.json
                 Set<String> moduleSet = getDependenceModuleNames(project)
                 //如果包含了业务模块
                 if (!moduleSet.isEmpty()) {
-                    //获得资源目录
+                    //获得build目录
                     File resourcesDir = new File(project.buildDir, '/resources/main')
                     //创建路由文件
                     File file = new File(resourcesDir, 'router.properties')
@@ -154,10 +157,6 @@ allprojects {
     }*/
 }
 
-static def isApplication(Project project) {
-    return project.name.startsWith('application-')
-}
-
 static def getDependenceModuleNames(Project project) {
     Set<String> mSet = new HashSet<>()
     //遍历所有的依赖
@@ -168,6 +167,7 @@ static def getDependenceModuleNames(Project project) {
                 if (dependency.name.startsWith('module-')) {
                     mSet.add(dependency.name.replace('module-', ''))
                 } else if (dependency.name.startsWith('login-')) {
+                    //登录模块也需要添加
                     mSet.add('login')
                 }
             }
