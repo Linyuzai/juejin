@@ -1,13 +1,13 @@
 package com.bytedance.juejin.pin.infrastructure.like.mbp;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.bytedance.juejin.basic.boot.mbp.MBPBaseRepository;
 import com.bytedance.juejin.domain.comment.Comment;
 import com.bytedance.juejin.domain.like.*;
 import com.bytedance.juejin.domain.pin.Pin;
 import com.bytedance.juejin.domain.user.User;
 import com.github.linyuzai.domain.core.DomainFactory;
 import com.github.linyuzai.domain.core.DomainValidator;
-import com.github.linyuzai.domain.mbp.MBPDomainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * 基于 MBP 的点赞存储
  */
 @Repository
-public class MBPLikeRepository extends MBPDomainRepository<Like, Likes<Like>, LikePO> implements LikeRepository {
+public class MBPLikeRepository extends MBPBaseRepository<Like, Likes<Like>, LikePO> implements LikeRepository {
 
     @Autowired
     private LikeMapper likeMapper;
