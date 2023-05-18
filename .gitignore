@@ -1,5 +1,3 @@
-router.properties
-HELP.md
 .gradle
 build/
 !**/src/main/**/build/
