@@ -41,17 +41,17 @@ allprojects {
         implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 
         if (project.name.startsWith('domain-')) {
-            api 'com.github.linyuzai:concept-domain-spring-boot-starter:1.6.7'
+            api 'com.github.linyuzai:concept-domain-spring-boot-starter:1.7.0'
             return
         }
 
         implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'com.github.linyuzai:concept-cloud-web:1.5.1'
+        implementation 'com.github.linyuzai:concept-cloud-web:1.5.2'
 
         if (project.name.startsWith('module-')) {
             implementation project(':juejin-login')
 
-            implementation 'com.github.linyuzai:concept-domain-mbp:1.6.7'
+            implementation 'com.github.linyuzai:concept-domain-mbp:1.7.0'
         }
 
         implementation 'mysql:mysql-connector-java'
