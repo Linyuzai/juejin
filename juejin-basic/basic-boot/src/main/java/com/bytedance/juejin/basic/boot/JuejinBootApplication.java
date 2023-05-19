@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(JuejinBootConfiguration.class)
-@ComponentScan(basePackages = "com.bytedance.juejin.*.config",
+@ComponentScan(basePackages = "com.bytedance.juejin.module.*.config",
         nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class)
 @SpringBootApplication
 public @interface JuejinBootApplication {
