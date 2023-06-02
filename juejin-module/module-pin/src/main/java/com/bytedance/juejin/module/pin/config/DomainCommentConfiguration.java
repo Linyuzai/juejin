@@ -3,8 +3,8 @@ package com.bytedance.juejin.module.pin.config;
 import com.bytedance.juejin.domain.comment.CommentRepository;
 import com.bytedance.juejin.domain.comment.CommentService;
 import com.bytedance.juejin.module.pin.domain.comment.*;
-import com.bytedance.juejin.module.pin.infrastructure.comment.mbp.MBPCommentIdGenerator;
 import com.bytedance.juejin.module.pin.infrastructure.comment.mbp.MBPCommentRepository;
+import com.github.linyuzai.domain.mbp.MBPDomainIdGenerator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,13 +35,13 @@ public class DomainCommentConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public CommentFacadeAdapter pinCommentFacadeAdapter() {
+    public CommentFacadeAdapter commentFacadeAdapter() {
         return new CommentFacadeAdapterImpl();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public CommentSearcher pinCommentSearcher() {
+    public CommentSearcher commentSearcher() {
         return new CommentSearcherImpl();
     }
 
@@ -53,8 +53,8 @@ public class DomainCommentConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public CommentIdGenerator pinCommentIdGenerator() {
-            return new MBPCommentIdGenerator();
+        public CommentIdGenerator commentIdGenerator() {
+            return MBPDomainIdGenerator.create(CommentIdGenerator.class);
         }
 
         @Bean

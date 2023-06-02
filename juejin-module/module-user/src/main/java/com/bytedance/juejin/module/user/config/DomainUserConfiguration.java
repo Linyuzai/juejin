@@ -3,8 +3,8 @@ package com.bytedance.juejin.module.user.config;
 import com.bytedance.juejin.domain.user.UserIdGenerator;
 import com.bytedance.juejin.domain.user.UserRepository;
 import com.bytedance.juejin.module.user.domain.user.*;
-import com.bytedance.juejin.module.user.infrastructure.user.mbp.MBPUserIdGenerator;
 import com.bytedance.juejin.module.user.infrastructure.user.mbp.MBPUserRepository;
+import com.github.linyuzai.domain.mbp.MBPDomainIdGenerator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +39,7 @@ public class DomainUserConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public UserIdGenerator userIdGenerator() {
-            return new MBPUserIdGenerator();
+            return MBPDomainIdGenerator.create(UserIdGenerator.class);
         }
 
         @Bean

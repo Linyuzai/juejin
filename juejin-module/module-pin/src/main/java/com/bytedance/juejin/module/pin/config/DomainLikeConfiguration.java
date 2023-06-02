@@ -35,13 +35,13 @@ public class DomainLikeConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public LikeFacadeAdapter pinLikeFacadeAdapter() {
+    public LikeFacadeAdapter likeFacadeAdapter() {
         return new LikeFacadeAdapterImpl();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public LikeIdGenerator pinLikeIdGenerator() {
+    public LikeIdGenerator likeIdGenerator() {
         return new LikeIdGeneratorImpl();
     }
 
@@ -53,7 +53,7 @@ public class DomainLikeConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public LikeRepository pinLikeRepository() {
+        public LikeRepository likeRepository() {
             return new MBPLikeRepository();
         }
     }

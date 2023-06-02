@@ -3,8 +3,8 @@ package com.bytedance.juejin.module.pin.config;
 import com.bytedance.juejin.domain.pin.PinRepository;
 import com.bytedance.juejin.domain.pin.PinService;
 import com.bytedance.juejin.module.pin.domain.pin.*;
-import com.bytedance.juejin.module.pin.infrastructure.pin.mbp.MBPPinIdGenerator;
 import com.bytedance.juejin.module.pin.infrastructure.pin.mbp.MBPPinRepository;
+import com.github.linyuzai.domain.mbp.MBPDomainIdGenerator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,7 +54,7 @@ public class DomainPinConfiguration {
         @Bean
         @ConditionalOnMissingBean
         public PinIdGenerator pinIdGenerator() {
-            return new MBPPinIdGenerator();
+            return MBPDomainIdGenerator.create(PinIdGenerator.class);
         }
 
         @Bean
