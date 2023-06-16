@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.bytedance.juejin.basic.autoconfigure.mbp.MyBatisPlusAutoConfiguration,\
+com.bytedance.juejin.basic.autoconfigure.swagger.SpringDocAutoConfiguration

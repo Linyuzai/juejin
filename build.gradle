@@ -48,18 +48,16 @@ allprojects {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'com.github.linyuzai:concept-cloud-web:1.5.3'
 
-        if (project.name.startsWith('module-') || project.name.startsWith('basic-')) {
-
-            if (project.name.startsWith('module-')) {
-                implementation project(':juejin-basic:basic-boot')
-            }
-
-            implementation project(':juejin-login')
-
+        if (project.name.startsWith('module-')) {
+            api project(':juejin-basic')
+            api project(':juejin-login')
             implementation 'com.github.linyuzai:concept-domain-mbp:1.8.3'
+            return
+        }
 
+        if (project.name == 'juejin-basic') {
+            api 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
             implementation 'mysql:mysql-connector-java'
-            implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
         }
     }
 

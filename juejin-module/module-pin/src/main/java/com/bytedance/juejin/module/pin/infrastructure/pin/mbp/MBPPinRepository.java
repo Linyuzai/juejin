@@ -1,7 +1,6 @@
 package com.bytedance.juejin.module.pin.infrastructure.pin.mbp;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bytedance.juejin.basic.boot.mbp.MBPBaseRepository;
 import com.bytedance.juejin.domain.club.Club;
 import com.bytedance.juejin.domain.comment.Comment;
 import com.bytedance.juejin.domain.comment.PinComments;
@@ -14,6 +13,7 @@ import com.bytedance.juejin.domain.user.User;
 import com.github.linyuzai.domain.core.DomainFactory;
 import com.github.linyuzai.domain.core.DomainValidator;
 import com.github.linyuzai.domain.core.condition.LambdaConditions;
+import com.github.linyuzai.domain.mbp.MBPDomainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  * 基于 MBP 的沸点存储实现
  */
 @Repository
-public class MBPPinRepository extends MBPBaseRepository<Pin, Pins, PinPO> implements PinRepository {
+public class MBPPinRepository extends MBPDomainRepository<Pin, Pins, PinPO> implements PinRepository {
 
     @Autowired
     private PinMapper pinMapper;

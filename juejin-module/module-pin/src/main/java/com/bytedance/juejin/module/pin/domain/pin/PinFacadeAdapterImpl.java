@@ -84,8 +84,10 @@ public class PinFacadeAdapterImpl implements PinFacadeAdapter {
     @Override
     public Conditions toConditions(PinQuery query) {
         LambdaConditions conditions = new LambdaConditions();
-        conditions.equal(User::getId, query.getUserId());
-        conditions.orderBy(Pin::getCreateTime, true, false);
+        if (query.getUserId() != null) {
+            conditions.equal(User::getId, query.getUserId());
+        }
+        conditions.orderByDesc(Pin::getCreateTime);
         return conditions;
     }
 

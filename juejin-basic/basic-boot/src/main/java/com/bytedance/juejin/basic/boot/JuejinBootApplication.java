@@ -1,8 +1,6 @@
 package com.bytedance.juejin.basic.boot;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FullyQualifiedAnnotationBeanNameGenerator;
+import com.bytedance.juejin.basic.JuejinBasicApplication;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -16,8 +14,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(JuejinBootConfiguration.class)
-@ComponentScan(basePackages = "com.bytedance.juejin.module.*.config",
-        nameGenerator = FullyQualifiedAnnotationBeanNameGenerator.class)
-@SpringBootApplication
+@JuejinBasicApplication
 public @interface JuejinBootApplication {
 }

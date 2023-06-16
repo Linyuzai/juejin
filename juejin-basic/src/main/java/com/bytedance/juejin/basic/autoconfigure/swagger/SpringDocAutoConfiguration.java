@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.boot.autoconfigure.swagger;
+package com.bytedance.juejin.basic.autoconfigure.swagger;
 
 import com.github.linyuzai.cloud.web.core.concept.Request;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.BreakIntercept;
@@ -13,8 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 全局 Spring Doc 配置

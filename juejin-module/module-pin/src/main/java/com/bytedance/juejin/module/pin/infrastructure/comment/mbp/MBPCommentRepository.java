@@ -1,7 +1,6 @@
 package com.bytedance.juejin.module.pin.infrastructure.comment.mbp;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bytedance.juejin.basic.boot.mbp.MBPBaseRepository;
 import com.bytedance.juejin.domain.comment.*;
 import com.bytedance.juejin.domain.like.CommentLikes;
 import com.bytedance.juejin.domain.pin.Pin;
@@ -9,6 +8,7 @@ import com.bytedance.juejin.domain.user.User;
 import com.github.linyuzai.domain.core.DomainFactory;
 import com.github.linyuzai.domain.core.DomainValidator;
 import com.github.linyuzai.domain.core.condition.LambdaConditions;
+import com.github.linyuzai.domain.mbp.MBPDomainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * 基于 MBP 的评论存储实现
  */
 @Repository
-public class MBPCommentRepository extends MBPBaseRepository<Comment, Comments<Comment>, CommentPO> implements CommentRepository {
+public class MBPCommentRepository extends MBPDomainRepository<Comment, Comments<Comment>, CommentPO> implements CommentRepository {
 
     @Autowired
     private CommentMapper commentMapper;

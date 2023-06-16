@@ -1,12 +1,12 @@
 package com.bytedance.juejin.module.user.infrastructure.user.mbp;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.bytedance.juejin.basic.boot.mbp.MBPBaseRepository;
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.domain.user.UserImpl;
 import com.bytedance.juejin.domain.user.UserRepository;
 import com.bytedance.juejin.domain.user.Users;
 import com.github.linyuzai.domain.core.DomainValidator;
+import com.github.linyuzai.domain.mbp.MBPDomainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * 基于 MBP 的用户存储实现
  */
 @Repository
-public class MBPUserRepository extends MBPBaseRepository<User, Users, UserPO> implements UserRepository {
+public class MBPUserRepository extends MBPDomainRepository<User, Users, UserPO> implements UserRepository {
 
     @Autowired
     private UserMapper userMapper;

@@ -2,7 +2,6 @@ package com.bytedance.juejin.module.pin.infrastructure.club.mbp;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.bytedance.juejin.basic.boot.mbp.MBPBaseRepository;
 import com.bytedance.juejin.domain.club.Club;
 import com.bytedance.juejin.domain.club.ClubImpl;
 import com.bytedance.juejin.domain.club.ClubRepository;
@@ -12,6 +11,7 @@ import com.bytedance.juejin.domain.user.Users;
 import com.github.linyuzai.domain.core.DomainFactory;
 import com.github.linyuzai.domain.core.DomainValidator;
 import com.github.linyuzai.domain.core.condition.LambdaConditions;
+import com.github.linyuzai.domain.mbp.MBPDomainRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  * 基于 MBP 的圈子存储
  */
 @Repository
-public class MBPClubRepository extends MBPBaseRepository<Club, Clubs, ClubPO> implements ClubRepository {
+public class MBPClubRepository extends MBPDomainRepository<Club, Clubs, ClubPO> implements ClubRepository {
 
     @Autowired
     private ClubMapper clubMapper;
@@ -61,7 +61,7 @@ public class MBPClubRepository extends MBPBaseRepository<Club, Clubs, ClubPO> im
             Set<String> userIds = pos.stream()
                     .map(ClubUserPO::getUserId)
                     .collect(Collectors.toSet());
-            users = factory.createCollection(Users.class, userIds, false);
+            users = factory.createCollection(Users.class, userIds);
         }
         return new ClubImpl.Builder()
                 .id(po.getId())

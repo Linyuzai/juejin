@@ -1,4 +1,4 @@
-package com.bytedance.juejin.basic.boot.autoconfigure.mbp;
+package com.bytedance.juejin.basic.autoconfigure.mbp;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

@@ -1,4 +1,4 @@
 dependencies {
-    implementation project(':juejin-login')
+    api project(':juejin-basic')
     implementation 'org.hibernate.validator:hibernate-validator'
 }

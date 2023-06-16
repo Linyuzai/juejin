@@ -1,7 +1,6 @@
 package com.bytedance.juejin.basic.cloud;
 
-import com.bytedance.juejin.basic.boot.JuejinBootApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.bytedance.juejin.basic.JuejinBasicApplication;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -15,7 +14,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import(JuejinCloudConfiguration.class)
-@JuejinBootApplication
-@SpringBootApplication
+@JuejinBasicApplication
 public @interface JuejinCloudApplication {
 }
