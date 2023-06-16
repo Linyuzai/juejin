@@ -41,7 +41,7 @@ allprojects {
         implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 
         if (project.name.startsWith('domain-')) {
-            api 'com.github.linyuzai:concept-domain-spring-boot-starter:1.7.1'
+            api 'com.github.linyuzai:concept-domain-spring-boot-starter:1.8.3'
             return
         }
 
@@ -56,7 +56,7 @@ allprojects {
 
             implementation project(':juejin-login')
 
-            implementation 'com.github.linyuzai:concept-domain-mbp:1.7.1'
+            implementation 'com.github.linyuzai:concept-domain-mbp:1.8.3'
 
             implementation 'mysql:mysql-connector-java'
             implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'

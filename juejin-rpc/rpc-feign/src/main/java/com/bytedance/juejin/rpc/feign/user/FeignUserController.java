@@ -3,9 +3,9 @@ package com.bytedance.juejin.rpc.feign.user;
 import com.bytedance.juejin.domain.user.User;
 import com.bytedance.juejin.domain.user.UserRepository;
 import com.bytedance.juejin.domain.user.Users;
-import com.bytedance.juejin.rpc.ConditionsRO;
 import com.bytedance.juejin.rpc.user.RPCUserFacadeAdapter;
 import com.bytedance.juejin.rpc.user.UserRO;
+import com.github.linyuzai.domain.core.condition.Conditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,8 +43,8 @@ public class FeignUserController {
      * 避免过长用 POST
      */
     @PostMapping("/conditions")
-    public List<UserRO> conditions(ConditionsRO ro) {
-        Users users = userRepository.select(rpcUserFacadeAdapter.ro2conditions(ro));
+    public List<UserRO> conditions(Conditions conditions) {
+        Users users = userRepository.select(conditions);
         return users.stream().map(rpcUserFacadeAdapter::do2ro).collect(Collectors.toList());
     }
 }

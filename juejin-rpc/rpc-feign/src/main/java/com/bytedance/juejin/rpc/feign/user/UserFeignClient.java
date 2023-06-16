@@ -1,8 +1,8 @@
 package com.bytedance.juejin.rpc.feign.user;
 
-import com.bytedance.juejin.rpc.ConditionsRO;
 import com.bytedance.juejin.rpc.Response;
 import com.bytedance.juejin.rpc.user.UserRO;
+import com.github.linyuzai.domain.core.condition.Conditions;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,5 +27,5 @@ public interface UserFeignClient {
      * 根据条件获得用户信息
      */
     @PostMapping("/feign/user/conditions")
-    Response<List<UserRO>> list(@RequestBody ConditionsRO ro);
+    Response<List<UserRO>> list(@RequestBody Conditions conditions);
 }

@@ -1,6 +1,5 @@
 package com.bytedance.juejin.rpc.feign.user;
 
-import com.bytedance.juejin.rpc.ConditionsRO;
 import com.bytedance.juejin.rpc.Response;
 import com.bytedance.juejin.rpc.user.RPCUserFacadeAdapter;
 import com.bytedance.juejin.rpc.user.UserRO;
@@ -38,6 +37,11 @@ public class FeignUserRepository extends QueryDomainRepository<User, Users, User
     }
 
     @Override
+    public Collection<User> pos2dos(Collection<? extends UserRO> pos) {
+        return rpcUserFacadeAdapter.ros2dos(pos);
+    }
+
+    @Override
     protected UserRO doGet(String id) {
         Response<UserRO> response = userFeignClient.get(id);
         if (response.getResult()) {
@@ -58,8 +62,7 @@ public class FeignUserRepository extends QueryDomainRepository<User, Users, User
 
     @Override
     protected Collection<UserRO> doSelect(Conditions conditions) {
-        ConditionsRO ro = rpcUserFacadeAdapter.conditions2ro(conditions);
-        Response<List<UserRO>> response = userFeignClient.list(ro);
+        Response<List<UserRO>> response = userFeignClient.list(conditions);
         if (response.getResult()) {
             return response.getObject();
         }
