@@ -7,6 +7,7 @@ import com.bytedance.juejin.token.TokenContext;
 import com.bytedance.juejin.token.TokenWebInterceptor;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -16,15 +17,20 @@ import org.springframework.context.annotation.Configuration;
 @EnableFeignClients(basePackages = "com.bytedance.juejin.rpc.feign.*")
 public class FeignAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    public UserRepository userRepository() {
-        return new FeignUserRepository();
-    }
+    @Configuration
+    public static class UserConfiguration {
 
-    @Bean
-    public FeignUserController feignUserController() {
-        return new FeignUserController();
+        @Bean
+        @ConditionalOnBean(UserRepository.class)
+        public FeignUserController feignUserController() {
+            return new FeignUserController();
+        }
+
+        @Bean
+        @ConditionalOnMissingBean
+        public UserRepository userRepository() {
+            return new FeignUserRepository();
+        }
     }
 
     @Bean
