@@ -1,6 +1,7 @@
 package com.bytedance.juejin.login.autoconfigure;
 
 import com.bytedance.juejin.login.*;
+import com.bytedance.juejin.token.TokenCodec;
 import com.github.linyuzai.cloud.web.core.concept.Request;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.BreakIntercept;
 import com.github.linyuzai.cloud.web.core.intercept.annotation.OnRequest;
@@ -24,6 +25,12 @@ public class LoginAutoConfiguration {
     public boolean nonIntercept(Request request) {
         return request.getPath().startsWith("/login/") ||
                 request.getPath().startsWith("/register/");
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public LoginAuthorizer loginAuthorizer(TokenCodec tokenCodec) {
+        return new LoginAuthorizerImpl(tokenCodec);
     }
 
     @Bean
