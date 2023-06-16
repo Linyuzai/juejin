@@ -1,9 +1,9 @@
 package com.bytedance.juejin.rpc.feign.autoconfigure;
 
-import com.bytedance.juejin.login.LoginContext;
 import com.bytedance.juejin.rpc.feign.user.FeignUserController;
 import com.bytedance.juejin.rpc.feign.user.FeignUserRepository;
 import com.bytedance.juejin.domain.user.UserRepository;
+import com.bytedance.juejin.token.TokenContext;
 import com.bytedance.juejin.token.TokenWebInterceptor;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -36,8 +36,7 @@ public class FeignAutoConfiguration {
 
         @Override
         public void apply(RequestTemplate template) {
-            System.out.println(LoginContext.getToken());
-            template.header(TokenWebInterceptor.TOKEN_HEADER, LoginContext.getToken());
+            template.header(TokenWebInterceptor.TOKEN_HEADER, TokenContext.getToken());
         }
     }
 }
