@@ -1,5 +1,5 @@
 dependencies {
-    api project(':juejin-basic:basic-boot') //单体应用基础模块
+    api project(':juejin-basic')
 
     implementation 'org.springframework.cloud:spring-cloud-loadbalancer'
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
